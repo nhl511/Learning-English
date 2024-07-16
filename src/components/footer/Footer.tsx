@@ -51,11 +51,15 @@ const Footer = async () => {
         </div>
         <div className={styles.linksWrapper}>
           {publicLinks.map((link) => (
-            <Link href={link.path}>{link.title}</Link>
+            <Link key={link.title} href={link.path}>
+              {link.title}
+            </Link>
           ))}
           {session &&
             privateLinks.map((link) => (
-              <Link href={link.path}>{link.title}</Link>
+              <Link key={link.title} href={link.path}>
+                {link.title}
+              </Link>
             ))}
         </div>
         <div className={styles.copywriteWrapper}>

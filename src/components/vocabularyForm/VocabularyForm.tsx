@@ -74,7 +74,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
         <h2>Options</h2>
         <div className={styles.rowWrapper}>
           {options.map((option) => (
-            <div className={styles.rowItem}>
+            <div key={option.title} className={styles.rowItem}>
               <div className={styles.titleWrapper}>
                 <h4>{option.title}</h4>
               </div>

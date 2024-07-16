@@ -51,6 +51,7 @@ const UserMenu = ({ session }: any | null) => {
             <ul>
               {userLinks.map((userLink) => (
                 <li
+                  key={userLink.title}
                   className={styles.dropdownItem}
                   onClick={() => {
                     router.push(userLink.path);

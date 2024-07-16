@@ -88,8 +88,8 @@ const MobileLinks = ({ session }: any | null) => {
 
           {publicLinks.map((link: LinkType) => {
             return (
-              <div onClick={() => setOpen(false)}>
-                <NavLink key={link.title} link={link} />
+              <div key={link.title} onClick={() => setOpen(false)}>
+                <NavLink link={link} />
               </div>
             );
           })}

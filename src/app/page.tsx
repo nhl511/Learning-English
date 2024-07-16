@@ -77,7 +77,7 @@ const HomePage = () => {
       <Grid container spacing={2}>
         {gradeId !== "" &&
           units?.map((unit: UnitType) => (
-            <Grid item xs={6} sm={4} md={3}>
+            <Grid key={unit?._id} item xs={6} sm={4} md={3}>
               <UnitItem unit={unit} />
             </Grid>
           ))}
