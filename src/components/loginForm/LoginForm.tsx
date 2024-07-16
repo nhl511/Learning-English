@@ -5,8 +5,10 @@ import Link from "next/link";
 import { login } from "@/libs/actions";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Spinner from "../spinner/Spinner";
 
 const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [state, setState] = useState<any>(undefined);
 
   const formik = useFormik({
@@ -26,12 +28,15 @@ const LoginForm = () => {
     }),
 
     onSubmit: (values) => {
+      setIsLoading(true);
       login({
         username: values.username,
         password: values.password,
-      }).then((res) => {
-        setState(res);
-      });
+      })
+        .then((res) => {
+          setState(res);
+        })
+        .then(() => setIsLoading(false));
     },
   });
 
@@ -75,7 +80,14 @@ const LoginForm = () => {
           )}
         </div>
 
-        <button>Login</button>
+        <button
+          className={`${styles.button} ${
+            isLoading ? styles.disabled : styles.active
+          }`}
+          disabled={!isLoading ? false : true}
+        >
+          {!isLoading ? "Login" : <Spinner />}
+        </button>
         <p className={styles.error}>{state?.error}</p>
       </form>
       <Link href="/register" className={styles.link}>

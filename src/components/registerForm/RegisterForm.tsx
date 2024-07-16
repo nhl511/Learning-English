@@ -7,8 +7,11 @@ import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import Spinner from "../spinner/Spinner";
 
 const RegisterForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [state, setState] = useState<any>(undefined);
   const router = useRouter();
 
@@ -43,13 +46,17 @@ const RegisterForm = () => {
     }),
 
     onSubmit: (values) => {
+      setIsLoading(true);
+
       register({
         username: values.username,
         password: values.password,
         passwordRepeat: values.passwordRepeat,
-      }).then((res) => {
-        setState(res);
-      });
+      })
+        .then((res) => {
+          setState(res);
+        })
+        .then(() => setIsLoading(false));
     },
   });
 
@@ -120,8 +127,14 @@ const RegisterForm = () => {
             <p className={styles.error}>{formik.errors.passwordRepeat}</p>
           )}
         </div>
-
-        <button>Register</button>
+        <button
+          className={`${styles.button} ${
+            isLoading ? styles.disabled : styles.active
+          }`}
+          disabled={!isLoading ? false : true}
+        >
+          {!isLoading ? "Register" : <Spinner />}
+        </button>
       </form>
       <Link href="/login" className={styles.link}>
         Have an account? <b>Login</b>
