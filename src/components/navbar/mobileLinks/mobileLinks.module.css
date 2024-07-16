@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+}
+
+.buttonWrapper {
+  padding: 6px;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+}
+.menuButton,
+.mobileLinks {
+  display: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  top: 10px;
+  left: 16px;
+  position: absolute;
+}
+
+@media (max-width: 768px) {
+  .menuButton {
+    display: block;
+    cursor: pointer;
+  }
+
+  .mobileLinksWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(0, 0, 0, 0.4);
+    z-index: 999;
+  }
+
+  .mobileLinks {
+    position: relative;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--wrapper-color);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 10px;
+    padding-left: 16px;
+    z-index: 998;
+  }
+}
+
+.open {
+  visibility: visible;
+}
+
+.notOpen {
+  visibility: hidden;
+}
+
+.active {
+  visibility: visible;
+  animation-name: slide-right;
+  animation-duration: 0.5s;
+}
+
+.inactive {
+  visibility: hidden;
+  animation-name: slide-left;
+  animation-duration: 0.5s;
+}
+
+@keyframes slide-right {
+  from {
+    margin-left: -300px;
+  }
+  to {
+    margin-left: 0;
+  }
+}
+
+@keyframes slide-left {
+  from {
+    visibility: visible;
+    margin-left: 0;
+  }
+  to {
+    visibility: none;
+    margin-left: -300px;
+  }
+}

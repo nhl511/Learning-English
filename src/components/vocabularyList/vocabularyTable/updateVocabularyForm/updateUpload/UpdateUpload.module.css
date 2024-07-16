@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background: var(--input-color);
+}
+
+.fileWrapper {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  text-align: left;
+  padding: 20px;
+}

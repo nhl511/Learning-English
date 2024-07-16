@@ -1,0 +1,289 @@
+.empty {
+  height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  cursor: pointer;
+  /* margin: 0 auto 0 0; */
+  flex: 1;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+}
+
+.optionWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: end;
+}
+
+.option {
+  border: 1px solid var(--text-color);
+  padding: 10px 20px;
+  background: none;
+  color: var(--text-color);
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modes {
+  /* margin: 0 0 0 auto; */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.changeModeWrapper {
+}
+
+.changeMode {
+  border: 1px solid #888;
+  padding: 10px 20px;
+  background: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.selectMode {
+  color: var(--button-color);
+  border: 1px solid var(--button-color);
+  background: rgba(30, 134, 201, 0.1);
+  position: relative;
+  z-index: 999;
+}
+
+.changeModeWrapper button:nth-child(1) {
+  border-radius: 5px 0 0 5px;
+}
+
+.changeModeWrapper button:nth-child(2) {
+  border-radius: 0 5px 5px 0;
+  margin-left: -1px;
+}
+
+.wrapperSkeleton {
+  margin-top: 40px;
+  height: 270px;
+}
+.wrapper {
+  flex-wrap: wrap;
+  margin-top: 40px;
+  width: 600px;
+  background-color: var(--wrapper-color);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  border-radius: 20px;
+  height: 270px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+.actionButtonWrapper {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+.hint {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.star {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.star:hover {
+  font-size: 22px;
+  transition: 0.2s all ease-out;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.bottom {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.audioWrapper {
+  margin-top: 20px;
+}
+
+.buttonWrapper {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-size: 20px;
+}
+
+.input {
+  width: 100%;
+  outline: none;
+  background-color: var(--wrapper-color);
+  border: 4px solid var(--border-color);
+  position: absolute;
+  bottom: 0;
+  font-size: 24px;
+  border-radius: 30px;
+  padding: 20px;
+  color: white;
+}
+
+.completeNoti {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+.buttonNotiWrapper {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  right: 40px;
+}
+
+.button {
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 20px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    font-size: 18px;
+  }
+  .option {
+    font-size: 16px;
+    padding: 9px 14px;
+  }
+  .wrapper {
+    font-size: 16px;
+    padding: 26px;
+  }
+  .star {
+    font-size: 18px;
+  }
+  .input {
+    padding: 20px;
+    font-size: 22px;
+  }
+  .hint {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    font-size: 18px;
+  }
+  .option {
+    font-size: 16px;
+    padding: 9px 14px;
+  }
+  .wrapper {
+    font-size: 16px;
+    padding: 24px;
+  }
+
+  .input {
+    padding: 20px;
+    font-size: 20px;
+  }
+}
+@media (max-width: 632px) {
+  .wrapper {
+    width: 100%;
+  }
+}
+@media (max-width: 599px) {
+  .header {
+    font-size: 16px;
+    padding: 10px;
+  }
+  .option {
+    font-size: 14px;
+    padding: 7px 12px;
+  }
+  .wrapper {
+    font-size: 14px;
+    padding: 22px;
+  }
+  .star {
+    font-size: 16px;
+  }
+  .input {
+    padding: 20px;
+    font-size: 18px;
+  }
+  .hint {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .option {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .wrapper {
+    font-size: 12px;
+    padding: 20px;
+  }
+  .star {
+    font-size: 14px;
+  }
+  .input {
+    padding: 20px;
+    font-size: 16px;
+  }
+  .hint {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  gap: 30px;
+  align-items: start;
+}
+
+.wrapper {
+  flex: 1;
+  background-color: var(--wrapper-color);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 30px;
+  border-radius: 5px;
+}
+.list {
+  flex: 3;
+}

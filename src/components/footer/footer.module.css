@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  background-color: var(--wrapper-color);
+  padding: 40px 0;
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.linksWrapper {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.copywriteWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  font-size: 14px;
+}

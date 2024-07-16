@@ -1,0 +1,94 @@
+.container {
+  background: var(--wrapper-color);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.buttonWrapper button {
+  background-color: var(--button-color);
+  padding: 10px 20px;
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+}
+
+.confirmForm {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  margin-bottom: 20px;
+  align-items: start;
+}
+
+.inputWrapper {
+  flex: 1;
+  width: 100%;
+}
+
+.inputWrapper input {
+  width: 100%;
+  background-color: var(--input-color);
+  color: var(--text-color);
+  border: none;
+  outline: none;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.button {
+  background: var(--button-color);
+  color: var(--text-color);
+  padding: 5px 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.error {
+  margin-top: 5px;
+  color: var(--error-color);
+}
+
+.confirmForm .inputError {
+  border: 1px solid var(--error-color);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form .inputError {
+  border: 1px solid var(--error-color);
+}
+
+@media (max-width: 599px) {
+  .container {
+    font-size: 14px;
+  }
+  .confirmForm {
+    display: flex;
+    flex-direction: column;
+  }
+  .confirmForm .button {
+    width: 100%;
+  }
+
+  .confirmForm input {
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    width: 90%;
+    font-size: 12px;
+  }
+}
