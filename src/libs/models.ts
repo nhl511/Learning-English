@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema(
     },
     gradeId: {
       type: String,
-      required: true,
     },
     isAdmin: {
       type: Boolean,

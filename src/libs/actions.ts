@@ -33,6 +33,7 @@ export const register = async ({ username, password, passwordRepeat }: any) => {
     await newUser.save();
     return { success: true };
   } catch (error) {
+    console.log(error);
     return { error: "Something went wrong" };
   }
 };
