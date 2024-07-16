@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: start;
   min-height: var(--container-height);
+  padding-bottom: 20px;
 }
 
 .wrapper {

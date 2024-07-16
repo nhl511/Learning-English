@@ -20,6 +20,8 @@ const UnitItem = ({ unit }: { unit: UnitType }) => {
     <div className={styles.container} onClick={handleClick}>
       <div className={styles.wrapper}>
         <h2>{unit.title}</h2>
+      </div>
+      <div className={styles.vocabNumber}>
         <p>{number > 0 ? `${number} vocabularies` : `Comming soon`}</p>
       </div>
     </div>

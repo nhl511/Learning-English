@@ -55,6 +55,7 @@ const Select = ({
             placeholder="Select your grade"
             className={styles.input}
             value={input}
+            readOnly
           />
         </div>
         <div

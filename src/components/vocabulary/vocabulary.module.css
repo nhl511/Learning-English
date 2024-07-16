@@ -52,9 +52,6 @@
   align-items: end;
 }
 
-.changeModeWrapper {
-}
-
 .changeMode {
   border: 1px solid #888;
   padding: 10px 20px;
@@ -84,7 +81,7 @@
 
 .wrapperSkeleton {
   margin-top: 40px;
-  height: 270px;
+  height: 260px;
 }
 .wrapper {
   flex-wrap: wrap;
@@ -95,9 +92,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 40px;
   border-radius: 20px;
-  height: 270px;
+  height: 260px;
   position: relative;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
@@ -119,11 +117,6 @@
 .star {
   font-size: 24px;
   cursor: pointer;
-}
-
-.star:hover {
-  font-size: 22px;
-  transition: 0.2s all ease-out;
 }
 
 .info {
@@ -285,5 +278,25 @@
   }
   .hint {
     font-size: 14px;
+  }
+}
+
+@media (max-height: 630px) {
+  .header {
+    margin-top: 0px;
+  }
+  .info {
+    gap: 10px;
+  }
+  .audioWrapper {
+    margin-top: 10px;
+  }
+  .wrapper {
+    margin-top: 10px;
+    height: 220px;
+  }
+  .wrapperSkeleton {
+    margin-top: 10px;
+    height: 220px;
   }
 }
