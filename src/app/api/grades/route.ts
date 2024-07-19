@@ -1,8 +1,8 @@
 import { Grade } from "@/libs/models";
 import { connectToDb } from "@/libs/utils";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (request: any) => {
+export const GET = async (request: NextRequest) => {
   try {
     await connectToDb(); // Ensure this is awaited
     const grades = await Grade.find();
