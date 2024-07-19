@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export const GET = async (request: any) => {
   try {
-    connectToDb();
+    await connectToDb();
     const grades = await Grade.find();
 
     return NextResponse.json(grades);
