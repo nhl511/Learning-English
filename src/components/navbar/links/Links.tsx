@@ -47,7 +47,7 @@ const Links = ({ session }: any | null) => {
               <NavLink
                 link={{
                   title: "Admin",
-                  path: "/admin-dashboard/add-vocabulary",
+                  path: "/admin-dashboard",
                   icon: <AdminPanelSettingsOutlinedIcon fontSize="medium" />,
                   icon2: <AdminPanelSettingsIcon fontSize="medium" />,
                 }}

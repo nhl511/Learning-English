@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./addVocabulary.module.css";
 import AddVocabularyForm from "@/components/addVocabularyForm/AddVocabularyForm";
 import VocabularyList from "@/components/vocabularyList/VocabularyList";
-import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,11 +12,6 @@ export const metadata: Metadata = {
 const AddVocabularyPage = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.topContainer}>
-        <Link href="/admin-dashboard/add-unit">
-          <button>Add new unit</button>
-        </Link>
-      </div>
       <div className={styles.bottomContainer}>
         <div className={styles.wrapper}>
           <AddVocabularyForm />

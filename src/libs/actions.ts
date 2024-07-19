@@ -1,6 +1,6 @@
 "use server";
 import { auth, signIn, signOut } from "./auth";
-import { HardVocabulary, Unit, User, Vocabulary } from "./models";
+import { Grade, HardVocabulary, Unit, User, Vocabulary } from "./models";
 import { connectToDb } from "./utils";
 import bcrypt from "bcrypt";
 
@@ -51,6 +51,19 @@ export const login = async ({ username, password }: any) => {
 
 export const logout = async () => {
   await signOut();
+};
+
+export const addGrade = async (formData: any) => {
+  const { title } = Object.fromEntries(formData);
+  try {
+    connectToDb();
+    const newGrade = new Grade({
+      title,
+    });
+    await newGrade.save();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const addUnit = async (formData: any) => {
