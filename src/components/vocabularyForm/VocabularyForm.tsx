@@ -58,8 +58,9 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   useEffect(() => {
     if (isStar) router.push(`/saved-vocabularies/${sessionData?.user.id}`);
   }, [isStar]);
+
   return (
-    <>
+    <div className={styles.container}>
       <Vocabulary
         data={data}
         isLoading={isLoading}
@@ -83,7 +84,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
           ))}
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 

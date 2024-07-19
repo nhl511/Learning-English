@@ -156,25 +156,21 @@ const Vocabulary = ({
           <div className={styles.info}>
             <div className={styles.top}>
               <div>
-                <p>Word</p>
                 <h1 className={`${isHidden && styles.hidden}`}>{data?.word}</h1>
               </div>
             </div>
             <div className={styles.bottom}>
               <div className={styles.prop}>
-                <p>Definition</p>
                 <h3 className={`${isHidden && styles.hidden}`}>
                   {data?.definition}
                 </h3>
               </div>
               <div className={styles.prop}>
-                <p>Transcription</p>
                 <h3 className={`${isHidden && styles.hidden}`}>
                   {data?.transcription}
                 </h3>
               </div>
               <div className={styles.prop}>
-                <p>Word type</p>
                 <h3 className={`${isHidden && styles.hidden}`}>
                   {data?.wordType}
                 </h3>

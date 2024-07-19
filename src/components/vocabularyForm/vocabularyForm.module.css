@@ -1,3 +1,11 @@
+.container {
+  min-height: var(--voca-container-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  position: relative;
+}
 .rowWrapper {
   display: flex;
   flex-direction: column;

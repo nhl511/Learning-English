@@ -14,8 +14,11 @@
   --button-hover-color: #49a3d6;
   --button-active-color: #155b8f;
   --speed: 500ms;
-  --container-height: calc(100vh - 56px);
-  --voca-container-height: calc(100vh - 56px - 89px);
+  --container-height: calc(100svh - 56px);
+
+  /* --voca-container-height: calc(100vh - 56px - 89px); */
+  /* --voca-container-height: calc(100vh - 56px); */
+  --voca-container-height: calc(100dvh - 56px);
 }
 
 * {
@@ -37,7 +40,7 @@ a {
 .container {
   width: 1024px;
   margin: auto;
-  min-height: var(--container-height);
+  /* min-height: var(--container-height); */
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -50,10 +50,13 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    justify-content: center;
+    justify-content: start;
     gap: 10px;
     padding-left: 16px;
     z-index: 998;
+  }
+  .linksContainer {
+    margin-top: 80px;
   }
 }
 

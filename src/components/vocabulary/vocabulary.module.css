@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .back {
@@ -81,7 +82,7 @@
 
 .wrapperSkeleton {
   margin-top: 40px;
-  height: 260px;
+  height: 220px;
 }
 .wrapper {
   flex-wrap: wrap;
@@ -95,7 +96,7 @@
   justify-content: center;
   gap: 40px;
   border-radius: 20px;
-  height: 260px;
+  height: 220px;
   position: relative;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
@@ -149,12 +150,12 @@
   outline: none;
   background-color: var(--wrapper-color);
   border: 4px solid var(--border-color);
-  position: absolute;
-  bottom: 0;
   font-size: 24px;
   border-radius: 30px;
   padding: 20px;
   color: white;
+  position: absolute;
+  bottom: 20px;
 }
 
 .completeNoti {
@@ -184,46 +185,37 @@
   visibility: hidden;
 }
 
-@media (max-width: 1024px) {
-  .header {
-    font-size: 18px;
-  }
-  .option {
-    font-size: 16px;
-    padding: 9px 14px;
-  }
-  .wrapper {
-    font-size: 16px;
-    padding: 26px;
-  }
-  .star {
-    font-size: 18px;
-  }
-  .input {
-    padding: 20px;
-    font-size: 22px;
-  }
-  .hint {
-    font-size: 18px;
-  }
-}
-
 @media (max-width: 768px) {
-  .header {
-    font-size: 18px;
-  }
   .option {
     font-size: 16px;
     padding: 9px 14px;
-  }
-  .wrapper {
-    font-size: 16px;
-    padding: 24px;
   }
 
   .input {
     padding: 20px;
     font-size: 20px;
+    margin-top: 20px;
+  }
+  .header {
+    font-size: 18px;
+  }
+  .info {
+    gap: 10px;
+  }
+  .audioWrapper {
+    margin-top: 10px;
+  }
+  .wrapper {
+    margin-top: 10px;
+    font-size: 16px;
+    padding: 24px;
+  }
+  .wrapperSkeleton {
+    margin-top: 10px;
+    height: 220px;
+  }
+  .star {
+    font-size: 18px;
   }
 }
 @media (max-width: 632px) {
@@ -240,7 +232,12 @@
     font-size: 14px;
     padding: 7px 12px;
   }
+  .wrapperSkeleton {
+    height: 150px;
+  }
   .wrapper {
+    height: 150px;
+
     font-size: 14px;
     padding: 22px;
   }
@@ -281,7 +278,7 @@
   }
 }
 
-@media (max-height: 630px) {
+/* @media (max-height: 630px) {
   .header {
     margin-top: 0px;
   }
@@ -299,4 +296,4 @@
     margin-top: 10px;
     height: 220px;
   }
-}
+} */

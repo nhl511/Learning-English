@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,6 +14,12 @@ export const metadata: Metadata = {
     template: "%s | Learning English",
   },
   description: "Learning english",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  interactiveWidget: "resizes-content",
 };
 
 export default function RootLayout({
@@ -26,7 +32,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <Navbar />
         <div className="container">{children}</div>
-        <Footer />
         <ToastContainer />
       </body>
     </html>

@@ -85,14 +85,15 @@ const MobileLinks = ({ session }: any | null) => {
             </div>
             <div className={styles.logo}>EngVoca</div>
           </div>
-
-          {publicLinks.map((link: LinkType) => {
-            return (
-              <div key={link.title} onClick={() => setOpen(false)}>
-                <NavLink link={link} />
-              </div>
-            );
-          })}
+          <div className={styles.linksContainer}>
+            {publicLinks.map((link: LinkType) => {
+              return (
+                <div key={link.title} onClick={() => setOpen(false)}>
+                  <NavLink link={link} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
