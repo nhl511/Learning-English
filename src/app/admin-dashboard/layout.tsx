@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "./adminDashboard.module.css";
 import MenuItem from "./menuItem/MenuItem";
+
 export default function DashboardLayout({
   children,
 }: {
@@ -29,7 +30,7 @@ export default function DashboardLayout({
           </Link>
         ))}
       </div>
-      <div>{children}</div>
+      {children}
     </section>
   );
 }

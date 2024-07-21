@@ -9,11 +9,15 @@ const gradesFetcher = async () => {
 };
 
 export const useGrade = () => {
-  const { data, isLoading, error } = useSWR("api/grades", gradesFetcher);
+  const { data, isLoading, error, mutate } = useSWR(
+    "api/grades",
+    gradesFetcher
+  );
   return {
     grades: data,
     isLoadingGrades: isLoading,
     isErrorGrades: error,
+    mutateGrades: mutate,
   };
 };
 

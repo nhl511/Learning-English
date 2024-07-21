@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "",
 };
 const AdminDashboard = () => {
-  return <div className={styles.container}></div>;
+  return <div></div>;
 };
 
 export default AdminDashboard;

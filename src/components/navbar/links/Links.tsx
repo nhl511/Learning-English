@@ -43,7 +43,7 @@ const Links = ({ session }: any | null) => {
         })}
         {session && (
           <>
-            {session?.user.isAdmin && (
+            {session?.user?.isAdmin && (
               <NavLink
                 link={{
                   title: "Admin",

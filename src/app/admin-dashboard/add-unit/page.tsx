@@ -12,13 +12,11 @@ export const metadata: Metadata = {
 const AddUnitPage = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.bottomContainer}>
-        <div className={styles.wrapper}>
-          <AddUnitForm />
-        </div>
-        <div className={styles.list}>
-          <UnitList />
-        </div>
+      <div className={styles.wrapper}>
+        <AddUnitForm />
+      </div>
+      <div className={styles.list}>
+        <UnitList />
       </div>
     </div>
   );

@@ -12,13 +12,11 @@ export const metadata: Metadata = {
 const AddVocabularyPage = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.bottomContainer}>
-        <div className={styles.wrapper}>
-          <AddVocabularyForm />
-        </div>
-        <div className={styles.list}>
-          <VocabularyList />
-        </div>
+      <div className={styles.wrapper}>
+        <AddVocabularyForm />
+      </div>
+      <div className={styles.list}>
+        <VocabularyList />
       </div>
     </div>
   );

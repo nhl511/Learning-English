@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import "@uploadthing/react/styles.css";
+
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";

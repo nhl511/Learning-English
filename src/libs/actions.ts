@@ -90,6 +90,15 @@ export const deleteUnit = async (id: string) => {
   }
 };
 
+export const deleteGrade = async (id: string) => {
+  try {
+    connectToDb();
+    await Grade.findByIdAndDelete(id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const addVocabulary = async (formData: any) => {
   const { word, definition, transcription, wordType, unitId, audioLink } =
     Object.fromEntries(formData);

@@ -1,7 +1,6 @@
 "use client";
 import { UploadDropzone } from "@/libs/uploadthing";
 import React from "react";
-import "@uploadthing/react/styles.css";
 import Link from "next/link";
 import styles from "./UpdateUpload.module.css";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
