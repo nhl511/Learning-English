@@ -45,7 +45,7 @@ a {
   justify-content: center;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1056px) {
   .container {
     width: 100%;
     padding: 0 16px;
