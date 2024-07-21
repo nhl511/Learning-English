@@ -66,6 +66,29 @@ export const addGrade = async (formData: any) => {
   }
 };
 
+export const deleteGrade = async (id: string) => {
+  try {
+    connectToDb();
+    await Grade.findByIdAndDelete(id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateGrade = async (formData: any) => {
+  const { id, title } = Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+    const updateData = {
+      title,
+    };
+    await Grade.findByIdAndUpdate(id, updateData, { new: true });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const addUnit = async (formData: any) => {
   const { gradeId } = Object.fromEntries(formData);
   try {
@@ -85,15 +108,6 @@ export const deleteUnit = async (id: string) => {
   try {
     connectToDb();
     await Unit.findByIdAndDelete(id);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const deleteGrade = async (id: string) => {
-  try {
-    connectToDb();
-    await Grade.findByIdAndDelete(id);
   } catch (error) {
     console.log(error);
   }
