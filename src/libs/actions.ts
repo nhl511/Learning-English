@@ -1,4 +1,5 @@
 "use server";
+import { VocabularyType } from "@/types/types";
 import { auth, signIn, signOut } from "./auth";
 import { Grade, HardVocabulary, Unit, User, Vocabulary } from "./models";
 import { connectToDb } from "./utils";
@@ -129,6 +130,15 @@ export const addVocabulary = async (formData: any) => {
     await newVocabulary.save();
 
     // revalidatePath("/admin-dashboard");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addVocabularies = async (vocabularies: any) => {
+  try {
+    connectToDb();
+    await Vocabulary.insertMany(vocabularies);
   } catch (error) {
     console.log(error);
   }

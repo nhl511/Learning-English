@@ -60,7 +60,9 @@ const VocabularyTable = ({ unitId }: { unitId: string }) => {
               <td>{vocabulary.transcription}</td>
               <td>{vocabulary.wordType}</td>
               <td>
-                <AudioPlayer link={vocabulary.audioLink} autoPlay={false} />
+                {vocabulary?.audioLink && (
+                  <AudioPlayer link={vocabulary.audioLink} autoPlay={false} />
+                )}
               </td>
               <td>
                 <div className={styles.buttonTableWrapper}>

@@ -23,6 +23,7 @@ const UnitTable = ({ gradeId }: { gradeId: string }) => {
       <table className={styles.table}>
         <thead className={styles.head}>
           <tr className={styles.row}>
+            <th>ID</th>
             <th>Unit</th>
             <th>Actions</th>
           </tr>
@@ -30,6 +31,7 @@ const UnitTable = ({ gradeId }: { gradeId: string }) => {
         <tbody className={styles.body}>
           {units?.map((unit: UnitType) => (
             <tr key={unit._id} className={styles.row}>
+              <td>{unit._id}</td>
               <td>{unit.title}</td>
 
               <td>

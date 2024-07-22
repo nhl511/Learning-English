@@ -1,8 +1,6 @@
 import React from "react";
-import styles from "./addVocabulary.module.css";
-import AddVocabularyForm from "@/components/addVocabularyForm/AddVocabularyForm";
-import VocabularyList from "@/components/vocabularyList/VocabularyList";
 import { Metadata } from "next";
+import VocabularyManagement from "./vocabularyManagement/VocabularyManagement";
 
 export const metadata: Metadata = {
   title: "Vocabularies management",
@@ -10,16 +8,7 @@ export const metadata: Metadata = {
 };
 
 const AddVocabularyPage = () => {
-  return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <AddVocabularyForm />
-      </div>
-      <div className={styles.list}>
-        <VocabularyList />
-      </div>
-    </div>
-  );
+  return <VocabularyManagement />;
 };
 
 export default AddVocabularyPage;

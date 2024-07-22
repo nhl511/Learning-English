@@ -43,7 +43,6 @@ const GradeTable = () => {
           {grades?.map((grade: GradeType) => (
             <tr key={grade._id} className={styles.row}>
               <td>{grade.title}</td>
-
               <td>
                 <div className={styles.buttonTableWrapper}>
                   <button
