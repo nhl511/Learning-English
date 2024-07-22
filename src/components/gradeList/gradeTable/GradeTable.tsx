@@ -36,7 +36,7 @@ const GradeTable = () => {
         <thead className={styles.head}>
           <tr className={styles.row}>
             <th>Grade</th>
-            <th>Actions</th>
+            <th></th>
           </tr>
         </thead>
         <tbody className={styles.body}>

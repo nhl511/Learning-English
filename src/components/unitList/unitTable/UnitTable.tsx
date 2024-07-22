@@ -25,7 +25,7 @@ const UnitTable = ({ gradeId }: { gradeId: string }) => {
           <tr className={styles.row}>
             <th>ID</th>
             <th>Unit</th>
-            <th>Actions</th>
+            <th></th>
           </tr>
         </thead>
         <tbody className={styles.body}>
@@ -35,12 +35,14 @@ const UnitTable = ({ gradeId }: { gradeId: string }) => {
               <td>{unit.title}</td>
 
               <td>
-                <button
-                  className={styles.dangerButtonTable}
-                  onClick={() => handleOpenModal(unit._id)}
-                >
-                  Delete
-                </button>
+                <div className={styles.buttonTableWrapper}>
+                  <button
+                    className={styles.dangerButtonTable}
+                    onClick={() => handleOpenModal(unit._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

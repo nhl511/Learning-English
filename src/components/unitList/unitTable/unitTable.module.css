@@ -1,7 +1,7 @@
 .table {
   border-collapse: collapse;
   border: 1px solid white;
-  text-align: center;
+  text-align: left;
   vertical-align: middle;
   width: 100%;
 }
@@ -43,6 +43,7 @@
 
 .buttonTableWrapper {
   display: flex;
+  justify-content: end;
   gap: 10px;
 }
 
