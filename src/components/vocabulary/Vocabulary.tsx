@@ -24,6 +24,7 @@ const Vocabulary = ({
   setPage,
   number,
   unit,
+  gradeTitle,
   handleOpenModal,
   isReviewing,
 }: {
@@ -33,6 +34,7 @@ const Vocabulary = ({
   setPage: any;
   number: number;
   unit?: UnitType;
+  gradeTitle?: string;
   handleOpenModal: any;
   isReviewing: boolean;
 }) => {
@@ -44,6 +46,8 @@ const Vocabulary = ({
   const [isDone, setIsDone] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const { sessionData } = useSession();
+  const [gradeInput, setGradeInput] = useState("");
+  const [curInput, setCurInput] = useState("");
 
   const decreasePage = () => {
     setPage((prev: any) => prev - 1);
@@ -122,6 +126,14 @@ const Vocabulary = ({
 
   if (number === 0) return <div className={styles.empty}></div>;
 
+  useEffect(() => {
+    if (gradeTitle !== "" && gradeTitle) {
+      const [gradePart, curriculumPart] = gradeTitle?.split(" - ");
+      setGradeInput(gradePart);
+      setCurInput(curriculumPart);
+    }
+  }, [gradeTitle]);
+
   return (
     <>
       <div className={styles.header}>
@@ -135,8 +147,13 @@ const Vocabulary = ({
         )}
         {unit ? (
           <div className={styles.title}>
-            <h3>{unit?.title}</h3>
-            {!isReviewing ? <p>Studying</p> : <p>Reviewing</p>}
+            <h3>
+              {gradeInput} - <span className={styles.cur}>{curInput}</span>
+            </h3>
+            <div className={styles.unitWrapper}>
+              <h3>{unit?.title}</h3>
+              {!isReviewing ? <p>Studying</p> : <p>Reviewing</p>}
+            </div>
           </div>
         ) : (
           <div></div>
@@ -149,13 +166,27 @@ const Vocabulary = ({
         </div>
       </div>
 
+      {unit ? (
+        <div className={styles.mobileTitle}>
+          <h3>
+            {gradeInput} - <span className={styles.cur}>{curInput}</span>
+          </h3>
+          <div className={styles.unitWrapper}>
+            <h3>{unit?.title}</h3>
+            {!isReviewing ? <p>Studying</p> : <p>Reviewing</p>}
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+
       {isLoading ? (
         <div className={styles.wrapperSkeleton}></div>
       ) : !isDone ? (
         <div className={styles.wrapper}>
           <div className={styles.info}>
             <div className={styles.top}>
-              <div>
+              <div className={styles.wordWrapper}>
                 <h1 className={`${isHidden && styles.hidden}`}>{data?.word}</h1>
               </div>
             </div>

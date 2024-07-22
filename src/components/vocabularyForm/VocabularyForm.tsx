@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./vocabularyForm.module.css";
 import {
+  useGradeById,
   useNumberOfVocabulary,
   useSession,
   useUnitById,
@@ -18,6 +19,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   const [page, setPage] = useState(0);
   const { number } = useNumberOfVocabulary(slug);
   const { unit } = useUnitById(slug);
+  const { grade } = useGradeById(unit?.gradeId);
   const [showModal, setShowModal] = useState(false);
   const [isReviewing, setIsReviewing] = useState(false);
   const [isStar, setIsStar] = useState(false);
@@ -68,6 +70,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
         setPage={setPage}
         number={number}
         unit={unit}
+        gradeTitle={grade?.title}
         handleOpenModal={handleOpenModal}
         isReviewing={isReviewing}
       />
