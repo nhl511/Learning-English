@@ -124,8 +124,6 @@ const Vocabulary = ({
     }
   }, [unit]);
 
-  if (number === 0) return <div className={styles.empty}></div>;
-
   useEffect(() => {
     if (gradeTitle !== "" && gradeTitle) {
       const [gradePart, curriculumPart] = gradeTitle?.split(" - ");
@@ -133,6 +131,8 @@ const Vocabulary = ({
       setCurInput(curriculumPart);
     }
   }, [gradeTitle]);
+
+  if (number === 0) return <div className={styles.empty}></div>;
 
   return (
     <>
