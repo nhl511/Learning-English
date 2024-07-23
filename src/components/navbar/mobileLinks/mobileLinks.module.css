@@ -10,6 +10,8 @@
 }
 
 .logo {
+  color: var(--titleText-color);
+
   font-size: 30px;
   font-weight: bold;
 }

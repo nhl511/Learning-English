@@ -10,6 +10,5 @@
 
 .active {
   font-weight: bold;
-  color: var(--text-color);
-  border-bottom: 2px solid var(--text-color);
+  color: var(--titleText-color);
 }

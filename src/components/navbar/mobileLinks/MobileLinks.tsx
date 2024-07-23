@@ -52,6 +52,7 @@ const MobileLinks = ({ session }: any | null) => {
     <div className={styles.container}>
       <div className={styles.buttonWrapper}>
         <FontAwesomeIcon
+          className={styles.menuButton}
           icon={faBars}
           style={{ fontSize: "20px" }}
           onClick={() => setOpen((prev) => !prev)}
@@ -75,6 +76,7 @@ const MobileLinks = ({ session }: any | null) => {
             <div className={styles.buttonWrapper}>
               <FontAwesomeIcon
                 icon={faBars}
+                className=""
                 style={{ fontSize: "20px" }}
                 onClick={() => setOpen((prev) => !prev)}
               />
