@@ -75,7 +75,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
         isReviewing={isReviewing}
       />
       <Modal show={showModal} onClose={handleCloseModal}>
-        <h2>Options</h2>
+        <h2 className={styles.modalTitle}>Options</h2>
         <div className={styles.rowWrapper}>
           {options.map((option) => (
             <div key={option.title} className={styles.rowItem}>

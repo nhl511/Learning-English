@@ -1,9 +1,11 @@
 .container {
   background: var(--wrapper-color);
+  width: 450px;
   padding: 40px;
   display: flex;
   justify-content: center;
   border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .row {
@@ -13,7 +15,7 @@
 .buttonWrapper button {
   background-color: var(--button-color);
   padding: 10px 20px;
-  color: var(--text-color);
+  color: var(--buttonText-color);
   border: none;
   cursor: pointer;
 }
@@ -43,7 +45,7 @@
 
 .button {
   background: var(--button-color);
-  color: var(--text-color);
+  color: var(--buttonText-color);
   padding: 5px 10px;
   border: none;
   font-size: 16px;
@@ -72,6 +74,8 @@
 
 @media (max-width: 599px) {
   .container {
+    width: 90%;
+
     font-size: 14px;
   }
   .confirmForm {
@@ -88,7 +92,6 @@
 
 @media (max-width: 375px) {
   .container {
-    width: 90%;
     font-size: 12px;
   }
 }

@@ -10,6 +10,8 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import CallIcon from "@mui/icons-material/Call";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const MobileLinks = ({ session }: any | null) => {
   const [open, setOpen] = useState(false);
@@ -49,12 +51,9 @@ const MobileLinks = ({ session }: any | null) => {
   return (
     <div className={styles.container}>
       <div className={styles.buttonWrapper}>
-        <Image
-          className={styles.menuButton}
-          src="/menu.png"
-          alt=""
-          width={20}
-          height={20}
+        <FontAwesomeIcon
+          icon={faBars}
+          style={{ fontSize: "20px" }}
           onClick={() => setOpen((prev) => !prev)}
         />
       </div>
@@ -74,12 +73,9 @@ const MobileLinks = ({ session }: any | null) => {
         >
           <div className={styles.header}>
             <div className={styles.buttonWrapper}>
-              <Image
-                className={styles.menuButton}
-                src="/menu.png"
-                alt=""
-                width={20}
-                height={20}
+              <FontAwesomeIcon
+                icon={faBars}
+                style={{ fontSize: "20px" }}
                 onClick={() => setOpen((prev) => !prev)}
               />
             </div>

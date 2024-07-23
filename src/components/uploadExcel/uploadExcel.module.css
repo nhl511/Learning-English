@@ -5,9 +5,9 @@
 
 .importButton {
   background: var(--button-color);
-  color: var(--text-color);
+  color: var(--buttonText-color);
   padding: 10px 0;
-  outline: none;
+  border: none;
   cursor: pointer;
   font-size: 16px;
   margin: 20px 0;

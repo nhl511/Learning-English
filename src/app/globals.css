@@ -1,19 +1,33 @@
 :root {
-  --background-color: rgb(24, 25, 26);
-  --wrapper-color: rgb(36, 37, 38);
+  --background-color: #fcfcfc;
+  --navbar-color: #ffffff;
+  --navbarText-color: #091814;
+  --wrapper-color: #ffffff;
+  --wrapperText-color: #1479f4;
+  --titleText-color: #1479f4;
+  /* --vocabNumber-color: #dcedfe; */
+  --vocabNumber-color: #ffeaa7;
+  --lightButton-color: #e5f1ff;
+  --vocabNumberText-color: #05060f;
   --border-color: #656565;
-  --input-color: rgb(58, 59, 60);
+  --input-color: #f0f1f3;
+  --selectInput-color: #1479f4;
+  --selectInputText-color: #ffffff;
+  --optionHover-color: #ffeaa7;
+  --optionChosed-color: #ffdc64;
+  --userMenuText-color: #526660;
   --inputHover-color: rgb(78, 79, 80);
   --inputText-color: #9e9ea7;
   --inputTextHover-color: #b5b5bd;
-  --text-color: white;
+  --text-color: #091814;
   --error-color: #c0392b;
   --border-color: #3e4042;
   --word-color: #2fbe2f;
   /* --light: #e5e5e5; */
-  --button-color: #1e86c9;
-  --button-hover-color: #49a3d6;
-  --button-active-color: #155b8f;
+  --button-color: #0171f9;
+  --button-hover-color: #0188ff;
+  --button-active-color: #015ac7;
+  --buttonText-color: #ffffff;
   --speed: 500ms;
   --container-height: calc(100svh - 56px);
 

@@ -35,7 +35,7 @@ const VocabularyManagement = () => {
         </div>
       </div>
       <Modal show={show} onClose={handleCloseModal}>
-        <h2>Import .xlsx file</h2>
+        <h2 className={styles.modalTitle}>Import .xlsx file</h2>
         <UploadExcel onClose={handleCloseModal} />
       </Modal>
     </>

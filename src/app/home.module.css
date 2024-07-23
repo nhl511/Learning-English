@@ -26,14 +26,16 @@
 .selectContainer h1 {
   font-size: 39px;
   margin-bottom: 8px;
-  font-weight: normal;
+  font-weight: bold;
   text-transform: uppercase;
+  color: var(--titleText-color);
 }
 .selectContainer span {
   display: block;
   font-size: 20px;
   margin-top: 8px;
   text-transform: none;
+  color: var(--text-color);
 }
 .icon {
   position: absolute;

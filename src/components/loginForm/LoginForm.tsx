@@ -88,7 +88,7 @@ const LoginForm = () => {
         >
           {!isLoading ? "Login" : <Spinner />}
         </button>
-        <p className={styles.error}>{state?.error}</p>
+        {state?.error && <p className={styles.error}>{state?.error}</p>}
       </form>
       <Link href="/register" className={styles.link}>
         {"Don't have an account?"} <b>Register</b>

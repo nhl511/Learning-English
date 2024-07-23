@@ -24,7 +24,7 @@ const AudioPlayer = ({
     <div className="">
       <FontAwesomeIcon
         icon={faVolumeHigh}
-        style={{ color: "#ffffff", cursor: "pointer" }}
+        style={{ color: "black", cursor: "pointer" }}
         onClick={handlePlay}
       />
     </div>

@@ -49,7 +49,11 @@ const Select = ({
             setOpen(!open);
           }}
         >
-          <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.icon} />
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            className={styles.icon}
+            style={{ color: "#ffffff" }}
+          />
           <input
             type="text"
             placeholder="Select your grade"

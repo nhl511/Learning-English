@@ -221,7 +221,7 @@ const Vocabulary = ({
               <div className={styles.star} onClick={handleHardWord}>
                 <FontAwesomeIcon
                   icon={hardVocabularies ? faStar : far.faStar}
-                  style={{ color: "#f5ec00" }}
+                  style={{ color: "orange" }}
                 />
               </div>
             )}

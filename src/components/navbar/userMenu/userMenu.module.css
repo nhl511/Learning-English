@@ -20,16 +20,16 @@
   border-radius: 0 0 10px 10px;
   width: 250px;
   z-index: 299;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .userMenu ul li {
   padding: 10px 0;
-  border-top: 1px solid var(--input-color);
 }
 .userMenu ul li:hover {
   cursor: pointer;
-  background-color: var(--input-color);
-  color: var(--inputText-color);
+  background-color: var(--optionHover-color);
+  color: var(--text-color);
 }
 
 .active {
@@ -58,7 +58,7 @@
 
 .loginButton {
   background-color: var(--button-color);
-  color: var(--text-color);
+  color: var(--buttonText-color);
   padding: 8px 20px;
   font-size: 16px;
   border-radius: 4px;

@@ -2,12 +2,12 @@
   padding: 8px 16px;
   display: flex;
   align-items: center;
-  background-color: var(--input-color);
-  color: var(--inputText-color);
+  background-color: var(--lightButton-color);
+  color: var(--titleText-color);
   border-radius: 10px;
 }
 
 .active {
-  background-color: var(--text-color);
-  color: black;
+  background-color: var(--button-color);
+  color: var(--buttonText-color);
 }

@@ -28,6 +28,9 @@
   display: flex;
   justify-content: end;
 }
+.modalTitle {
+  color: var(--titleText-color);
+}
 
 @media (max-width: 599px) {
   .rowItem h4 {

@@ -1,12 +1,12 @@
 .table {
   border-collapse: collapse;
-  border: 1px solid white;
   text-align: left;
   vertical-align: middle;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .head {
-  background-color: var(--text-color);
-  color: black;
+  background-color: var(--button-color);
+  color: var(--buttonText-color);
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 2%;
@@ -16,7 +16,7 @@
 }
 
 .body tr:nth-child(even) {
-  background-color: var(--wrapper-color);
+  background-color: var(--lightButton-color);
 }
 .row th,
 .row td {
@@ -33,7 +33,7 @@
 
 .dangerButton {
   padding: 10px 20px;
-  color: var(--text-color);
+  color: var(--buttonText-color);
   background-color: var(--error-color);
   border: none;
   border-radius: 5px;
@@ -47,7 +47,7 @@
 
 .dangerButtonTable {
   padding: 5px 10px;
-  color: var(--text-color);
+  color: var(--buttonText-color);
   background-color: var(--error-color);
   border: none;
   border-radius: 5px;
@@ -56,7 +56,7 @@
 
 .buttonTable {
   padding: 5px 10px;
-  color: var(--text-color);
+  color: var(--buttonText-color);
   background-color: var(--button-color);
   border: none;
   border-radius: 5px;
@@ -65,7 +65,7 @@
 
 .button {
   padding: 10px 20px;
-  color: var(--text-color);
+  color: var(--buttonText-color);
   background-color: var(--button-color);
   border: none;
   border-radius: 5px;

@@ -23,7 +23,7 @@
   padding: 8px 20px;
   cursor: pointer;
   background-color: var(--button-color);
-  color: var(--tex-colort);
+  color: var(--buttonText-color);
   font-weight: bold;
   border: none;
   border-radius: 5px;
@@ -43,5 +43,6 @@
 }
 
 .form .disabled {
-  background: var(--inputHover-color);
+  font-weight: bold;
+  background: var(--lightButton-color);
 }

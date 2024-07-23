@@ -3,7 +3,6 @@
   flex-direction: column;
   text-align: center;
   gap: 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .form input {
@@ -21,7 +20,7 @@
   padding: 12px 0;
   cursor: pointer;
   background-color: var(--button-color);
-  color: var(--text-color);
+  color: var(--buttonText-color);
   font-weight: bold;
   border: none;
   border-radius: 6px;
