@@ -1,0 +1,101 @@
+.container {
+  min-height: var(--container-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("/hello.jpg");
+  background-position: -40px 50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+/* .imageContainer {
+  flex: 2;
+  min-height: var(--container-height);
+
+  position: relative;
+} */
+
+.selectContainer {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  right: 0px;
+}
+
+.selectContainer h1 {
+  font-size: 39px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--titleText-color);
+}
+.selectContainer span {
+  display: block;
+  font-size: 18px;
+  text-transform: none;
+  font-weight: lighter;
+  color: var(--text-color);
+}
+
+@media (max-width: 1024px) {
+  .selectContainer h1 {
+    font-size: 30px;
+  }
+  .selectContainer span {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 989px) {
+  .container {
+    background-image: url("/hello-mobile.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  .selectContainer {
+    top: 100px;
+    left: 0;
+    right: 0;
+    width: 60%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .selectContainer {
+    width: 80%;
+  }
+  .selectContainer h1 {
+    font-size: 27px;
+  }
+  .selectContainer span {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 599px) {
+  .selectContainer h1 {
+    font-size: 24px;
+  }
+  .selectContainer span {
+    font-size: 18px;
+  }
+}
+@media (max-width: 425px) {
+  .selectContainer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 375px) {
+  .selectContainer h1 {
+    font-size: 20px;
+  }
+  .selectContainer span {
+    font-size: 13.5px;
+  }
+}

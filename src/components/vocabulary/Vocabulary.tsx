@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faArrowRight,
-  faChevronLeft,
   faLightbulb,
   faRotateLeft,
   faStar,
@@ -16,7 +15,8 @@ import { useHardVocabularyById, useSession } from "@/customHooks/CustomHooks";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { addHardVocabulary, deleteHardVocabulary } from "@/libs/actions";
 import AudioPlayer from "../audioPlayer/AudioPlayer";
-
+import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
+import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 const Vocabulary = ({
   data,
   isLoading,
@@ -138,21 +138,9 @@ const Vocabulary = ({
     <>
       <div className={styles.header}>
         {unit ? (
-          <div className={styles.back} onClick={() => router.push("/")}>
-            <FontAwesomeIcon icon={faChevronLeft} />
-            Back
-          </div>
-        ) : (
-          <div></div>
-        )}
-        {unit ? (
-          <div className={styles.title}>
-            <h3>
-              {gradeInput} - <span className={styles.cur}>{curInput}</span>
-            </h3>
-            <div className={styles.unitWrapper}>
-              <h3>{unit?.title}</h3>
-              {!isReviewing ? <p>Studying</p> : <p>Reviewing</p>}
+          <div className={styles.backWrapper}>
+            <div className={styles.back} onClick={() => router.push("/")}>
+              <FontAwesomeIcon icon={faArrowLeft} /> Back
             </div>
           </div>
         ) : (
@@ -167,15 +155,29 @@ const Vocabulary = ({
       </div>
 
       {unit ? (
-        <div className={styles.mobileTitle}>
-          <h3>
-            {gradeInput} - <span className={styles.cur}>{curInput}</span>
-          </h3>
-          <div className={styles.unitWrapper}>
-            <h3>{unit?.title}</h3>
-            {!isReviewing ? <p>Studying</p> : <p>Reviewing</p>}
+        <>
+          <div className={styles.title}>
+            <div className={styles.titleWrapper}>
+              <h3>
+                {gradeInput} - <span className={styles.cur}>{curInput}</span>
+              </h3>
+            </div>
+
+            <div className={styles.unitWrapper}>
+              <h3>{unit?.title}</h3>
+              {!isReviewing ? <p>Studying</p> : <p>Reviewing</p>}
+            </div>
           </div>
-        </div>
+          <div className={styles.mobileTitle}>
+            <h3>
+              {gradeInput} - <span className={styles.cur}>{curInput}</span>
+            </h3>
+            <div className={styles.unitWrapper}>
+              <h3>{unit?.title}</h3>
+              {!isReviewing ? <p>Studying</p> : <p>Reviewing</p>}
+            </div>
+          </div>
+        </>
       ) : (
         <div></div>
       )}
@@ -221,7 +223,7 @@ const Vocabulary = ({
               <div className={styles.star} onClick={handleHardWord}>
                 <FontAwesomeIcon
                   icon={hardVocabularies ? faStar : far.faStar}
-                  style={{ color: "orange" }}
+                  className={styles.starIcon}
                 />
               </div>
             )}
@@ -254,25 +256,31 @@ const Vocabulary = ({
       {!isDone && (
         <div className={styles.buttonWrapper}>
           {page > 0 ? (
-            <FontAwesomeIcon
-              icon={faArrowLeft}
+            <ArrowCircleLeftOutlinedIcon
               onClick={decreasePage}
               style={{ cursor: "pointer" }}
+              fontSize="large"
             />
           ) : (
-            <FontAwesomeIcon icon={faArrowLeft} style={{ color: "#888" }} />
+            <ArrowCircleLeftOutlinedIcon
+              style={{ color: "#888" }}
+              fontSize="large"
+            />
           )}
           <div>
             {page + 1} / {number}
           </div>
           {page < number ? (
-            <FontAwesomeIcon
-              icon={faArrowRight}
+            <ArrowCircleRightOutlinedIcon
               onClick={increasePage}
               style={{ cursor: "pointer" }}
+              fontSize="large"
             />
           ) : (
-            <FontAwesomeIcon icon={faArrowRight} style={{ color: "#888" }} />
+            <ArrowCircleRightOutlinedIcon
+              style={{ color: "#888" }}
+              fontSize="large"
+            />
           )}
         </div>
       )}

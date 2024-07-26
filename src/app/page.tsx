@@ -14,6 +14,9 @@ import Select from "@/components/select/Select";
 import { useRouter } from "next/navigation";
 import { Grid } from "@mui/material";
 import Loading from "@/components/loading/Loading";
+import Image from "next/image";
+import GuestHomepage from "@/components/GuestHompage/GuestHomepage";
+import LearnerHompage from "@/components/LearnerHompage/LearnerHompage";
 
 const HomePage = () => {
   const { sessionData } = useSession();
@@ -21,8 +24,6 @@ const HomePage = () => {
     sessionData?.user?.id
   );
   const [gradeId, setGradeId] = useState("");
-  const { grades, isLoadingGrades } = useGrade();
-  const { units } = useUnit(gradeId);
 
   const router = useRouter();
   const { grade } = useGradeById(gradeId);
@@ -54,34 +55,16 @@ const HomePage = () => {
   if (isLoadingUserInfoData) return <Loading />;
 
   return (
-    <div className={`${styles.container} ${!gradeId && styles.empty}`}>
-      <div className={styles.wrapper}>
-        <div className={styles.selectContainer}>
-          <div>
-            {gradeId === "" && (
-              <h1>
-                A place to learn English vocabulary
-                <span>Hello there! Which grade are you in?</span>
-              </h1>
-            )}
-          </div>
-          <Select
-            grades={grades}
-            isLoadingGrades={isLoadingGrades}
-            setGradeId={setGradeId}
-            title={gradeTitle}
-          />
-        </div>
-      </div>
-
-      <Grid container spacing={2}>
-        {gradeId !== "" &&
-          units?.map((unit: UnitType) => (
-            <Grid key={unit?._id} item xs={6} sm={4} md={3}>
-              <UnitItem unit={unit} />
-            </Grid>
-          ))}
-      </Grid>
+    <div className={styles.container}>
+      {!gradeId ? (
+        <GuestHomepage setGradeId={setGradeId} />
+      ) : (
+        <LearnerHompage
+          gradeId={gradeId}
+          setGradeId={setGradeId}
+          gradeTitle={gradeTitle}
+        />
+      )}
     </div>
   );
 };

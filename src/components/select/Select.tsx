@@ -13,7 +13,7 @@ const Select = ({
   grades: GradeType[];
   isLoadingGrades: boolean;
   setGradeId: any;
-  title: any;
+  title?: any;
 }) => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
