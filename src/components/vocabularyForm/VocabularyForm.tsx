@@ -12,6 +12,7 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 import Vocabulary from "../vocabulary/Vocabulary";
 import Modal from "../modal/Modal";
 import useSWR from "swr";
+import Loading from "../loading/Loading";
 
 const VocabularyForm = ({ slug }: { slug: string }) => {
   const { sessionData } = useSession();
@@ -60,6 +61,8 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   useEffect(() => {
     if (isStar) router.push(`/saved-vocabularies/${sessionData?.user.id}`);
   }, [isStar]);
+
+  if (!slug || !number || !unit || !grade) return <Loading />;
 
   return (
     <div className={styles.container}>

@@ -3,16 +3,14 @@ import React from "react";
 import styles from "./guestHomepage.module.css";
 import Select from "../select/Select";
 import { useGrade } from "@/customHooks/CustomHooks";
-import Image from "next/image";
+import Loading from "../loading/Loading";
 
 const GuestHomepage = ({ setGradeId }: { setGradeId: any }) => {
   const { grades, isLoadingGrades } = useGrade();
 
+  if (isLoadingGrades) return <Loading />;
   return (
     <div className={styles.container}>
-      {/* <div className={styles.imageContainer}>
-        <Image src="/background.jpg" alt="" fill />
-      </div> */}
       <div className={styles.selectContainer}>
         <div>
           <h1>

@@ -2,19 +2,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
 import {
-  useGrade,
   useGradeById,
   useSession,
-  useUnit,
   useUserInfo,
 } from "@/customHooks/CustomHooks";
-import { UnitType } from "@/types/types";
-import UnitItem from "@/components/unitItem/UnitItem";
-import Select from "@/components/select/Select";
+
 import { useRouter } from "next/navigation";
-import { Grid } from "@mui/material";
 import Loading from "@/components/loading/Loading";
-import Image from "next/image";
 import GuestHomepage from "@/components/GuestHompage/GuestHomepage";
 import LearnerHompage from "@/components/LearnerHompage/LearnerHompage";
 
@@ -36,7 +30,9 @@ const HomePage = () => {
   }, [sessionData, router]);
 
   useEffect(() => {
-    if (userInfoData?.gradeId) setGradeId(userInfoData?.gradeId);
+    if (userInfoData?.gradeId) {
+      setGradeId(userInfoData?.gradeId);
+    }
   }, [userInfoData]);
 
   useEffect(() => {
@@ -52,11 +48,9 @@ const HomePage = () => {
     }
   }, [userInfoData]);
 
-  if (isLoadingUserInfoData) return <Loading />;
-
   return (
     <div className={styles.container}>
-      {!gradeId ? (
+      {gradeId === "" ? (
         <GuestHomepage setGradeId={setGradeId} />
       ) : (
         <LearnerHompage

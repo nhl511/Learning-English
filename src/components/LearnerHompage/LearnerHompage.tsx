@@ -6,6 +6,7 @@ import { Grid } from "@mui/material";
 import { UnitType } from "@/types/types";
 import UnitItem from "../unitItem/UnitItem";
 import { useGrade, useUnit } from "@/customHooks/CustomHooks";
+import Loading from "../loading/Loading";
 
 const LearnerHompage = ({
   gradeId,
@@ -18,6 +19,8 @@ const LearnerHompage = ({
 }) => {
   const { grades, isLoadingGrades } = useGrade();
   const { units } = useUnit(gradeId);
+
+  if (isLoadingGrades) return <Loading />;
 
   return (
     <div className={styles.container}>

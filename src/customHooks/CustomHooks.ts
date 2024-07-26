@@ -144,6 +144,7 @@ export const useNumberOfVocabulary = (unitId: string) => {
   );
   return {
     number: data,
+    isLoadingNumber: isLoading,
   };
 };
 
