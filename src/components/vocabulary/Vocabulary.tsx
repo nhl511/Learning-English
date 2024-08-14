@@ -1,6 +1,6 @@
 "use client";
 import styles from "./vocabulary.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { UnitType } from "@/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,6 +17,11 @@ import { addHardVocabulary, deleteHardVocabulary } from "@/libs/actions";
 import AudioPlayer from "../audioPlayer/AudioPlayer";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
+import CloseIcon from "@mui/icons-material/Close";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
+
 const Vocabulary = ({
   data,
   isLoading,
@@ -27,6 +32,8 @@ const Vocabulary = ({
   gradeTitle,
   handleOpenModal,
   isReviewing,
+  isViSound,
+  setIsViSound,
 }: {
   data: any;
   isLoading: boolean;
@@ -37,6 +44,8 @@ const Vocabulary = ({
   gradeTitle?: string;
   handleOpenModal: any;
   isReviewing: boolean;
+  isViSound: boolean;
+  setIsViSound: any;
 }) => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
@@ -48,6 +57,51 @@ const Vocabulary = ({
   const { sessionData } = useSession();
   const [gradeInput, setGradeInput] = useState("");
   const [curInput, setCurInput] = useState("");
+  const [open, setOpen] = useState(false);
+  const [categoryTitle, setCategoryTitle] = useState({});
+  const [isReading, setIsReading] = useState(false);
+  const [seconds, setSeconds] = useState(0);
+  let menuRef = useRef<any>();
+
+  const categoryLinks = [
+    {
+      title: "Writing vocabularies",
+      icon: <BorderColorIcon />,
+    },
+    {
+      title: "Reading vocabularies",
+      icon: <RecordVoiceOverIcon />,
+    },
+  ];
+
+  useEffect(() => {
+    if (!isReading) {
+      setCategoryTitle({
+        title: "Writing vocabularies",
+        icon: <BorderColorIcon />,
+      });
+    } else {
+      setCategoryTitle({
+        title: "Reading vocabularies",
+        icon: <RecordVoiceOverIcon />,
+      });
+    }
+  }, [isReading]);
+
+  useEffect(() => {
+    let handler = (e: any) => {
+      if (!menuRef?.current?.contains(e.target)) {
+        setOpen(false);
+        console.log(menuRef.current);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
 
   const decreasePage = () => {
     setPage((prev: any) => prev - 1);
@@ -58,6 +112,46 @@ const Vocabulary = ({
     setPage((prev: any) => prev + 1);
     setInputValue("");
   };
+
+  useEffect(() => {
+    if (data) {
+      if (data?.duration) setSeconds(data?.duration);
+      else setSeconds(5);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (isReading && data && page < number) {
+      setIsViSound(true);
+      setIsHidden(true);
+      const intervalId = setInterval(
+        () => {
+          increasePage();
+        },
+        data?.duration ? data?.duration * 1000 : 5000
+      );
+
+      return () => clearInterval(intervalId);
+    }
+  }, [isReading, page, number, data]);
+
+  useEffect(() => {
+    if (data?.viAudioLink && isReading) {
+      const intervalId = setInterval(() => {
+        setSeconds((prevSeconds: number) => prevSeconds - 1);
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [data?.viAudioLink, isReading]);
+
+  useEffect(() => {
+    if (!isReading) {
+      setPage(0);
+      setIsViSound(false);
+      setIsHidden(false);
+    }
+  }, [isReading]);
 
   useEffect(() => {
     if (inputValue.toUpperCase() === data?.word?.toUpperCase()) {
@@ -138,9 +232,39 @@ const Vocabulary = ({
     <>
       <div className={styles.header}>
         {unit ? (
-          <div className={styles.backWrapper}>
-            <div className={styles.back} onClick={() => router.push("/")}>
-              <FontAwesomeIcon icon={faArrowLeft} /> Back
+          <div className={styles.categoryContainer} ref={menuRef}>
+            <div
+              className={styles.categoryWrapper}
+              onClick={() => setOpen(!open)}
+            >
+              {categoryTitle.icon}
+              {categoryTitle.title}
+              <KeyboardArrowDownIcon />
+            </div>
+            <div
+              className={`${styles.categoryMenu} ${
+                open ? styles.active : styles.inactive
+              }`}
+            >
+              <ul>
+                {categoryLinks.map(
+                  (categoryLink) =>
+                    categoryLink.title !== categoryTitle.title && (
+                      <li
+                        key={categoryLink.title}
+                        className={styles.dropdownItem}
+                        onClick={() => {
+                          setOpen(false);
+                          setCategoryTitle(categoryLink.title);
+                          setIsReading(!isReading);
+                        }}
+                      >
+                        {categoryLink.icon}
+                        <p>{categoryLink.title}</p>
+                      </li>
+                    )
+                )}
+              </ul>
             </div>
           </div>
         ) : (
@@ -148,8 +272,17 @@ const Vocabulary = ({
         )}
 
         <div className={styles.optionWrapper}>
-          <div className={styles.option} onClick={handleOpenModal}>
-            Option
+          {!isReading && (
+            <div className={styles.option} onClick={handleOpenModal}>
+              Option
+            </div>
+          )}
+
+          <div
+            className={`${styles.option} ${styles.close}`}
+            onClick={() => router.push("/")}
+          >
+            <CloseIcon />
           </div>
         </div>
       </div>
@@ -210,24 +343,37 @@ const Vocabulary = ({
               </div>
             </div>
             <div className={styles.audioWrapper}>
-              <AudioPlayer link={data?.audioLink} autoPlay={true} />
+              {!isViSound ? (
+                <AudioPlayer link={data?.audioLink} autoPlay={true} />
+              ) : (
+                <AudioPlayer link={data?.viAudioLink} autoPlay={true} />
+              )}
             </div>
           </div>
           <div className={styles.actionButtonWrapper}>
-            {isReviewing ? (
-              <div className={styles.hint} onClick={handleHint}>
-                <FontAwesomeIcon icon={faLightbulb} />
-                Hint
-              </div>
-            ) : (
-              <div className={styles.star} onClick={handleHardWord}>
-                <FontAwesomeIcon
-                  icon={hardVocabularies ? faStar : far.faStar}
-                  className={styles.starIcon}
-                />
-              </div>
-            )}
+            {!isReading ? (
+              isReviewing ? (
+                <div className={styles.hint} onClick={handleHint}>
+                  <FontAwesomeIcon icon={faLightbulb} />
+                  Hint
+                </div>
+              ) : (
+                <div className={styles.star} onClick={handleHardWord}>
+                  <FontAwesomeIcon
+                    icon={hardVocabularies ? faStar : far.faStar}
+                    className={styles.starIcon}
+                  />
+                </div>
+              )
+            ) : null}
           </div>
+          {isReading && (
+            <div className={styles.countDownContainer}>
+              <div className={styles.countDownWrapper}>
+                <h1>{seconds}</h1>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className={styles.wrapper}>
@@ -253,7 +399,7 @@ const Vocabulary = ({
         </div>
       )}
 
-      {!isDone && (
+      {!isDone && !isReading && (
         <div className={styles.buttonWrapper}>
           {page > 0 ? (
             <ArrowCircleLeftOutlinedIcon
@@ -284,14 +430,15 @@ const Vocabulary = ({
           )}
         </div>
       )}
-
-      <input
-        type="text"
-        className={styles.input}
-        placeholder="Enter word"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      />
+      {!isReading && (
+        <input
+          type="text"
+          className={styles.input}
+          placeholder="Enter word"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+      )}
     </>
   );
 };

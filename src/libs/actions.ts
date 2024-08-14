@@ -115,8 +115,16 @@ export const deleteUnit = async (id: string) => {
 };
 
 export const addVocabulary = async (formData: any) => {
-  const { word, definition, transcription, wordType, unitId, audioLink } =
-    Object.fromEntries(formData);
+  const {
+    word,
+    definition,
+    transcription,
+    wordType,
+    unitId,
+    audioLink,
+    viAudioLink,
+    duration,
+  } = Object.fromEntries(formData);
   try {
     connectToDb();
     const newVocabulary = new Vocabulary({
@@ -126,6 +134,8 @@ export const addVocabulary = async (formData: any) => {
       wordType,
       unitId,
       audioLink,
+      viAudioLink,
+      duration,
     });
     await newVocabulary.save();
 
@@ -154,8 +164,17 @@ export const deleteVocabulary = async (id: string) => {
 };
 
 export const updateVocabulary = async (formData: any) => {
-  const { id, word, definition, transcription, wordType, audioLink, unitId } =
-    Object.fromEntries(formData);
+  const {
+    id,
+    word,
+    definition,
+    transcription,
+    wordType,
+    audioLink,
+    unitId,
+    viAudioLink,
+    duration,
+  } = Object.fromEntries(formData);
 
   try {
     connectToDb();
@@ -166,6 +185,8 @@ export const updateVocabulary = async (formData: any) => {
       wordType,
       audioLink,
       unitId,
+      viAudioLink,
+      duration,
     };
     await Vocabulary.findByIdAndUpdate(id, updateData, { new: true });
   } catch (error) {

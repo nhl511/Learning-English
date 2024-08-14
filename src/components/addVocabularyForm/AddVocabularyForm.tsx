@@ -14,7 +14,11 @@ const AddVocabularyForm = () => {
   const [definition, setDefinition] = useState("");
   const [transcription, setTranscription] = useState("");
   const [wordType, setWordType] = useState("");
+  const [duration, setDuration] = useState("");
   const [files, setFiles] = useState<
+    { key: string; url: string; name: string }[]
+  >([]);
+  const [viFiles, setViFiles] = useState<
     { key: string; url: string; name: string }[]
   >([]);
   const { grades } = useGrade();
@@ -32,7 +36,9 @@ const AddVocabularyForm = () => {
         setDefinition("");
         setTranscription("");
         setWordType("");
+        setDuration("");
         setFiles([]);
+        setViFiles([]);
         setIsLoading(false);
       }}
       className={styles.form}
@@ -75,7 +81,26 @@ const AddVocabularyForm = () => {
           <option key="">{type}</option>
         ))}
       </select>
-      <Upload files={files} setFiles={setFiles} />
+      <Upload
+        name="audioLink"
+        des="English audio"
+        files={files}
+        setFiles={setFiles}
+      />
+      <Upload
+        name="viAudioLink"
+        des="Vietnamese audio"
+        files={viFiles}
+        setFiles={setViFiles}
+      />
+      <input
+        type="number"
+        placeholder="Enter duration"
+        name="duration"
+        value={duration}
+        onChange={(e) => setDuration(e.target.value)}
+        disabled={isLoading}
+      />
       <select
         onChange={(e: any) => {
           setGradeId(e.target.value);

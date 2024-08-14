@@ -4,9 +4,14 @@ import styles from "./toggleButton.module.css";
 const ToggleButton = ({
   isChoose,
   setChangeMode,
+  options,
 }: {
   isChoose: any;
   setChangeMode: any;
+  options: {
+    inActive: String;
+    active: String;
+  };
 }) => {
   const handleChangeMode = (state: boolean) => {
     setChangeMode(state);
@@ -19,7 +24,7 @@ const ToggleButton = ({
           handleChangeMode(false);
         }}
       >
-        Off
+        {options.inActive}
       </button>
       <button
         className={`${styles.changeMode} ${isChoose && styles.selectMode}`}
@@ -27,7 +32,7 @@ const ToggleButton = ({
           handleChangeMode(true);
         }}
       >
-        On
+        {options.active}
       </button>
     </div>
   );

@@ -24,6 +24,8 @@ export type VocabularyType = {
   transcription: string;
   wordType: string;
   audioLink: string;
+  viAudioLink: string;
+  duration: string;
   unitId: string;
 };
 

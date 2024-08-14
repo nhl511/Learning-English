@@ -24,17 +24,38 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   const [showModal, setShowModal] = useState(false);
   const [isReviewing, setIsReviewing] = useState(false);
   const [isStar, setIsStar] = useState(false);
+  const [isViSound, setIsViSound] = useState(false);
 
   const options = [
     {
-      title: "Review vocabulary",
+      title: "Mode",
       control: (
-        <ToggleButton isChoose={isReviewing} setChangeMode={setIsReviewing} />
+        <ToggleButton
+          isChoose={isReviewing}
+          setChangeMode={setIsReviewing}
+          options={{ inActive: "Study", active: "Review" }}
+        />
       ),
     },
     {
-      title: "Learn starred vocabulary",
-      control: <ToggleButton isChoose={isStar} setChangeMode={setIsStar} />,
+      title: "Filter",
+      control: (
+        <ToggleButton
+          isChoose={isStar}
+          setChangeMode={setIsStar}
+          options={{ inActive: "All", active: "Bookmarks" }}
+        />
+      ),
+    },
+    {
+      title: "Sound",
+      control: (
+        <ToggleButton
+          isChoose={isViSound}
+          setChangeMode={setIsViSound}
+          options={{ inActive: "En", active: "Vi" }}
+        />
+      ),
     },
   ];
 
@@ -76,6 +97,8 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
         gradeTitle={grade?.title}
         handleOpenModal={handleOpenModal}
         isReviewing={isReviewing}
+        isViSound={isViSound}
+        setIsViSound={setIsViSound}
       />
       <Modal show={showModal} onClose={handleCloseModal}>
         <h2 className={styles.modalTitle}>Options</h2>

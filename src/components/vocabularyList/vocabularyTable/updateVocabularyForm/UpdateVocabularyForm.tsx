@@ -23,9 +23,14 @@ const UpdateVocabularyForm = ({
   const [files, setFiles] = useState<
     { key: string; url: string; name: string }[]
   >([]);
+  const [viFiles, setViFiles] = useState<
+    { key: string; url: string; name: string }[]
+  >([]);
   const [audioLink, setAudioLink] = useState("");
+  const [viAudioLink, setViAudioLink] = useState("");
   const { vocabulary, isLoadingVocabulary, isErrorVocabulary } =
     useVocabularyById(vocabularyId);
+  const [duration, setDuration] = useState("");
   const { nutateVocabularies } = useVocabulary(unitId);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,12 +40,16 @@ const UpdateVocabularyForm = ({
     setTranscription(vocabulary?.transcription);
     setWordType(vocabulary?.wordType);
     setAudioLink(vocabulary?.audioLink);
+    setViAudioLink(vocabulary?.viAudioLink);
+    setDuration(vocabulary?.duration);
   }, [
     vocabulary?.word,
     vocabulary?.definition,
     vocabulary?.transcription,
     vocabulary?.wordType,
     vocabulary?.audioLink,
+    vocabulary?.viAudioLink,
+    vocabulary?.duration,
   ]);
 
   if (isErrorVocabulary) return <div>failed to load</div>;
@@ -55,6 +64,7 @@ const UpdateVocabularyForm = ({
         nutateVocabularies();
         onClose();
         setFiles([]);
+        setViFiles([]);
         setIsLoading(false);
       }}
     >
@@ -93,7 +103,27 @@ const UpdateVocabularyForm = ({
           <option key="">{type}</option>
         ))}
       </select>
-      <UpdateUpload files={files} setFiles={setFiles} audioLink={audioLink} />
+      <UpdateUpload
+        files={files}
+        setFiles={setFiles}
+        link={audioLink}
+        name="audioLink"
+        des="English audio"
+      />
+      <UpdateUpload
+        files={viFiles}
+        setFiles={setViFiles}
+        link={viAudioLink}
+        name="viAudioLink"
+        des="Vietnamese audio"
+      />
+      <input
+        type="number"
+        value={duration}
+        onChange={(e) => setDuration(e.target.value)}
+        name="duration"
+        disabled={isLoading}
+      />
       <UpdateUnit isLoading={isLoading} unitId={vocabulary?.unitId} />
       <div className={styles.updateButtonWrapper}>
         <button disabled={isLoading}>Update</button>

@@ -44,6 +44,7 @@ export const types = [
   "Interjection",
   "Pronoun",
   "Determiner",
+  "Sentence",
 ];
 
 export const getUnitById = async (unitId: string) => {

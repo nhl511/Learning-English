@@ -12,18 +12,64 @@
   margin-top: 20px;
 }
 
-.backWrapper {
-  display: flex;
-  flex: 1;
+.categoryContainer {
+  position: relative;
 }
-.back {
-  display: flex;
-  gap: 5px;
-  align-items: center;
+
+.categoryWrapper {
   cursor: pointer;
-  font-size: 20px;
-  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.categoryMenu {
+  top: 1;
+  left: 0;
+  position: absolute;
+  background-color: var(--wrapper-color);
+  padding: 10px 20px;
+  border-radius: 0 0 10px 10px;
+  width: 250px;
+  z-index: 299;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.categoryMenu ul li {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.categoryMenu ul li:hover {
+  cursor: pointer;
+  background-color: var(--optionHover-color);
   color: var(--text-color);
+}
+
+.active {
+  opacity: 1;
+  visibility: visible;
+  transition: var(--speed) ease;
+}
+
+.inactive {
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--speed) ease;
+  pointer-events: none; /* Add this line */
+}
+
+.dropdownItem {
+  display: flex;
+  margin: 10px auto;
+  transition: var(--speed);
+}
+
+.dropdownItem p {
+  max-width: 100%;
+  margin-left: 10px;
 }
 
 .wordWrapper h1 {
@@ -58,20 +104,25 @@
   flex: 1;
   display: flex;
   justify-content: end;
+  gap: 15px;
 }
 
 .option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 2px solid var(--button-color);
-  padding: 10px 20px;
+  padding: 5px 20px;
   color: var(--button-color);
-  font-size: 16px;
   cursor: pointer;
   font-weight: bold;
   border-radius: 10px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
-
+.close {
+  padding: 5px;
+}
 .modes {
   /* margin: 0 0 0 auto; */
   flex: 1;
@@ -132,7 +183,19 @@
   top: 40px;
   right: 40px;
 }
-
+.countDownContainer {
+  color: var(--titleText-color);
+  position: absolute;
+}
+.countDownWrapper {
+  border: 4px solid var(--titleText-color);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+}
 .hint {
   display: flex;
   gap: 5px;

@@ -9,11 +9,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const UpdateUpload = ({
   files,
   setFiles,
-  audioLink,
+  link,
+  name,
+  des,
 }: {
   files: { key: string; url: string; name: string }[];
   setFiles: any;
-  audioLink: string;
+  link: string;
+  name: string;
+  des: string;
 }) => {
   const fileList = (
     <>
@@ -24,17 +28,20 @@ const UpdateUpload = ({
             <Link href={file.url} className={styles.fileLink}>
               {file.name}
             </Link>
-            <input type="hidden" value={file.url} name="audioLink" />
+            <input type="hidden" value={file.url} name={name} />
           </div>
         ))
       ) : (
-        <input type="hidden" value={audioLink} name="audioLink" />
+        <input type="hidden" value={link} name={name} />
       )}
     </>
   );
   return (
     <div className={styles.container}>
       <UploadDropzone
+        content={{
+          label: `Upload ${des} file`,
+        }}
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           // Do something with the response

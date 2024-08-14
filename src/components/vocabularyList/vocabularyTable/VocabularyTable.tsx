@@ -48,7 +48,9 @@ const VocabularyTable = ({ unitId }: { unitId: string }) => {
             <th>Definition</th>
             <th>Transcription</th>
             <th>Word type</th>
-            <th>Audio</th>
+            <th>English</th>
+            <th>Vietnamese</th>
+            <th>Duration</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -63,6 +65,14 @@ const VocabularyTable = ({ unitId }: { unitId: string }) => {
                 {vocabulary?.audioLink && (
                   <AudioPlayer link={vocabulary.audioLink} autoPlay={false} />
                 )}
+              </td>
+              <td>
+                {vocabulary?.viAudioLink && (
+                  <AudioPlayer link={vocabulary.viAudioLink} autoPlay={false} />
+                )}
+              </td>
+              <td>
+                {vocabulary?.duration && `${Number(vocabulary.duration)}s`}
               </td>
               <td>
                 <div className={styles.buttonTableWrapper}>

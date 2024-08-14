@@ -72,6 +72,12 @@ const vocabularySchema = new mongoose.Schema(
     audioLink: {
       type: String,
     },
+    viAudioLink: {
+      type: String,
+    },
+    duration: {
+      type: Number,
+    },
     unitId: {
       type: String,
       required: true,
