@@ -17,6 +17,8 @@ const SavedVocabularyPage = ({ params }: any) => {
   const [isReviewing, setIsReviewing] = useState(false);
   const [isStar, setIsStar] = useState(true);
   const router = useRouter();
+  const [isViSound, setIsViSound] = useState(false);
+
   const { hardVocabularyData, isLoadingHardVocabulary } = useHardVocabularies({
     page,
     userId: slug,
@@ -24,14 +26,34 @@ const SavedVocabularyPage = ({ params }: any) => {
 
   const options = [
     {
-      title: "Review vocabulary",
+      title: "Mode",
       control: (
-        <ToggleButton isChoose={isReviewing} setChangeMode={setIsReviewing} />
+        <ToggleButton
+          isChoose={isReviewing}
+          setChangeMode={setIsReviewing}
+          options={{ inActive: "Study", active: "Review" }}
+        />
       ),
     },
     {
-      title: "Learn starred vocabulary",
-      control: <ToggleButton isChoose={isStar} setChangeMode={setIsStar} />,
+      title: "Filter",
+      control: (
+        <ToggleButton
+          isChoose={isStar}
+          setChangeMode={setIsStar}
+          options={{ inActive: "All", active: "Bookmarks" }}
+        />
+      ),
+    },
+    {
+      title: "Sound",
+      control: (
+        <ToggleButton
+          isChoose={isViSound}
+          setChangeMode={setIsViSound}
+          options={{ inActive: "En", active: "Vi" }}
+        />
+      ),
     },
   ];
 
@@ -58,6 +80,8 @@ const SavedVocabularyPage = ({ params }: any) => {
           number={number}
           handleOpenModal={handleOpenModal}
           isReviewing={isReviewing}
+          isViSound={isViSound}
+          setIsViSound={setIsViSound}
         />
       </div>
       <Modal show={showModal} onClose={handleCloseModal}>
