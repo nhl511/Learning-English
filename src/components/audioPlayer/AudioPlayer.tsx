@@ -2,23 +2,46 @@
 
 import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 const AudioPlayer = ({
   link,
   autoPlay,
+  onAudioEnd,
 }: {
   link: string;
   autoPlay: boolean;
+  onAudioEnd?: () => void;
 }) => {
-  const audio = new Audio(link);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handlePlay = () => {
-    audio.play();
+    if (audioRef.current) {
+      // Pause the currently playing audio if any
+      audioRef.current.pause();
+    }
+
+    // Create a new audio instance and assign it to the ref
+    const newAudio = new Audio(link);
+    audioRef.current = newAudio;
+
+    newAudio.addEventListener("ended", () => {
+      if (onAudioEnd) onAudioEnd(); // Trigger the callback if provided
+    });
+
+    newAudio.play();
   };
+
   useEffect(() => {
     if (autoPlay) handlePlay();
-  }, [link]);
+
+    // Cleanup on unmount
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, [link, autoPlay]);
 
   return (
     <div className="">

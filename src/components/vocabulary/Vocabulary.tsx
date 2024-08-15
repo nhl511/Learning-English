@@ -61,6 +61,7 @@ const Vocabulary = ({
   const [categoryTitle, setCategoryTitle] = useState<any>({});
   const [isReading, setIsReading] = useState(false);
   const [seconds, setSeconds] = useState(0);
+  const [isEndAudio, setIsEndAudio] = useState(false);
   let menuRef = useRef<any>();
 
   const categoryLinks = [
@@ -103,6 +104,9 @@ const Vocabulary = ({
     };
   });
 
+  const handleAudioEnd = () => {
+    setIsEndAudio(true);
+  };
   const decreasePage = () => {
     setPage((prev: any) => prev - 1);
     setInputValue("");
@@ -115,13 +119,15 @@ const Vocabulary = ({
 
   useEffect(() => {
     if (data) {
-      if (data?.duration) setSeconds(data?.duration);
-      else setSeconds(5);
+      if (data?.duration) {
+        setIsEndAudio(false);
+        setSeconds(data?.duration);
+      } else setSeconds(5);
     }
   }, [data]);
 
   useEffect(() => {
-    if (isReading && data && page < number) {
+    if (isReading && page < number) {
       setIsViSound(true);
       setIsHidden(true);
       const intervalId = setInterval(
@@ -133,17 +139,17 @@ const Vocabulary = ({
 
       return () => clearInterval(intervalId);
     }
-  }, [isReading, page, number, data]);
+  }, [isReading, isEndAudio, page, number]);
 
   useEffect(() => {
-    if (data?.viAudioLink && isReading) {
+    if (isEndAudio) {
       const intervalId = setInterval(() => {
         setSeconds((prevSeconds: number) => prevSeconds - 1);
       }, 1000);
 
       return () => clearInterval(intervalId);
     }
-  }, [data?.viAudioLink, isReading]);
+  }, [isEndAudio]);
 
   useEffect(() => {
     if (!isReading) {
@@ -346,7 +352,11 @@ const Vocabulary = ({
               {!isViSound ? (
                 <AudioPlayer link={data?.audioLink} autoPlay={true} />
               ) : (
-                <AudioPlayer link={data?.viAudioLink} autoPlay={true} />
+                <AudioPlayer
+                  link={data?.viAudioLink}
+                  autoPlay={true}
+                  onAudioEnd={handleAudioEnd}
+                />
               )}
             </div>
           </div>
