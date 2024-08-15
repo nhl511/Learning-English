@@ -377,7 +377,7 @@ const Vocabulary = ({
               )
             ) : null}
           </div>
-          {isReading && (
+          {isReading && isEndAudio && (
             <div className={styles.countDownContainer}>
               <div className={styles.countDownWrapper}>
                 <h1>{seconds}</h1>
