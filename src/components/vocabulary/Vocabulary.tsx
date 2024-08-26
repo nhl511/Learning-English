@@ -81,9 +81,6 @@ const Vocabulary = ({
       SpeechRecognition.startListening({ continuous: false });
     }
   };
-  if (!browserSupportsSpeechRecognition) {
-    return null;
-  }
 
   const categoryLinks = [
     {
@@ -229,6 +226,10 @@ const Vocabulary = ({
       setCurInput(curriculumPart);
     }
   }, [gradeTitle]);
+
+  if (!browserSupportsSpeechRecognition) {
+    return null;
+  }
 
   if (number === 0) return <div className={styles.empty}></div>;
 
