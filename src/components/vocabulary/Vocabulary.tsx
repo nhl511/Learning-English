@@ -1,4 +1,5 @@
 "use client";
+import "regenerator-runtime/runtime";
 import styles from "./vocabulary.module.css";
 import React, { useEffect, useRef, useState } from "react";
 import { UnitType } from "@/types/types";
@@ -21,6 +22,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
+import StopIcon from "@mui/icons-material/Stop";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 const Vocabulary = ({
   data,
@@ -60,9 +66,24 @@ const Vocabulary = ({
   const [open, setOpen] = useState(false);
   const [categoryTitle, setCategoryTitle] = useState<any>({});
   const [isReading, setIsReading] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [isEndAudio, setIsEndAudio] = useState(false);
   let menuRef = useRef<any>();
+  const {
+    listening,
+    transcript,
+    browserSupportsSpeechRecognition,
+    resetTranscript,
+  } = useSpeechRecognition();
+
+  const handleRecord = () => {
+    if (listening) {
+      SpeechRecognition.stopListening();
+    } else {
+      SpeechRecognition.startListening({ continuous: false });
+    }
+  };
+  if (!browserSupportsSpeechRecognition) {
+    return null;
+  }
 
   const categoryLinks = [
     {
@@ -104,58 +125,25 @@ const Vocabulary = ({
     };
   });
 
-  const handleAudioEnd = () => {
-    setIsEndAudio(true);
-  };
   const decreasePage = () => {
     setPage((prev: any) => prev - 1);
     setInputValue("");
+    resetTranscript();
   };
 
   const increasePage = () => {
     setPage((prev: any) => prev + 1);
     setInputValue("");
+    resetTranscript();
   };
-
-  useEffect(() => {
-    if (data) {
-      if (data?.duration) {
-        setIsEndAudio(false);
-        setSeconds(data?.duration);
-      } else setSeconds(5);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (isReading && page < number) {
-      setIsViSound(true);
-      setIsHidden(true);
-      const intervalId = setInterval(
-        () => {
-          increasePage();
-        },
-        data?.duration ? data?.duration * 1000 : 5000
-      );
-
-      return () => clearInterval(intervalId);
-    }
-  }, [isReading, isEndAudio, page, number]);
-
-  useEffect(() => {
-    if (isEndAudio) {
-      const intervalId = setInterval(() => {
-        setSeconds((prevSeconds: number) => prevSeconds - 1);
-      }, 1000);
-
-      return () => clearInterval(intervalId);
-    }
-  }, [isEndAudio]);
 
   useEffect(() => {
     if (!isReading) {
       setPage(0);
       setIsViSound(false);
-      setIsHidden(false);
+    } else {
+      setPage(0);
+      setIsViSound(true);
     }
   }, [isReading]);
 
@@ -164,6 +152,16 @@ const Vocabulary = ({
       increasePage();
     }
   }, [inputValue]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (transcript.toUpperCase() === data?.word?.toUpperCase()) {
+        increasePage();
+      }
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [transcript]);
 
   useEffect(() => {
     if (page === number) {
@@ -352,11 +350,7 @@ const Vocabulary = ({
               {!isViSound ? (
                 <AudioPlayer link={data?.audioLink} autoPlay={true} />
               ) : (
-                <AudioPlayer
-                  link={data?.viAudioLink}
-                  autoPlay={true}
-                  onAudioEnd={handleAudioEnd}
-                />
+                <AudioPlayer link={data?.viAudioLink} autoPlay={true} />
               )}
             </div>
           </div>
@@ -377,13 +371,6 @@ const Vocabulary = ({
               )
             ) : null}
           </div>
-          {isReading && isEndAudio && (
-            <div className={styles.countDownContainer}>
-              <div className={styles.countDownWrapper}>
-                <h1>{seconds}</h1>
-              </div>
-            </div>
-          )}
         </div>
       ) : (
         <div className={styles.wrapper}>
@@ -409,7 +396,7 @@ const Vocabulary = ({
         </div>
       )}
 
-      {!isDone && !isReading && (
+      {!isDone && (
         <div className={styles.buttonWrapper}>
           {page > 0 ? (
             <ArrowCircleLeftOutlinedIcon
@@ -440,14 +427,28 @@ const Vocabulary = ({
           )}
         </div>
       )}
-      {!isReading && (
-        <input
-          type="text"
-          className={styles.input}
-          placeholder="Enter word"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
+      {!isReading ? (
+        <div className={styles.inputWrapper}>
+          <input
+            type="text"
+            className={styles.input}
+            placeholder="Enter word"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+        </div>
+      ) : (
+        <div className={styles.inputWrapper}>
+          <input
+            type="text"
+            className={styles.input}
+            value={transcript}
+            readOnly
+          />
+          <div className={styles.recordBtn} onClick={handleRecord}>
+            {listening ? <StopIcon /> : <KeyboardVoiceIcon />}
+          </div>
+        </div>
       )}
     </>
   );

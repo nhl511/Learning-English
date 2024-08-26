@@ -240,6 +240,12 @@
   font-size: 20px;
 }
 
+.inputWrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+}
+
 .input {
   width: 100%;
   outline: none;
@@ -249,8 +255,23 @@
   border-radius: 30px;
   padding: 20px;
   color: var(--text-color);
+}
+
+.recordBtn {
+  background-color: var(--lightButton-color);
+  color: var(--titleText-color);
   position: absolute;
-  bottom: 20px;
+  right: 5px;
+  top: 50%;
+  bottom: 50%;
+  transform: translate(-50%, -50%); /* Adjusts the item to be centered */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .completeNoti {
