@@ -277,11 +277,9 @@ const Vocabulary = ({
         )}
 
         <div className={styles.optionWrapper}>
-          {!isReading && (
-            <div className={styles.option} onClick={handleOpenModal}>
-              Option
-            </div>
-          )}
+          <div className={styles.option} onClick={handleOpenModal}>
+            Option
+          </div>
 
           <div
             className={`${styles.option} ${styles.close}`}
@@ -356,21 +354,19 @@ const Vocabulary = ({
             </div>
           </div>
           <div className={styles.actionButtonWrapper}>
-            {!isReading ? (
-              isReviewing ? (
-                <div className={styles.hint} onClick={handleHint}>
-                  <FontAwesomeIcon icon={faLightbulb} />
-                  Hint
-                </div>
-              ) : (
-                <div className={styles.star} onClick={handleHardWord}>
-                  <FontAwesomeIcon
-                    icon={hardVocabularies ? faStar : far.faStar}
-                    className={styles.starIcon}
-                  />
-                </div>
-              )
-            ) : null}
+            {isReviewing ? (
+              <div className={styles.hint} onClick={handleHint}>
+                <FontAwesomeIcon icon={faLightbulb} />
+                Hint
+              </div>
+            ) : (
+              <div className={styles.star} onClick={handleHardWord}>
+                <FontAwesomeIcon
+                  icon={hardVocabularies ? faStar : far.faStar}
+                  className={styles.starIcon}
+                />
+              </div>
+            )}
           </div>
         </div>
       ) : (
