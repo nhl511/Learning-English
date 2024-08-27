@@ -183,6 +183,11 @@
   top: 40px;
   right: 40px;
 }
+.correctTimeWrapper {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
 .countDownContainer {
   color: var(--titleText-color);
   position: absolute;
@@ -320,9 +325,11 @@
   .info {
     gap: 10px;
   }
+
   .audioWrapper {
     margin-top: 10px;
   }
+
   .wrapper {
     margin-top: 10px;
     font-size: 16px;

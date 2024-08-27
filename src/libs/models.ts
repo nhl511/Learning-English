@@ -97,6 +97,21 @@ const hardVocabularySchema = new mongoose.Schema({
   },
 });
 
+const correctTimeSchema = new mongoose.Schema({
+  vocabularyId: {
+    type: String,
+    required: true,
+  },
+  userId: {
+    type: String,
+    required: true,
+  },
+  correctTime: {
+    type: Number,
+    default: 0,
+  },
+});
+
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);
 export const Grade =
   mongoose.models?.Grade || mongoose.model("Grade", gradeSchema);
@@ -106,3 +121,6 @@ export const Vocabulary =
 export const HardVocabulary =
   mongoose.models?.HardVocabulary ||
   mongoose.model("HardVocabulary", hardVocabularySchema);
+export const CorrectTime =
+  mongoose.models?.CorrectTime ||
+  mongoose.model("CorrectTime", correctTimeSchema);

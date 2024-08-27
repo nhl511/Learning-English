@@ -1,7 +1,14 @@
 "use server";
 import { VocabularyType } from "@/types/types";
 import { auth, signIn, signOut } from "./auth";
-import { Grade, HardVocabulary, Unit, User, Vocabulary } from "./models";
+import {
+  CorrectTime,
+  Grade,
+  HardVocabulary,
+  Unit,
+  User,
+  Vocabulary,
+} from "./models";
 import { connectToDb } from "./utils";
 import bcrypt from "bcrypt";
 
@@ -276,6 +283,22 @@ export const changePassword = async ({
       password: hashedPassword,
     };
     await User.findByIdAndUpdate(userId, updateData);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateCorrectTime = async (vocabId: string) => {
+  const session = await auth();
+
+  try {
+    connectToDb();
+
+    await CorrectTime.updateOne(
+      { vocabularyId: vocabId, userId: session?.user?.id },
+      { $inc: { correctTime: 1 } },
+      { upsert: true }
+    );
   } catch (error) {
     console.log(error);
   }

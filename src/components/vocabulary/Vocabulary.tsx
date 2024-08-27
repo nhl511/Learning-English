@@ -12,9 +12,17 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { useHardVocabularyById, useSession } from "@/customHooks/CustomHooks";
+import {
+  useCorrectTime,
+  useHardVocabularyById,
+  useSession,
+} from "@/customHooks/CustomHooks";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { addHardVocabulary, deleteHardVocabulary } from "@/libs/actions";
+import {
+  addHardVocabulary,
+  deleteHardVocabulary,
+  updateCorrectTime,
+} from "@/libs/actions";
 import AudioPlayer from "../audioPlayer/AudioPlayer";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
@@ -66,6 +74,10 @@ const Vocabulary = ({
   const [open, setOpen] = useState(false);
   const [categoryTitle, setCategoryTitle] = useState<any>({});
   const [isReading, setIsReading] = useState(false);
+  const { correctTimeData } = useCorrectTime({
+    vocabId: data?._id,
+    userId: sessionData?.user?.id,
+  });
   let menuRef = useRef<any>();
   const {
     listening,
@@ -146,6 +158,9 @@ const Vocabulary = ({
 
   useEffect(() => {
     if (inputValue.toUpperCase() === data?.word?.toUpperCase()) {
+      if (sessionData) {
+        updateCorrectTime(data?._id);
+      }
       increasePage();
     }
   }, [inputValue]);
@@ -153,6 +168,9 @@ const Vocabulary = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (transcript.toUpperCase() === data?.word?.toUpperCase()) {
+        if (sessionData) {
+          updateCorrectTime(data?._id);
+        }
         increasePage();
       }
     }, 1000);
@@ -368,6 +386,14 @@ const Vocabulary = ({
               </div>
             )}
           </div>
+          {sessionData && (
+            <div className={styles.correctTimeWrapper}>
+              <p>
+                Level of interaction:{" "}
+                {correctTimeData?.length && correctTimeData[0].correctTime}
+              </p>
+            </div>
+          )}
         </div>
       ) : (
         <div className={styles.wrapper}>

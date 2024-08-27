@@ -260,3 +260,34 @@ export const useHardVocabularies = ({
     isLoadingHardVocabulary: isLoadingVocabulary,
   };
 };
+
+const correctTimeFetcher = async ({
+  vocabId,
+  userId,
+}: {
+  vocabId: string;
+  userId: string;
+}) => {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
+      `/api/correct-time?vocabId=${vocabId}&userId=${userId}`
+  );
+  const data = await res.json();
+  return data;
+};
+
+export const useCorrectTime = ({
+  vocabId,
+  userId,
+}: {
+  vocabId: string;
+  userId: string;
+}) => {
+  const { data } = useSWR(
+    `api/correct-time/?vocabId=${vocabId}&userId=${userId}`,
+    () => correctTimeFetcher({ vocabId, userId })
+  );
+  return {
+    correctTimeData: data,
+  };
+};
