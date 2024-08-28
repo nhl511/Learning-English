@@ -1,0 +1,10 @@
+.audioContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.audioContainer select {
+  font-size: 16px;
+  outline: none;
+  width: 100px;
+}
