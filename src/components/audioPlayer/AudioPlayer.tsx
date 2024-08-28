@@ -15,6 +15,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
   const context = useContext(VoiceContext);
 
   const { voices } = context;
+  console.log(voices);
   const handlePlay = () => {
     // Cancel any ongoing speech synthesis
     window.speechSynthesis.cancel();
@@ -22,9 +23,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
     // Create a new SpeechSynthesisUtterance instance
     const utterance = new SpeechSynthesisUtterance(word);
     if (lang === "en") {
-      utterance.voice = voices.find((voice: any) => voice.name === "Samantha");
+      utterance.voice = voices.find((voice: any) => voice.lang === "en-US");
     } else {
-      utterance.voice = voices.find((voice: any) => voice.name === "Linh");
+      utterance.voice = voices.find((voice: any) => voice.lang === "vi-VN");
     }
 
     window.speechSynthesis.speak(utterance);
