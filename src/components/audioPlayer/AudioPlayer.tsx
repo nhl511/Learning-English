@@ -13,8 +13,8 @@ interface AudioPlayerProps {
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
   const context = useContext(VoiceContext);
-  const { voices } = context;
 
+  const { voices } = context;
   const handlePlay = () => {
     // Cancel any ongoing speech synthesis
     window.speechSynthesis.cancel();
@@ -22,9 +22,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
     // Create a new SpeechSynthesisUtterance instance
     const utterance = new SpeechSynthesisUtterance(word);
     if (lang === "en") {
-      utterance.voice = voices[1];
+      utterance.voice = voices.find((voice: any) => voice.name === "Aaron");
     } else {
-      utterance.voice = voices[80];
+      utterance.voice = voices.find((voice: any) => voice.name === "Linh");
     }
 
     window.speechSynthesis.speak(utterance);
