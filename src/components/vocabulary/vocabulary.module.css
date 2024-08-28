@@ -250,6 +250,15 @@
   position: absolute;
   bottom: 20px;
 }
+.recordContainer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
 
 .input {
   width: 100%;
@@ -265,13 +274,8 @@
 .recordBtn {
   background-color: var(--lightButton-color);
   color: var(--titleText-color);
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  bottom: 50%;
-  transform: translate(-50%, -50%); /* Adjusts the item to be centered */
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;

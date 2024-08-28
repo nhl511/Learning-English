@@ -90,7 +90,10 @@ const Vocabulary = ({
     if (listening) {
       SpeechRecognition.stopListening();
     } else {
-      SpeechRecognition.startListening({ continuous: false });
+      SpeechRecognition.startListening({
+        continuous: false,
+        language: "en-US",
+      });
     }
   };
 
@@ -461,15 +464,14 @@ const Vocabulary = ({
           />
         </div>
       ) : (
-        <div className={styles.inputWrapper}>
-          <input
-            type="text"
-            className={styles.input}
-            value={transcript}
-            readOnly
-          />
+        <div className={styles.recordContainer}>
+          <p>{transcript}</p>
           <div className={styles.recordBtn} onClick={handleRecord}>
-            {listening ? <StopIcon /> : <KeyboardVoiceIcon />}
+            {listening ? (
+              <StopIcon fontSize="large" />
+            ) : (
+              <KeyboardVoiceIcon fontSize="large" />
+            )}
           </div>
         </div>
       )}
