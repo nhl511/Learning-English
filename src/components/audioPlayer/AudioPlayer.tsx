@@ -1,50 +1,48 @@
 "use client";
 
+import VoiceContext from "@/contexts/VoiceContext";
 import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-const AudioPlayer = ({
-  link,
-  autoPlay,
-  onAudioEnd,
-}: {
-  link: string;
+interface AudioPlayerProps {
+  word: string;
   autoPlay: boolean;
-  onAudioEnd?: () => void;
-}) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  lang?: string;
+}
+
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
+  const context = useContext(VoiceContext);
+  const { voices } = context;
 
   const handlePlay = () => {
-    if (audioRef.current) {
-      // Pause the currently playing audio if any
-      audioRef.current.pause();
+    // Cancel any ongoing speech synthesis
+    window.speechSynthesis.cancel();
+
+    // Create a new SpeechSynthesisUtterance instance
+    const utterance = new SpeechSynthesisUtterance(word);
+    if (lang === "en") {
+      utterance.voice = voices[1];
+    } else {
+      utterance.voice = voices[80];
     }
 
-    // Create a new audio instance and assign it to the ref
-    const newAudio = new Audio(link);
-    audioRef.current = newAudio;
-
-    newAudio.addEventListener("ended", () => {
-      if (onAudioEnd) onAudioEnd(); // Trigger the callback if provided
-    });
-
-    newAudio.play();
+    window.speechSynthesis.speak(utterance);
   };
 
   useEffect(() => {
-    if (autoPlay) handlePlay();
+    if (autoPlay && word) {
+      handlePlay();
+    }
 
-    // Cleanup on unmount
+    // Cleanup function to cancel speech synthesis when component unmounts or dependencies change
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
+      window.speechSynthesis.cancel();
     };
-  }, [link, autoPlay]);
+  }, [word, autoPlay]);
 
   return (
-    <div className="">
+    <div>
       <FontAwesomeIcon
         icon={faVolumeHigh}
         style={{ color: "black", cursor: "pointer" }}

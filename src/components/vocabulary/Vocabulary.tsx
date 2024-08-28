@@ -368,9 +368,13 @@ const Vocabulary = ({
             </div>
             <div className={styles.audioWrapper}>
               {!isViSound ? (
-                <AudioPlayer link={data?.audioLink} autoPlay={true} />
+                <AudioPlayer word={data?.word} autoPlay={true} lang="en" />
               ) : (
-                <AudioPlayer link={data?.viAudioLink} autoPlay={true} />
+                <AudioPlayer
+                  word={data?.definition}
+                  autoPlay={true}
+                  lang="vi"
+                />
               )}
             </div>
           </div>

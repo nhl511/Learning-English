@@ -122,16 +122,8 @@ export const deleteUnit = async (id: string) => {
 };
 
 export const addVocabulary = async (formData: any) => {
-  const {
-    word,
-    definition,
-    transcription,
-    wordType,
-    unitId,
-    audioLink,
-    viAudioLink,
-    duration,
-  } = Object.fromEntries(formData);
+  const { word, definition, transcription, wordType, unitId } =
+    Object.fromEntries(formData);
   try {
     connectToDb();
     const newVocabulary = new Vocabulary({
@@ -140,13 +132,8 @@ export const addVocabulary = async (formData: any) => {
       transcription,
       wordType,
       unitId,
-      audioLink,
-      viAudioLink,
-      duration,
     });
     await newVocabulary.save();
-
-    // revalidatePath("/admin-dashboard");
   } catch (error) {
     console.log(error);
   }
@@ -171,17 +158,8 @@ export const deleteVocabulary = async (id: string) => {
 };
 
 export const updateVocabulary = async (formData: any) => {
-  const {
-    id,
-    word,
-    definition,
-    transcription,
-    wordType,
-    audioLink,
-    unitId,
-    viAudioLink,
-    duration,
-  } = Object.fromEntries(formData);
+  const { id, word, definition, transcription, wordType, unitId } =
+    Object.fromEntries(formData);
 
   try {
     connectToDb();
@@ -190,10 +168,7 @@ export const updateVocabulary = async (formData: any) => {
       definition,
       transcription,
       wordType,
-      audioLink,
       unitId,
-      viAudioLink,
-      duration,
     };
     await Vocabulary.findByIdAndUpdate(id, updateData, { new: true });
   } catch (error) {

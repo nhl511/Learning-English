@@ -5,7 +5,6 @@ import { types } from "@/libs/data";
 import { GradeType, UnitType } from "@/types/types";
 import { addVocabulary } from "@/libs/actions";
 import { useGrade, useUnit, useVocabulary } from "@/customHooks/CustomHooks";
-import Upload from "../upload/Upload";
 
 const AddVocabularyForm = () => {
   const [unitId, setUnitId] = useState("");
@@ -14,13 +13,7 @@ const AddVocabularyForm = () => {
   const [definition, setDefinition] = useState("");
   const [transcription, setTranscription] = useState("");
   const [wordType, setWordType] = useState("");
-  const [duration, setDuration] = useState("");
-  const [files, setFiles] = useState<
-    { key: string; url: string; name: string }[]
-  >([]);
-  const [viFiles, setViFiles] = useState<
-    { key: string; url: string; name: string }[]
-  >([]);
+
   const { grades } = useGrade();
   const { units } = useUnit(gradeId);
   const { nutateVocabularies } = useVocabulary(unitId);
@@ -36,9 +29,6 @@ const AddVocabularyForm = () => {
         setDefinition("");
         setTranscription("");
         setWordType("");
-        setDuration("");
-        setFiles([]);
-        setViFiles([]);
         setIsLoading(false);
       }}
       className={styles.form}
@@ -81,26 +71,7 @@ const AddVocabularyForm = () => {
           <option key="">{type}</option>
         ))}
       </select>
-      <Upload
-        name="audioLink"
-        des="English audio"
-        files={files}
-        setFiles={setFiles}
-      />
-      <Upload
-        name="viAudioLink"
-        des="Vietnamese audio"
-        files={viFiles}
-        setFiles={setViFiles}
-      />
-      <input
-        type="number"
-        placeholder="Enter duration"
-        name="duration"
-        value={duration}
-        onChange={(e) => setDuration(e.target.value)}
-        disabled={isLoading}
-      />
+
       <select
         onChange={(e: any) => {
           setGradeId(e.target.value);
