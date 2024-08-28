@@ -22,7 +22,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
     // Create a new SpeechSynthesisUtterance instance
     const utterance = new SpeechSynthesisUtterance(word);
     if (lang === "en") {
-      utterance.voice = voices.find((voice: any) => voice.name === "Aaron");
+      utterance.voice = voices.find((voice: any) => voice.name === "Samantha");
     } else {
       utterance.voice = voices.find((voice: any) => voice.name === "Linh");
     }
