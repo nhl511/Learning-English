@@ -18,11 +18,11 @@ const VoiceProvider = ({ children }: VoiceProviderProps) => {
       //   setEnVoiceIndex(0);
       //   setViVoiceIndex(voices.findIndex((voice: any) => voice.lang === "vi-VN"));
 
-      const filteredEnVoices = voices.filter(
-        (voice: any) => voice.lang === "en-US"
+      const filteredEnVoices = voices.filter((voice: any) =>
+        /en.US/.test(voice.lang)
       );
-      const filteredViVoices = voices.filter(
-        (voice: any) => voice.lang === "vi-VN"
+      const filteredViVoices = voices.filter((voice: any) =>
+        /vi.VN/.test(voice.lang)
       );
 
       const firstEnVoiceIndex = voices.indexOf(filteredEnVoices[0]);

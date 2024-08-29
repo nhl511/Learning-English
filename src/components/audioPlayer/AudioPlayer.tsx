@@ -61,7 +61,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
               voice,
               originalIndex: index,
             }))
-            .filter(({ voice }: any) => voice.lang === "en-US")
+            .filter(({ voice }: any) => /en.US/.test(voice.lang))
             .map(({ voice, originalIndex }: any) => (
               <option key={voice.name} value={originalIndex}>
                 {voice.name}
@@ -78,7 +78,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
               voice,
               originalIndex: index,
             }))
-            .filter(({ voice }: any) => voice.lang === "vi-VN")
+            .filter(({ voice }: any) => /vi.VN/.test(voice.lang))
             .map(({ voice, originalIndex }: any) => (
               <option key={voice.name} value={originalIndex}>
                 {voice.name}
