@@ -60,7 +60,7 @@ const Vocabulary = ({
   isReviewing: boolean;
   isViSound: boolean;
   setIsViSound: any;
-  isReading: boolean;
+  isReading?: boolean;
   isTest?: boolean;
 }) => {
   const router = useRouter();
