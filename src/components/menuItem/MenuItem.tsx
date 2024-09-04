@@ -35,20 +35,17 @@ const MenuItem = ({
         <>
           <hr />
           {items.map((item: any) => (
-            <div className={styles.item} key={item.title}>
+            <div
+              className={styles.item}
+              key={item.title}
+              onClick={() => router.push(item.path)}
+            >
               <div className={styles.itemLeft}>
                 {item.icon}
                 <div className={styles.itemTitle}>
                   <h3>{item.title}</h3>
                   <p>{item.des}</p>
                 </div>
-              </div>
-
-              <div
-                onClick={() => router.push(item.path)}
-                className={styles.buttonWrapper}
-              >
-                <PlayArrowIcon />
               </div>
             </div>
           ))}

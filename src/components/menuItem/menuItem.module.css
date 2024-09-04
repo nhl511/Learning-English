@@ -21,13 +21,14 @@
 }
 
 .menuTitle h2 {
-  font-weight: 500;
+  color: var(--titleText-color);
 }
 
 .item {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  padding: 10px;
 }
 
 .itemLeft {
@@ -52,4 +53,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+.item:hover {
+  background-color: #f0f0f0;
 }

@@ -51,13 +51,13 @@ const MenuList = ({ params }: any) => {
   const testItems = [
     {
       title: "Typing",
-      des: "Hide all vocabulary information. Listen to vocabulary sounds & enter vocabulary using the keyboard",
+      des: "Hide all vocabulary information. Listen to vocabulary sounds & enter vocabulary using the keyboard. Score",
       path: `/${slug}?mode=test&input=typing`,
       icon: <KeyboardAltOutlinedIcon fontSize="large" />,
     },
     {
       title: "Speaking",
-      des: "Hide all vocabulary information. Listen to vocabulary sounds & repeat",
+      des: "Hide all vocabulary information. Listen to vocabulary sounds & repeat. Score",
       path: `/${slug}?mode=test&input=speaking`,
       icon: <KeyboardVoiceOutlinedIcon fontSize="large" />,
     },
@@ -79,13 +79,9 @@ const MenuList = ({ params }: any) => {
       </div>
 
       <div className={styles.wrapper}>
-        <MenuItem title="learn vocabulary" number={number} items={studyItems} />
-        <MenuItem
-          title="vocabulary practice"
-          number={number}
-          items={practiceItems}
-        />
-        <MenuItem title="vocabulary test" number={number} items={testItems} />
+        <MenuItem title="learn" number={number} items={studyItems} />
+        <MenuItem title="practice" number={number} items={practiceItems} />
+        <MenuItem title="test" number={number} items={testItems} />
       </div>
     </div>
   );

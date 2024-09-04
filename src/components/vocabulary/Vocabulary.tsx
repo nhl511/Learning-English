@@ -33,6 +33,10 @@ import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Vocabulary = ({
   data,
@@ -370,11 +374,69 @@ const Vocabulary = ({
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.completeNoti}>
-            <h2>Finished!</h2>
-            {isTest && (
-              <h3>
-                Result: {scores}/{number}
-              </h3>
+            {!isTest ? (
+              <h2>Finished!</h2>
+            ) : (
+              <div className={styles.resultContainer}>
+                <div
+                  style={{
+                    position: "relative",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <Doughnut
+                    data={{
+                      datasets: [
+                        {
+                          label: "My First Dataset",
+                          data: [scores, number - scores],
+                          backgroundColor: ["#4bcf72", "#dce2ee"],
+                          hoverOffset: 4,
+                        },
+                      ],
+                    }}
+                    options={{
+                      cutout: "80%",
+                      responsive: true,
+                      maintainAspectRatio: true,
+                      plugins: {
+                        tooltip: {
+                          enabled: false,
+                        },
+                      },
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      fontSize: "24px",
+                      fontWeight: "bold",
+                      color: "#4bcf72",
+                    }}
+                  >
+                    {(scores * 100) / number}%
+                  </div>
+                </div>
+                <div className={styles.resultDetail}>
+                  <div>
+                    <p>
+                      Total: <span className={styles.total}>{number}</span>
+                    </p>
+                  </div>
+                  <div className={styles.detailContainer}>
+                    <p>
+                      Correct: <span className={styles.correct}>{scores}</span>
+                    </p>
+                    <p>
+                      Wrong:{" "}
+                      <span className={styles.wrong}>{number - scores}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
           <div className={styles.buttonNotiWrapper}>

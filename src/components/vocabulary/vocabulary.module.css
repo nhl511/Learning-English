@@ -287,7 +287,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 100%;
+  width: 100%;
 }
 .buttonNotiWrapper {
   display: flex;
@@ -312,6 +314,39 @@
 
 .mobileTitle {
   display: none;
+}
+
+.resultContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.resultDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 20px;
+}
+.detailContainer {
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+}
+.correct {
+  color: #4bcf72;
+  font-weight: bold;
+}
+
+.wrong {
+  color: rgb(255, 99, 132);
+  font-weight: bold;
+}
+.total {
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {
