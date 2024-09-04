@@ -11,7 +11,7 @@ const UnitItem = ({ unit }: { unit: UnitType }) => {
   const router = useRouter();
   const handleClick = () => {
     if (number > 0) {
-      router.push(`${unit._id}`);
+      router.push(`/menu-list/${unit._id}`);
     } else {
       toast.info("Comming soon!");
     }

@@ -11,7 +11,7 @@ import {
   faRotateLeft,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   useCorrectTime,
   useHardVocabularyById,
@@ -27,9 +27,7 @@ import AudioPlayer from "../audioPlayer/AudioPlayer";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import CloseIcon from "@mui/icons-material/Close";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
+
 import StopIcon from "@mui/icons-material/Stop";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import SpeechRecognition, {
@@ -48,6 +46,8 @@ const Vocabulary = ({
   isReviewing,
   isViSound,
   setIsViSound,
+  isReading,
+  isTest,
 }: {
   data: any;
   isLoading: boolean;
@@ -60,8 +60,12 @@ const Vocabulary = ({
   isReviewing: boolean;
   isViSound: boolean;
   setIsViSound: any;
+  isReading: boolean;
+  isTest?: boolean;
 }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [inputValue, setInputValue] = useState("");
   const { hardVocabularies, mutateHardVocabularies } = useHardVocabularyById(
     data?._id
@@ -71,14 +75,14 @@ const Vocabulary = ({
   const { sessionData } = useSession();
   const [gradeInput, setGradeInput] = useState("");
   const [curInput, setCurInput] = useState("");
-  const [open, setOpen] = useState(false);
-  const [categoryTitle, setCategoryTitle] = useState<any>({});
-  const [isReading, setIsReading] = useState(false);
+  const [seconds, setSeconds] = useState(0);
+  const [isEndAudio, setIsEndAudio] = useState(false);
+  const [scores, setScores] = useState(0);
+
   const { correctTimeData } = useCorrectTime({
     vocabId: data?._id,
     userId: sessionData?.user?.id,
   });
-  let menuRef = useRef<any>();
   const {
     listening,
     transcript,
@@ -96,47 +100,9 @@ const Vocabulary = ({
       });
     }
   };
-
-  const categoryLinks = [
-    {
-      title: "Writing vocabularies",
-      icon: <BorderColorIcon />,
-    },
-    {
-      title: "Reading vocabularies",
-      icon: <RecordVoiceOverIcon />,
-    },
-  ];
-
-  useEffect(() => {
-    if (!isReading) {
-      setCategoryTitle({
-        title: "Writing vocabularies",
-        icon: <BorderColorIcon />,
-      });
-    } else {
-      setCategoryTitle({
-        title: "Reading vocabularies",
-        icon: <RecordVoiceOverIcon />,
-      });
-    }
-  }, [isReading]);
-
-  useEffect(() => {
-    let handler = (e: any) => {
-      if (!menuRef?.current?.contains(e.target)) {
-        setOpen(false);
-        console.log(menuRef.current);
-      }
-    };
-
-    document.addEventListener("mousedown", handler);
-
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  });
-
+  const handleAudioEnd = () => {
+    setIsEndAudio(true);
+  };
   const decreasePage = () => {
     setPage((prev: any) => prev - 1);
     setInputValue("");
@@ -150,14 +116,35 @@ const Vocabulary = ({
   };
 
   useEffect(() => {
-    if (!isReading) {
-      setPage(0);
-      setIsViSound(false);
-    } else {
-      setPage(0);
-      setIsViSound(true);
+    if (data?.word && isTest) {
+      setIsEndAudio(false);
+      setSeconds(data?.word.length);
     }
-  }, [isReading]);
+  }, [data, isTest]);
+
+  useEffect(() => {
+    if (page < number && isTest && data?.word) {
+      const intervalId = setInterval(() => {
+        increasePage();
+      }, data?.word.length * 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [isTest, isEndAudio, page, number]);
+
+  useEffect(() => {
+    if (isEndAudio && isTest) {
+      const intervalId = setInterval(() => {
+        setSeconds((prevSeconds: number) => prevSeconds - 1);
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [isEndAudio, isTest]);
+
+  useEffect(() => {
+    if (isTest) setIsViSound(true);
+  }, [isTest]);
 
   useEffect(() => {
     if (inputValue.toUpperCase() === data?.word?.toUpperCase()) {
@@ -165,6 +152,7 @@ const Vocabulary = ({
         updateCorrectTime(data?._id);
       }
       increasePage();
+      if (isTest) setScores((prev) => prev + 1);
     }
   }, [inputValue]);
 
@@ -175,6 +163,7 @@ const Vocabulary = ({
           updateCorrectTime(data?._id);
         }
         increasePage();
+        if (isTest) setScores((prev) => prev + 1);
       }
     }, 1000);
 
@@ -217,6 +206,8 @@ const Vocabulary = ({
   };
 
   const handleIncreaseUnit = () => {
+    const params = new URLSearchParams(searchParams);
+
     const str: any = unit?.title;
     const match = str.match(/\d+/);
     const number = parseInt(match[0], 10);
@@ -229,7 +220,7 @@ const Vocabulary = ({
       return data;
     };
     fetcher(unit?.gradeId, number).then((res) => {
-      if (res._id) router.push("/" + res._id);
+      if (res._id) router.push("/" + res._id + "?" + params);
       else router.push("/");
     });
   };
@@ -257,46 +248,6 @@ const Vocabulary = ({
   return (
     <>
       <div className={styles.header}>
-        {unit ? (
-          <div className={styles.categoryContainer} ref={menuRef}>
-            <div
-              className={styles.categoryWrapper}
-              onClick={() => setOpen(!open)}
-            >
-              {categoryTitle.icon}
-              {categoryTitle.title}
-              <KeyboardArrowDownIcon />
-            </div>
-            <div
-              className={`${styles.categoryMenu} ${
-                open ? styles.active : styles.inactive
-              }`}
-            >
-              <ul>
-                {categoryLinks.map(
-                  (categoryLink) =>
-                    categoryLink.title !== categoryTitle.title && (
-                      <li
-                        key={categoryLink.title}
-                        className={styles.dropdownItem}
-                        onClick={() => {
-                          setOpen(false);
-                          setCategoryTitle(categoryLink.title);
-                          setIsReading(!isReading);
-                        }}
-                      >
-                        {categoryLink.icon}
-                        <p>{categoryLink.title}</p>
-                      </li>
-                    )
-                )}
-              </ul>
-            </div>
-          </div>
-        ) : (
-          <div></div>
-        )}
-
         <div className={styles.optionWrapper}>
           <div className={styles.option} onClick={handleOpenModal}>
             Option
@@ -304,7 +255,7 @@ const Vocabulary = ({
 
           <div
             className={`${styles.option} ${styles.close}`}
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/menu-list/" + unit?._id)}
           >
             <CloseIcon />
           </div>
@@ -368,30 +319,37 @@ const Vocabulary = ({
             </div>
             <div className={styles.audioWrapper}>
               {!isViSound ? (
-                <AudioPlayer word={data?.word} autoPlay={true} lang="en" />
+                <AudioPlayer
+                  word={data?.word}
+                  autoPlay={true}
+                  lang="en"
+                  onAudioEnd={handleAudioEnd}
+                />
               ) : (
                 <AudioPlayer
                   word={data?.definition}
                   autoPlay={true}
                   lang="vi"
+                  onAudioEnd={handleAudioEnd}
                 />
               )}
             </div>
           </div>
           <div className={styles.actionButtonWrapper}>
-            {isReviewing ? (
-              <div className={styles.hint} onClick={handleHint}>
-                <FontAwesomeIcon icon={faLightbulb} />
-                Hint
-              </div>
-            ) : (
-              <div className={styles.star} onClick={handleHardWord}>
-                <FontAwesomeIcon
-                  icon={hardVocabularies ? faStar : far.faStar}
-                  className={styles.starIcon}
-                />
-              </div>
-            )}
+            {!isTest &&
+              (isReviewing ? (
+                <div className={styles.hint} onClick={handleHint}>
+                  <FontAwesomeIcon icon={faLightbulb} />
+                  Hint
+                </div>
+              ) : (
+                <div className={styles.star} onClick={handleHardWord}>
+                  <FontAwesomeIcon
+                    icon={hardVocabularies ? faStar : far.faStar}
+                    className={styles.starIcon}
+                  />
+                </div>
+              ))}
           </div>
           {sessionData && (
             <div className={styles.correctTimeWrapper}>
@@ -401,16 +359,29 @@ const Vocabulary = ({
               </p>
             </div>
           )}
+          {isTest && (
+            <div className={styles.countDownContainer}>
+              <div className={styles.countDownWrapper}>
+                <h1>{seconds}</h1>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.completeNoti}>
             <h2>Finished!</h2>
+            {isTest && (
+              <h3>
+                Result: {scores}/{number}
+              </h3>
+            )}
           </div>
           <div className={styles.buttonNotiWrapper}>
             <div
               onClick={() => {
                 setPage(0);
+                setScores(0);
               }}
               className={styles.button}
             >
@@ -428,7 +399,7 @@ const Vocabulary = ({
 
       {!isDone && (
         <div className={styles.buttonWrapper}>
-          {page > 0 ? (
+          {page > 0 && !isTest ? (
             <ArrowCircleLeftOutlinedIcon
               onClick={decreasePage}
               style={{ cursor: "pointer" }}
@@ -443,7 +414,7 @@ const Vocabulary = ({
           <div>
             {page + 1} / {number}
           </div>
-          {page < number ? (
+          {page < number && !isTest ? (
             <ArrowCircleRightOutlinedIcon
               onClick={increasePage}
               style={{ cursor: "pointer" }}

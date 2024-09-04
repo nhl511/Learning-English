@@ -1,0 +1,55 @@
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.menuTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menuTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menuTitle h2 {
+  font-weight: 500;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.itemLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.itemTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--lightButton-color);
+  color: var(--titleText-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

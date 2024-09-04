@@ -3,16 +3,22 @@
 import VoiceContext from "@/contexts/VoiceContext";
 import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import styles from "./audioPlayer.module.css";
 
 interface AudioPlayerProps {
   word: string;
   autoPlay: boolean;
   lang?: string;
+  onAudioEnd?: () => void;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = ({
+  word,
+  autoPlay,
+  lang,
+  onAudioEnd,
+}) => {
   const context = useContext(VoiceContext);
 
   const {
@@ -33,6 +39,10 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ word, autoPlay, lang }) => {
       utterance.voice = voices[enVoiceIndex];
     } else {
       utterance.voice = voices[viVoiceIndex];
+    }
+
+    if (onAudioEnd) {
+      utterance.onend = onAudioEnd;
     }
 
     window.speechSynthesis.speak(utterance);

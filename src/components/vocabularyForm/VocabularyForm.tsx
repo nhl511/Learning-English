@@ -7,7 +7,8 @@ import {
   useSession,
   useUnitById,
 } from "@/customHooks/CustomHooks";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+
 import ToggleButton from "../ToggleButton/ToggleButton";
 import Vocabulary from "../vocabulary/Vocabulary";
 import Modal from "../modal/Modal";
@@ -17,6 +18,10 @@ import Loading from "../loading/Loading";
 const VocabularyForm = ({ slug }: { slug: string }) => {
   const { sessionData } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const mode = searchParams.get("mode");
+  const input = searchParams.get("input");
+
   const [page, setPage] = useState(0);
   const { number } = useNumberOfVocabulary(slug);
   const { unit } = useUnitById(slug);
@@ -25,28 +30,20 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   const [isReviewing, setIsReviewing] = useState(false);
   const [isStar, setIsStar] = useState(false);
   const [isViSound, setIsViSound] = useState(false);
+  const [isReading, setIsReading] = useState(false);
+  const [isTest, setIsTest] = useState(false);
 
   const options = [
-    {
-      title: "Mode",
-      control: (
-        <ToggleButton
-          isChoose={isReviewing}
-          setChangeMode={setIsReviewing}
-          options={{ inActive: "Study", active: "Review" }}
-        />
-      ),
-    },
-    {
-      title: "Filter",
-      control: (
-        <ToggleButton
-          isChoose={isStar}
-          setChangeMode={setIsStar}
-          options={{ inActive: "All", active: "Bookmarks" }}
-        />
-      ),
-    },
+    // {
+    //   title: "Filter",
+    //   control: (
+    //     <ToggleButton
+    //       isChoose={isStar}
+    //       setChangeMode={setIsStar}
+    //       options={{ inActive: "All", active: "Bookmarks" }}
+    //     />
+    //   ),
+    // },
     {
       title: "Sound",
       control: (
@@ -83,6 +80,24 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
     if (isStar) router.push(`/saved-vocabularies/${sessionData?.user.id}`);
   }, [isStar]);
 
+  useEffect(() => {
+    if (mode === "study" && input === "speaking") {
+      setIsReading(true);
+    } else if (mode === "practice" && input === "typing") {
+      setIsReviewing(true);
+    } else if (mode === "practice" && input === "speaking") {
+      setIsReviewing(true);
+      setIsReading(true);
+    } else if (mode === "test" && input === "typing") {
+      setIsTest(true);
+      setIsReviewing(true);
+    } else if (mode === "test" && input === "speaking") {
+      setIsTest(true);
+      setIsReviewing(true);
+      setIsReading(true);
+    }
+  }, [mode, input]);
+
   if (!slug || !number || !unit || !grade) return <Loading />;
 
   return (
@@ -99,6 +114,8 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
         isReviewing={isReviewing}
         isViSound={isViSound}
         setIsViSound={setIsViSound}
+        isReading={isReading}
+        isTest={isTest}
       />
       <Modal show={showModal} onClose={handleCloseModal}>
         <h2 className={styles.modalTitle}>Options</h2>
