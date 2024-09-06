@@ -123,15 +123,22 @@ const Vocabulary = ({
   useEffect(() => {
     if (data?.word && isTest) {
       setIsEndAudio(false);
-      setSeconds(data?.word.length);
+      if (isReading) {
+        setSeconds(data?.word.length);
+      } else {
+        setSeconds(data?.word.length * 2);
+      }
     }
   }, [data, isTest]);
 
   useEffect(() => {
     if (page < number && isTest && data?.word) {
-      const intervalId = setInterval(() => {
-        increasePage();
-      }, data?.word.length * 1000);
+      const intervalId = setInterval(
+        () => {
+          increasePage();
+        },
+        isReading ? data?.word.length * 1000 : data?.word.length * 1000 * 2
+      );
 
       return () => clearInterval(intervalId);
     }

@@ -16,5 +16,6 @@
 }
 
 .active {
-  color: #000000;
+  color: var(--titleText-color);
+  font-weight: bold;
 }

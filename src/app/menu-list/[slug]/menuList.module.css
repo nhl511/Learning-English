@@ -36,4 +36,5 @@
   font-weight: bold;
   gap: 10px;
   font-size: 20px;
+  color: var(--titleText-color);
 }
