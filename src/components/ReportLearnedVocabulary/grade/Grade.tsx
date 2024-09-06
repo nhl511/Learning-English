@@ -33,41 +33,41 @@ const learnedVocabularyFetcher = async ({
 };
 
 const Grade = ({ grade, type }: { grade: any; type: any }) => {
-  const { units } = useUnit(grade?._id); // Hook to fetch units for the grade
+  const { units } = useUnit(grade?._id);
   const [isOpen, setIsOpen] = useState(false);
-  const [total, setTotal] = useState(0); // State to store the total vocabulary count
-  const [learned, setLearned] = useState(0);
-  const { sessionData } = useSession();
+  //   const [total, setTotal] = useState(0);
+  //   const [learned, setLearned] = useState(0);
+  //   const { sessionData } = useSession();
 
-  useEffect(() => {
-    const calculateTotalVocab = async () => {
-      if (units && units.length > 0) {
-        const vocabCounts = await Promise.all(
-          units.map((unit: any) => fetchVocabularyCount(unit._id))
-        );
+  //   useEffect(() => {
+  //     const calculateTotalVocab = async () => {
+  //       if (units && units.length > 0) {
+  //         const vocabCounts = await Promise.all(
+  //           units.map((unit: any) => fetchVocabularyCount(unit._id))
+  //         );
 
-        const totalVocab = vocabCounts.reduce((acc, count) => acc + count, 0);
-        setTotal(totalVocab);
-      }
-    };
-    const calculateTotalLearnedVocab = async () => {
-      if (units && units.length > 0 && sessionData && type) {
-        const vocabCounts = await Promise.all(
-          units.map((unit: any) =>
-            learnedVocabularyFetcher({
-              userId: sessionData?.user?.id,
-              unitId: unit._id,
-              type,
-            })
-          )
-        );
-        const totalVocab = vocabCounts.reduce((acc, count) => acc + count, 0);
-        setLearned(totalVocab);
-      }
-    };
-    calculateTotalLearnedVocab();
-    calculateTotalVocab();
-  }, [units, sessionData, type]);
+  //         const totalVocab = vocabCounts.reduce((acc, count) => acc + count, 0);
+  //         setTotal(totalVocab);
+  //       }
+  //     };
+  //     const calculateTotalLearnedVocab = async () => {
+  //       if (units && units.length > 0 && sessionData && type) {
+  //         const vocabCounts = await Promise.all(
+  //           units.map((unit: any) =>
+  //             learnedVocabularyFetcher({
+  //               userId: sessionData?.user?.id,
+  //               unitId: unit._id,
+  //               type,
+  //             })
+  //           )
+  //         );
+  //         const totalVocab = vocabCounts.reduce((acc, count) => acc + count, 0);
+  //         setLearned(totalVocab);
+  //       }
+  //     };
+  //     calculateTotalLearnedVocab();
+  //     calculateTotalVocab();
+  //   }, [units, sessionData, type]);
 
   return (
     <div className={styles.container} onClick={() => setIsOpen(!isOpen)}>
@@ -76,9 +76,9 @@ const Grade = ({ grade, type }: { grade: any; type: any }) => {
           {!isOpen ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
           <h4>{grade?.title}</h4>
         </div>
-        <div className={styles.number}>
+        {/* <div className={styles.number}>
           {learned}/{total} total
-        </div>
+        </div> */}
       </div>
       {isOpen &&
         units?.map((unit: any) => (
