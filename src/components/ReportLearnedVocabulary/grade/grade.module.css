@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  margin: 20px 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 20px;
+  cursor: pointer;
+}
+.topWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.number {
+  background-color: #faf4f4;
+  width: 100px;
+  padding: 5px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+}

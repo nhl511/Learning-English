@@ -11,6 +11,8 @@ import MenuItem from "@/components/menuItem/MenuItem";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import KeyboardAltOutlinedIcon from "@mui/icons-material/KeyboardAltOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
+import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
+
 const MenuList = ({ params }: any) => {
   const { slug } = params;
   const router = useRouter();
@@ -67,10 +69,14 @@ const MenuList = ({ params }: any) => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles.title}>
-          <ArrowBackIosNewOutlinedIcon
-            style={{ cursor: "pointer" }}
+          <div
+            className={styles.buttonWrapper}
             onClick={() => router.push("/")}
-          />
+          >
+            <ArrowBackIosNewOutlinedIcon />
+            Back
+          </div>
+
           <div className={styles.titleWrapper}>
             <h3>{grade?.title}</h3>
             <p>{unit?.title}</p>

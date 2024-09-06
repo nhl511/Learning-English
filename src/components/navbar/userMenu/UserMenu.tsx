@@ -14,6 +14,10 @@ const UserMenu = ({ session }: any | null) => {
       title: "Personal information",
       path: "/profile",
     },
+    {
+      title: "Report learned vocabulary",
+      path: "/report-learned-vocabulary",
+    },
   ];
 
   let menuRef = useRef<any>();

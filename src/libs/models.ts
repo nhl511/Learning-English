@@ -106,7 +106,11 @@ const correctTimeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  correctTime: {
+  writingTimes: {
+    type: Number,
+    default: 0,
+  },
+  speakingTimes: {
     type: Number,
     default: 0,
   },

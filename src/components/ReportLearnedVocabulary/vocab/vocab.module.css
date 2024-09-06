@@ -1,0 +1,16 @@
+.container {
+  border: 1px solid #a0a0a0;
+  padding: 10px;
+  color: #a0a0a0;
+}
+.title {
+  font-weight: bold;
+}
+.correctTime {
+  font-size: 12px;
+}
+.active {
+  border: none;
+  background-color: var(--lightButton-color);
+  color: black;
+}

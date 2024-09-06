@@ -284,10 +284,45 @@ export const useCorrectTime = ({
   userId: string;
 }) => {
   const { data } = useSWR(
-    `api/correct-time/?vocabId=${vocabId}&userId=${userId}`,
+    `api/correct-time?vocabId=${vocabId}&userId=${userId}`,
     () => correctTimeFetcher({ vocabId, userId })
   );
   return {
     correctTimeData: data,
+  };
+};
+
+const learnedVocabularyFetcher = async ({
+  userId,
+  unitId,
+  type,
+}: {
+  userId: string;
+  unitId: string;
+  type: string;
+}) => {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
+      `/api/get-learned-vocabulary?userId=${userId}&unitId=${unitId}&type=${type}`
+  );
+  const data = await res.json();
+  return data;
+};
+
+export const useLearnedVocab = ({
+  userId,
+  unitId,
+  type,
+}: {
+  userId: string;
+  unitId: string;
+  type: string;
+}) => {
+  const { data } = useSWR(
+    `api/get-learned-vocabulary?userId=${userId}&unitId=${unitId}&type=${type}`,
+    () => learnedVocabularyFetcher({ userId, unitId, type })
+  );
+  return {
+    learnedVocabularyData: data,
   };
 };

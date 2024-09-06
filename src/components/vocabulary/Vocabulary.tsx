@@ -21,7 +21,8 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import {
   addHardVocabulary,
   deleteHardVocabulary,
-  updateCorrectTime,
+  updateSpeakingTimes,
+  updateWritingTimes,
 } from "@/libs/actions";
 import AudioPlayer from "../audioPlayer/AudioPlayer";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
@@ -153,7 +154,7 @@ const Vocabulary = ({
   useEffect(() => {
     if (inputValue.toUpperCase() === data?.word?.toUpperCase()) {
       if (sessionData) {
-        updateCorrectTime(data?._id);
+        updateWritingTimes(data?._id);
       }
       increasePage();
       if (isTest) setScores((prev) => prev + 1);
@@ -164,7 +165,7 @@ const Vocabulary = ({
     const timeout = setTimeout(() => {
       if (transcript.toUpperCase() === data?.word?.toUpperCase()) {
         if (sessionData) {
-          updateCorrectTime(data?._id);
+          updateSpeakingTimes(data?._id);
         }
         increasePage();
         if (isTest) setScores((prev) => prev + 1);
@@ -357,10 +358,17 @@ const Vocabulary = ({
           </div>
           {sessionData && (
             <div className={styles.correctTimeWrapper}>
-              <p>
-                Level of interaction:{" "}
-                {correctTimeData?.length && correctTimeData[0].correctTime}
-              </p>
+              {!isReading ? (
+                <p>
+                  Writing times:{" "}
+                  {correctTimeData?.length && correctTimeData[0].writingTimes}
+                </p>
+              ) : (
+                <p>
+                  Speaking times:{" "}
+                  {correctTimeData?.length && correctTimeData[0].speakingTimes}
+                </p>
+              )}
             </div>
           )}
           {isTest && (

@@ -263,7 +263,7 @@ export const changePassword = async ({
   }
 };
 
-export const updateCorrectTime = async (vocabId: string) => {
+export const updateWritingTimes = async (vocabId: string) => {
   const session = await auth();
 
   try {
@@ -271,7 +271,23 @@ export const updateCorrectTime = async (vocabId: string) => {
 
     await CorrectTime.updateOne(
       { vocabularyId: vocabId, userId: session?.user?.id },
-      { $inc: { correctTime: 1 } },
+      { $inc: { writingTimes: 1 } },
+      { upsert: true }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateSpeakingTimes = async (vocabId: string) => {
+  const session = await auth();
+
+  try {
+    connectToDb();
+
+    await CorrectTime.updateOne(
+      { vocabularyId: vocabId, userId: session?.user?.id },
+      { $inc: { speakingTimes: 1 } },
       { upsert: true }
     );
   } catch (error) {
