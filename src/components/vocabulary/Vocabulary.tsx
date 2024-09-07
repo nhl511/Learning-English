@@ -83,6 +83,7 @@ const Vocabulary = ({
   const [seconds, setSeconds] = useState(0);
   const [isEndAudio, setIsEndAudio] = useState(false);
   const [scores, setScores] = useState(0);
+  const [isCorrect, setIsCorrect] = useState(false);
 
   const { correctTimeData } = useCorrectTime({
     vocabId: data?._id,
@@ -116,6 +117,7 @@ const Vocabulary = ({
 
   const increasePage = () => {
     setPage((prev: any) => prev + 1);
+    setIsCorrect(false);
     setInputValue("");
     resetTranscript();
   };
@@ -183,6 +185,12 @@ const Vocabulary = ({
   }, [transcript]);
 
   useEffect(() => {
+    if (transcript.toUpperCase() === data?.word?.toUpperCase()) {
+      setIsCorrect(true);
+    }
+  }, [transcript]);
+
+  useEffect(() => {
     if (page === number) {
       setIsDone(true);
     } else {
@@ -193,6 +201,17 @@ const Vocabulary = ({
   useEffect(() => {
     setIsHidden(isReviewing);
   }, [isReviewing]);
+
+  useEffect(() => {
+    if (isEndAudio && isTest) {
+      SpeechRecognition.startListening({
+        continuous: false,
+        language: "en-US",
+      });
+    } else {
+      SpeechRecognition.stopListening();
+    }
+  }, [isEndAudio, isTest]);
 
   const handleHint = () => {
     setIsHidden(false);
@@ -517,7 +536,9 @@ const Vocabulary = ({
         </div>
       ) : (
         <div className={styles.recordContainer}>
-          <p>{transcript}</p>
+          <h1 className={`${isCorrect && styles.correctInput}`}>
+            {transcript}
+          </h1>
           <div className={styles.recordBtn} onClick={handleRecord}>
             {listening ? (
               <StopIcon fontSize="large" />

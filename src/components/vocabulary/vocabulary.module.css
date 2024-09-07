@@ -340,7 +340,9 @@
   color: #4bcf72;
   font-weight: bold;
 }
-
+.correctInput {
+  color: var(--titleText-color);
+}
 .wrong {
   color: rgb(255, 99, 132);
   font-weight: bold;
