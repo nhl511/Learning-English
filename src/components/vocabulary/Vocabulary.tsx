@@ -35,6 +35,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import LoadingUI from "../loading/Loading";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
