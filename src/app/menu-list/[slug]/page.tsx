@@ -25,13 +25,13 @@ const MenuList = ({ params }: any) => {
     {
       title: "Typing",
       des: "Displays all vocabulary information. Enter vocabulary using the keyboard",
-      path: `/${slug}?mode=study&input=typing`,
+      path: `/vocabularies/${slug}?mode=study&input=typing`,
       icon: <KeyboardAltOutlinedIcon fontSize="large" />,
     },
     {
       title: "Speaking",
       des: "Displays all vocabulary information. Listen to vocabulary sounds & repeat",
-      path: `/${slug}?mode=study&input=speaking`,
+      path: `/vocabularies/${slug}?mode=study&input=speaking`,
       icon: <KeyboardVoiceOutlinedIcon fontSize="large" />,
     },
   ];
@@ -40,13 +40,13 @@ const MenuList = ({ params }: any) => {
     {
       title: "Typing",
       des: "Hide all vocabulary information. Listen to vocabulary sounds & enter vocabulary using the keyboard",
-      path: `/${slug}?mode=practice&input=typing`,
+      path: `/vocabularies/${slug}?mode=practice&input=typing`,
       icon: <KeyboardAltOutlinedIcon fontSize="large" />,
     },
     {
       title: "Speaking",
       des: "Hide all vocabulary information. Listen to vocabulary sounds & repeat",
-      path: `/${slug}?mode=practice&input=speaking`,
+      path: `/vocabularies/${slug}?mode=practice&input=speaking`,
       icon: <KeyboardVoiceOutlinedIcon fontSize="large" />,
     },
   ];
@@ -55,13 +55,13 @@ const MenuList = ({ params }: any) => {
     {
       title: "Typing",
       des: "Hide all vocabulary information. Listen to vocabulary sounds & enter vocabulary using the keyboard. Score",
-      path: `/${slug}?mode=test&input=typing`,
+      path: `/vocabularies/${slug}?mode=test&input=typing`,
       icon: <KeyboardAltOutlinedIcon fontSize="large" />,
     },
     {
       title: "Speaking",
       des: "Hide all vocabulary information. Listen to vocabulary sounds & repeat. Score",
-      path: `/${slug}?mode=test&input=speaking`,
+      path: `/vocabularies/${slug}?mode=test&input=speaking`,
       icon: <KeyboardVoiceOutlinedIcon fontSize="large" />,
     },
   ];
