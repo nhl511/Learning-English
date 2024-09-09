@@ -250,7 +250,7 @@ const Vocabulary = ({
       return data;
     };
     fetcher(unit?.gradeId, number).then((res) => {
-      if (res._id) router.push("/" + res._id + "?" + params);
+      if (res._id) router.push("/vocabularies/" + res._id + "?" + params);
       else router.push("/");
     });
   };

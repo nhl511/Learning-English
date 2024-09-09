@@ -1,9 +1,8 @@
-import React, { Suspense } from "react";
+import React from "react";
 import styles from "./unitDetail.module.css";
 
 import VocabularyForm from "@/components/vocabularyForm/VocabularyForm";
 import { getUnitById } from "@/libs/data";
-import LoadingUI from "@/components/loading/Loading";
 
 export const generateMetadata = async ({ params }: any) => {
   const { slug } = params;
@@ -20,11 +19,9 @@ const UnitDetailPage = ({ params }: any) => {
   const { slug } = params;
 
   return (
-    <Suspense fallback={<LoadingUI />}>
-      <div className={styles.container}>
-        <VocabularyForm slug={slug} />
-      </div>
-    </Suspense>
+    <div className={styles.container}>
+      <VocabularyForm slug={slug} />
+    </div>
   );
 };
 
