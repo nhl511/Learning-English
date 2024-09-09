@@ -1,8 +1,8 @@
-import Loading from "@/components/loading/Loading";
+import LoadingUI from "@/components/loading/Loading";
 import React from "react";
 
-const loading = () => {
-  return <Loading />;
+const Loading = () => {
+  return <LoadingUI />;
 };
 
-export default loading;
+export default Loading;

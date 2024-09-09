@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./loading.module.css";
 
-const Loading = () => {
+const LoadingUI = () => {
   return (
     <div className={styles.container}>
       <span className={styles.loader}></span>
@@ -9,4 +9,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default LoadingUI;
