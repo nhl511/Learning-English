@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import styles from "./unitDetail.module.css";
 
 import VocabularyForm from "@/components/vocabularyForm/VocabularyForm";
@@ -20,9 +20,11 @@ const UnitDetailPage = ({ params }: any) => {
   const { slug } = params;
 
   return (
-    <div className={styles.container}>
-      <VocabularyForm slug={slug} />
-    </div>
+    <Suspense fallback={<Loading />}>
+      <div className={styles.container}>
+        <VocabularyForm slug={slug} />
+      </div>
+    </Suspense>
   );
 };
 
