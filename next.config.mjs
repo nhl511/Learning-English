@@ -3,7 +3,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/:id",
+        source: "/:slug([a-zA-Z0-9_-]+)/?",
         headers: [
           {
             key: "X-Accel-Buffering",
