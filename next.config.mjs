@@ -3,11 +3,11 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/:path*{/}?", // Path pattern to match all routes
+        source: "/:path*{/}?",
         headers: [
           {
             key: "X-Accel-Buffering",
-            value: "no", // Disable buffering
+            value: "no",
           },
         ],
       },
