@@ -13,6 +13,7 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 import Vocabulary from "../vocabulary/Vocabulary";
 import Modal from "../modal/Modal";
 import useSWR from "swr";
+import LoadingUI from "../loading/Loading";
 
 const VocabularyForm = ({ slug }: { slug: string }) => {
   const { sessionData } = useSession();
@@ -99,21 +100,25 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
 
   return (
     <div className={styles.container}>
-      <Vocabulary
-        data={data}
-        isLoading={isLoading}
-        page={page}
-        setPage={setPage}
-        number={number}
-        unit={unit}
-        gradeTitle={grade?.title}
-        handleOpenModal={handleOpenModal}
-        isReviewing={isReviewing}
-        isViSound={isViSound}
-        setIsViSound={setIsViSound}
-        isReading={isReading}
-        isTest={isTest}
-      />
+      {isLoading && page === 0 ? (
+        <LoadingUI />
+      ) : (
+        <Vocabulary
+          data={data}
+          isLoading={isLoading}
+          page={page}
+          setPage={setPage}
+          number={number}
+          unit={unit}
+          gradeTitle={grade?.title}
+          handleOpenModal={handleOpenModal}
+          isReviewing={isReviewing}
+          isViSound={isViSound}
+          setIsViSound={setIsViSound}
+          isReading={isReading}
+          isTest={isTest}
+        />
+      )}
 
       <Modal show={showModal} onClose={handleCloseModal}>
         <h2 className={styles.modalTitle}>Options</h2>
