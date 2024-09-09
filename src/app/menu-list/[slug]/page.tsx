@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 import styles from "./menuList.module.css";
 import { useRouter } from "next/navigation";
 import {
@@ -12,7 +12,6 @@ import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutl
 import KeyboardAltOutlinedIcon from "@mui/icons-material/KeyboardAltOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
-import Loading from "@/components/loading/Loading";
 
 const MenuList = ({ params }: any) => {
   const { slug } = params;
@@ -67,32 +66,30 @@ const MenuList = ({ params }: any) => {
   ];
 
   return (
-    <Suspense fallback={<Loading />}>
-      <div className={styles.container}>
-        <div className={styles.wrapper}>
-          <div className={styles.title}>
-            <div
-              className={styles.buttonWrapper}
-              onClick={() => router.push("/")}
-            >
-              <ArrowBackIosNewOutlinedIcon />
-              Back
-            </div>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <div className={styles.title}>
+          <div
+            className={styles.buttonWrapper}
+            onClick={() => router.push("/")}
+          >
+            <ArrowBackIosNewOutlinedIcon />
+            Back
+          </div>
 
-            <div className={styles.titleWrapper}>
-              <h3>{grade?.title}</h3>
-              <p>{unit?.title}</p>
-            </div>
+          <div className={styles.titleWrapper}>
+            <h3>{grade?.title}</h3>
+            <p>{unit?.title}</p>
           </div>
         </div>
-
-        <div className={styles.wrapper}>
-          <MenuItem title="learn" number={number} items={studyItems} />
-          <MenuItem title="practice" number={number} items={practiceItems} />
-          <MenuItem title="test" number={number} items={testItems} />
-        </div>
       </div>
-    </Suspense>
+
+      <div className={styles.wrapper}>
+        <MenuItem title="learn" number={number} items={studyItems} />
+        <MenuItem title="practice" number={number} items={practiceItems} />
+        <MenuItem title="test" number={number} items={testItems} />
+      </div>
+    </div>
   );
 };
 
