@@ -1,14 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-module.exports = {
+const nextConfig = {
   async headers() {
     return [
       {
-        source: "/:path*{/}?",
+        source: "/:path*{/}?", // Path pattern to match all routes
         headers: [
           {
             key: "X-Accel-Buffering",
-            value: "no",
+            value: "no", // Disable buffering
           },
         ],
       },
@@ -16,4 +15,4 @@ module.exports = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
