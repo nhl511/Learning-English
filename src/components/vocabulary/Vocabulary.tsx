@@ -1,11 +1,10 @@
 "use client";
 import "regenerator-runtime/runtime";
 import styles from "./vocabulary.module.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UnitType } from "@/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowLeft,
   faArrowRight,
   faLightbulb,
   faRotateLeft,
