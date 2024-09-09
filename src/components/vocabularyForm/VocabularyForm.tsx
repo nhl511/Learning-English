@@ -13,7 +13,6 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 import Vocabulary from "../vocabulary/Vocabulary";
 import Modal from "../modal/Modal";
 import useSWR from "swr";
-import LoadingUI from "../loading/Loading";
 
 const VocabularyForm = ({ slug }: { slug: string }) => {
   const { sessionData } = useSession();
@@ -98,8 +97,6 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
     }
   }, [mode, input]);
 
-  if (!slug) return <LoadingUI />;
-
   return (
     <div className={styles.container}>
       <Vocabulary
@@ -117,6 +114,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
         isReading={isReading}
         isTest={isTest}
       />
+
       <Modal show={showModal} onClose={handleCloseModal}>
         <h2 className={styles.modalTitle}>Options</h2>
         <div className={styles.rowWrapper}>
