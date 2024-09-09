@@ -7,22 +7,23 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const UnitItem = ({ unit }: { unit: UnitType }) => {
-  const { number } = useNumberOfVocabulary(unit._id);
+  const { number, isLoadingNumber } = useNumberOfVocabulary(unit._id);
   const router = useRouter();
   const handleClick = () => {
-    if (number > 0) {
+    if (number) {
       router.push(`/menu-list/${unit._id}`);
     } else {
       toast.info("Comming soon!");
     }
   };
+  if (isLoadingNumber) return null;
   return (
     <div className={styles.container} onClick={handleClick}>
       <div className={styles.wrapper}>
         <h2>{unit.title}</h2>
       </div>
       <div className={styles.vocabNumber}>
-        <p>{number > 0 ? `${number} vocabularies` : `Comming soon`}</p>
+        <p>{number ? `${number} vocabularies` : `Comming soon`}</p>
       </div>
     </div>
   );

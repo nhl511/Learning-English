@@ -8,7 +8,6 @@ import {
 } from "@/customHooks/CustomHooks";
 
 import { useRouter } from "next/navigation";
-import Loading from "@/components/loading/Loading";
 import GuestHomepage from "@/components/GuestHompage/GuestHomepage";
 import LearnerHompage from "@/components/LearnerHompage/LearnerHompage";
 

@@ -3,6 +3,7 @@ import styles from "./unitDetail.module.css";
 
 import VocabularyForm from "@/components/vocabularyForm/VocabularyForm";
 import { getUnitById } from "@/libs/data";
+import Loading from "@/components/loading/Loading";
 
 export const generateMetadata = async ({ params }: any) => {
   const { slug } = params;
