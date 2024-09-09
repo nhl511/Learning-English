@@ -23,9 +23,9 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   const input = searchParams.get("input");
 
   const [page, setPage] = useState(0);
-  const { number, isLoadingNumber } = useNumberOfVocabulary(slug);
-  const { unit, isLoadingUnit } = useUnitById(slug);
-  const { grade, isLoadingGrade } = useGradeById(unit?.gradeId);
+  const { number } = useNumberOfVocabulary(slug);
+  const { unit } = useUnitById(slug);
+  const { grade } = useGradeById(unit?.gradeId);
   const [showModal, setShowModal] = useState(false);
   const [isReviewing, setIsReviewing] = useState(false);
   const [isStar, setIsStar] = useState(false);
@@ -100,10 +100,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
 
   return (
     <div className={styles.container}>
-      {isLoadingNumber ||
-      isLoadingGrade ||
-      isLoadingUnit ||
-      (isLoading && page === 0) ? (
+      {!number || !grade || !unit || (!data && page === 0) ? (
         <LoadingUI />
       ) : (
         <Vocabulary
