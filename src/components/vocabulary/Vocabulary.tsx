@@ -203,7 +203,7 @@ const Vocabulary = ({
   }, [isReviewing]);
 
   useEffect(() => {
-    if (isEndAudio && isTest) {
+    if (isEndAudio && isTest && isReading) {
       SpeechRecognition.startListening({
         continuous: false,
         language: "en-US",
@@ -211,7 +211,7 @@ const Vocabulary = ({
     } else {
       SpeechRecognition.stopListening();
     }
-  }, [isEndAudio, isTest]);
+  }, [isEndAudio, isTest, isReading]);
 
   const handleHint = () => {
     setIsHidden(false);
@@ -451,7 +451,7 @@ const Vocabulary = ({
                       color: "#4bcf72",
                     }}
                   >
-                    {(scores * 100) / number}%
+                    {Math.round((scores * 100) / number)}%
                   </div>
                 </div>
                 <div className={styles.resultDetail}>

@@ -38,7 +38,10 @@ const MenuItem = ({
             <div
               className={styles.item}
               key={item.title}
-              onClick={() => router.push(item.path)}
+              onClick={(e) => {
+                router.push(item.path);
+                e.stopPropagation();
+              }}
             >
               <div className={styles.itemLeft}>
                 {item.icon}
