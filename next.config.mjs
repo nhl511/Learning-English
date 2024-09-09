@@ -3,7 +3,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/:path*{/}?",
+        source: "/:id",
         headers: [
           {
             key: "X-Accel-Buffering",
