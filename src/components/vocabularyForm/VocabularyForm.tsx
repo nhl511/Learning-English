@@ -13,7 +13,7 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 import Vocabulary from "../vocabulary/Vocabulary";
 import Modal from "../modal/Modal";
 import useSWR from "swr";
-import Loading from "../loading/Loading";
+import LoadingUI from "../loading/Loading";
 
 const VocabularyForm = ({ slug }: { slug: string }) => {
   const { sessionData } = useSession();
@@ -98,7 +98,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
     }
   }, [mode, input]);
 
-  if (!slug || !number || !unit || !grade) return <Loading />;
+  if (!slug || !number || !unit || !grade || !data) return <LoadingUI />;
 
   return (
     <div className={styles.container}>

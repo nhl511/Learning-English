@@ -20,11 +20,9 @@ const UnitDetailPage = ({ params }: any) => {
   const { slug } = params;
 
   return (
-    <Suspense key={params.id} fallback={<LoadingUI />}>
-      <div className={styles.container}>
-        <VocabularyForm slug={slug} />
-      </div>
-    </Suspense>
+    <div className={styles.container}>
+      <VocabularyForm slug={slug} />
+    </div>
   );
 };
 
