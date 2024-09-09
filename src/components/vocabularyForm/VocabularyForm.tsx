@@ -97,28 +97,27 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
       setIsReading(true);
     }
   }, [mode, input]);
+  if ((!data && page === 0) || !unit || !grade || number === undefined) {
+    return <LoadingUI />;
+  }
 
   return (
     <div className={styles.container}>
-      {!number || !grade || !unit || (!data && page === 0) ? (
-        <LoadingUI />
-      ) : (
-        <Vocabulary
-          data={data}
-          isLoading={isLoading}
-          page={page}
-          setPage={setPage}
-          number={number}
-          unit={unit}
-          gradeTitle={grade?.title}
-          handleOpenModal={handleOpenModal}
-          isReviewing={isReviewing}
-          isViSound={isViSound}
-          setIsViSound={setIsViSound}
-          isReading={isReading}
-          isTest={isTest}
-        />
-      )}
+      <Vocabulary
+        data={data}
+        isLoading={isLoading}
+        page={page}
+        setPage={setPage}
+        number={number}
+        unit={unit}
+        gradeTitle={grade?.title}
+        handleOpenModal={handleOpenModal}
+        isReviewing={isReviewing}
+        isViSound={isViSound}
+        setIsViSound={setIsViSound}
+        isReading={isReading}
+        isTest={isTest}
+      />
 
       <Modal show={showModal} onClose={handleCloseModal}>
         <h2 className={styles.modalTitle}>Options</h2>
