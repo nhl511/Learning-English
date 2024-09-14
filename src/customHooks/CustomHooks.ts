@@ -337,7 +337,9 @@ const ttsFetcher = async ({
   languageCode: string;
   name: string;
 }) => {
-  const endpoint = `https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyCjwBYygG6kFitMX-Yu6uCgTUW_9PPwflM`;
+  const endpoint =
+    "https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=" +
+    process.env.NEXT_PUBLIC_TEXT_TO_SPEECH_API_KEY;
   const payload = {
     audioConfig: {
       audioEncoding: "MP3",
