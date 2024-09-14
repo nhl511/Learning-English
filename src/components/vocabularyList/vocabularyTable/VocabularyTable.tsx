@@ -64,14 +64,14 @@ const VocabularyTable = ({ unitId }: { unitId: string }) => {
                 <AudioPlayer
                   word={vocabulary?.word}
                   autoPlay={false}
-                  lang="en"
+                  lang="en-GB"
                 />
               </td>
               <td>
                 <AudioPlayer
                   word={vocabulary?.definition}
                   autoPlay={false}
-                  lang="vi"
+                  lang="vi-VN"
                 />
               </td>
 

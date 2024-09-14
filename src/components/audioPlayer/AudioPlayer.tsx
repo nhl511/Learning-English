@@ -22,7 +22,7 @@ const AudioPlayer = ({
   word: string;
   autoPlay: boolean;
   lang: string;
-  onAudioEnd: any;
+  onAudioEnd?: any;
 }) => {
   const { speech, isLoadingSpeech, errorSpeech } = useTTS({
     text: word,
