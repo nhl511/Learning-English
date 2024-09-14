@@ -353,14 +353,14 @@ const Vocabulary = ({
                 <AudioPlayer
                   word={data?.word}
                   autoPlay={true}
-                  lang="en"
+                  lang="en-GB"
                   onAudioEnd={handleAudioEnd}
                 />
               ) : (
                 <AudioPlayer
                   word={data?.definition}
                   autoPlay={true}
-                  lang="vi"
+                  lang="vi-VN"
                   onAudioEnd={handleAudioEnd}
                 />
               )}

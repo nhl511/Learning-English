@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import axios from "axios";
 
 const gradesFetcher = async () => {
   const res = await fetch(
@@ -324,5 +325,59 @@ export const useLearnedVocab = ({
   );
   return {
     learnedVocabularyData: data,
+  };
+};
+
+const ttsFetcher = async ({
+  text,
+  languageCode,
+  name,
+}: {
+  text: string;
+  languageCode: string;
+  name: string;
+}) => {
+  const endpoint = `https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyCjwBYygG6kFitMX-Yu6uCgTUW_9PPwflM`;
+  const payload = {
+    audioConfig: {
+      audioEncoding: "MP3",
+      effectsProfileId: ["small-bluetooth-speaker-class-device"],
+      pitch: 0,
+      speakingRate: 1,
+    },
+    input: {
+      text: text,
+    },
+    voice: {
+      languageCode: languageCode,
+      name: name,
+    },
+  };
+
+  try {
+    const res = await axios.post(endpoint, payload);
+    return `data:audio/mp3;base64,${res.data.audioContent}`;
+  } catch (error) {
+    console.error("Error during text-to-speech fetch:", error);
+    throw error; // re-throw error for caller to handle
+  }
+};
+
+export const useTTS = ({
+  text,
+  languageCode,
+  name,
+}: {
+  text: string;
+  languageCode: string;
+  name: string;
+}) => {
+  const { data, isLoading, error } = useSWR(`text=${text}`, () =>
+    ttsFetcher({ text, languageCode, name })
+  );
+  return {
+    speech: data,
+    isLoadingSpeech: isLoading,
+    errorSpeech: error,
   };
 };
