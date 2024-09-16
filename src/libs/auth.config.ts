@@ -1,6 +1,3 @@
-import { User } from "./models";
-import { connectToDb } from "./utils";
-
 export const authConfig = {
   pages: { signIn: "/login" },
   providers: [],
@@ -11,10 +8,8 @@ export const authConfig = {
           token.id = user.id;
           token.isAdmin = user.isAdmin;
         } else {
-          connectToDb();
-          const registeredUser = await User.findOne({ username: user?.email });
-          token.id = registeredUser?.id;
-          token.isAdmin = registeredUser?.isAdmin;
+          token.id = user?.newId;
+          token.isAdmin = user?.isAdmin;
         }
       }
       return token;

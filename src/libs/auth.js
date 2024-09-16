@@ -6,7 +6,7 @@ import Google from "next-auth/providers/google";
 import { connectToDb } from "./utils";
 import { User } from "./models";
 
-const login = async (credentials: any) => {
+const login = async (credentials) => {
   try {
     connectToDb();
     const user = await User.findOne({ username: credentials.username });
@@ -35,7 +35,7 @@ export const {
   ...authConfig,
   providers: [
     CredentialsProvider({
-      async authorize(credentials: any) {
+      async authorize(credentials) {
         try {
           const user = await login(credentials);
           return user;
@@ -50,7 +50,7 @@ export const {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       if (account?.provider === "google") {
         connectToDb();
         try {
@@ -63,11 +63,15 @@ export const {
             });
             await newUser.save();
           }
+          user.newId = registeredUser.id;
+          user.isAdmin = registeredUser.isAdmin;
         } catch (error) {
           console.log(error);
           return false;
         }
       }
+      console.log(user);
+
       return true;
     },
     ...authConfig.callbacks,
