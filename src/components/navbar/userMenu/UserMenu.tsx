@@ -5,6 +5,7 @@ import styles from "./userMenu.module.css";
 import { useRouter } from "next/navigation";
 import { logout } from "@/libs/actions";
 import Image from "next/image";
+import { Avatar, Chip } from "@mui/material";
 
 const UserMenu = ({ session }: any | null) => {
   const router = useRouter();
@@ -39,16 +40,13 @@ const UserMenu = ({ session }: any | null) => {
     <div className={styles.container}>
       {session ? (
         <div className={styles.userContainer} ref={menuRef}>
-          <div className={styles.userWrapper} onClick={() => setOpen(!open)}>
-            <Image
-              src={session?.user?.image}
-              alt=""
-              width={20}
-              height={20}
-              style={{ borderRadius: "50%" }}
-            />
-            <p>{session?.user?.name}</p>
-          </div>
+          <Chip
+            avatar={<Avatar alt="" src={session?.user?.image} />}
+            label={session?.user?.name}
+            variant="outlined"
+            onClick={() => setOpen(!open)}
+          />
+
           <div
             className={`${styles.userMenu} ${
               open ? styles.active : styles.inactive

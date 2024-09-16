@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./userTable.module.css";
 import { useUsers } from "@/customHooks/CustomHooks";
 import Image from "next/image";
-import { Button } from "@mui/material";
+import { Badge, Button } from "@mui/material";
 import { activeUser, disableUser } from "@/libs/actions";
 
 const UserTable = () => {
@@ -24,39 +24,44 @@ const UserTable = () => {
           {usersData?.map((user: any) => (
             <tr key={user?._id} className={styles.row}>
               <td>
-                <Image src={user?.img} alt="" width={50} height={50} />
+                <Badge
+                  badgeContent={"Admin"}
+                  color="secondary"
+                  invisible={user?.isAdmin ? false : true}
+                >
+                  <Image src={user?.img} alt="" width={50} height={50} />
+                </Badge>
               </td>
               <td>{user?.username}</td>
               <td>{user?.name}</td>
               <td>{user?.grade?.title}</td>
               <td>
                 <div className={styles.buttonTableWrapper}>
-                  {!user?.isAdmin &&
-                    (user?.isActive ? (
-                      <Button
-                        variant="contained"
-                        onClick={async () => {
-                          await disableUser(user?._id);
-                          mutateUsers();
-                        }}
-                        sx={{
-                          background: "#ffffff !important",
-                          color: "#000000 !important",
-                        }}
-                      >
-                        Disable
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="contained"
-                        onClick={async () => {
-                          await activeUser(user?._id);
-                          mutateUsers();
-                        }}
-                      >
-                        Active
-                      </Button>
-                    ))}
+                  {user?.isActive ? (
+                    <Button
+                      variant="contained"
+                      onClick={async () => {
+                        await disableUser(user?._id);
+                        mutateUsers();
+                      }}
+                      sx={{
+                        background: "#ffffff !important",
+                        color: "#000000 !important",
+                      }}
+                    >
+                      Disable
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={async () => {
+                        await activeUser(user?._id);
+                        mutateUsers();
+                      }}
+                    >
+                      Active
+                    </Button>
+                  )}
                 </div>
               </td>
             </tr>
