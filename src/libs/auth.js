@@ -72,7 +72,6 @@ export const {
           return false;
         }
       }
-      console.log(user);
 
       return true;
     },

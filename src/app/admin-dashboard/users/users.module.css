@@ -1,7 +1,6 @@
 .container {
   min-height: var(--container-height);
-  display: flex;
-  gap: 30px;
-  align-items: start;
+
   margin: 40px 0;
+  width: 100%;
 }

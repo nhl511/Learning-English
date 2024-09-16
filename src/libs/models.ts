@@ -16,9 +16,8 @@ const userSchema = new mongoose.Schema(
     img: {
       type: String,
     },
-    gradeId: {
-      type: String,
-    },
+    grade: { type: mongoose.Schema.Types.ObjectId, ref: "Grade" },
+
     isAdmin: {
       type: Boolean,
       default: false,

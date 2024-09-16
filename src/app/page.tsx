@@ -29,8 +29,8 @@ const HomePage = () => {
   }, [sessionData, router]);
 
   useEffect(() => {
-    if (userInfoData?.gradeId) {
-      setGradeId(userInfoData?.gradeId);
+    if (userInfoData?.grade) {
+      setGradeId(userInfoData?.grade);
     }
   }, [userInfoData]);
 

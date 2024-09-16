@@ -383,3 +383,20 @@ export const useTTS = ({
     errorSpeech: error,
   };
 };
+
+const usersFetcher = async () => {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/users"
+  );
+  const data = await res.json();
+  return data;
+};
+
+export const useUsers = () => {
+  const { data, isLoading, mutate } = useSWR(`api/users`, usersFetcher);
+  return {
+    usersData: data,
+    isLoadingUsersData: isLoading,
+    mutateUsers: mutate,
+  };
+};

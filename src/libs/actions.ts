@@ -211,7 +211,7 @@ export const updateGradeForUser = async (gradeId: string) => {
     try {
       connectToDb();
       const updateData = {
-        gradeId,
+        grade: gradeId,
       };
       const options = { new: true, upsert: true }; // Use upsert: true to insert a new document if not found
 
@@ -297,4 +297,22 @@ export const updateSpeakingTimes = async (vocabId: string) => {
 
 export const handleGoogleLogin = async () => {
   await signIn("google");
+};
+
+export const activeUser = async (userId: string) => {
+  try {
+    connectToDb();
+    await User.findByIdAndUpdate(userId, { isActive: true });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const disableUser = async (userId: string) => {
+  try {
+    connectToDb();
+    await User.findByIdAndUpdate(userId, { isActive: false });
+  } catch (error) {
+    console.log(error);
+  }
 };

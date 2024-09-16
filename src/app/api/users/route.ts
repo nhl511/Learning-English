@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export const GET = async (request: any, { params }: any) => {
   try {
     connectToDb();
-    const user = await User.find();
+    const user = await User.find().populate("grade");
     return NextResponse.json(user);
   } catch (error) {
     console.log(error);
