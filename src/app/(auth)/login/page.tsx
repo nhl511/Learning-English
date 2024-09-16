@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   title: "Login",
   description: "",
 };
-//login
 
 const LoginPage = () => {
   return (
