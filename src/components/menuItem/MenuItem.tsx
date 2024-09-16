@@ -20,6 +20,8 @@ const MenuItem = ({
   const { sessionData } = useSession();
   const { userInfoData } = useUserInfo(sessionData?.user?.id);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isClickedItem, setIsClickedItem] = useState("");
+
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -31,6 +33,7 @@ const MenuItem = ({
     boxShadow: 24,
     p: 4,
   };
+
   return (
     <>
       <div className={styles.menuItem} onClick={() => setIsOpen(!isOpen)}>
@@ -51,18 +54,27 @@ const MenuItem = ({
             <hr />
             {items.map((item: any) => (
               <div
-                className={styles.item}
+                className={`${styles.item} ${
+                  isClickedItem === item.title && styles.clicked
+                }`}
                 key={item.title}
                 onClick={(e) => {
+                  setIsClickedItem(item.title);
+
                   if (title === "learn") {
                     router.push(item.path);
                     e.stopPropagation();
                   } else {
-                    if (userInfoData?.isActive) {
-                      router.push(item.path);
-                      e.stopPropagation();
+                    if (userInfoData) {
+                      if (userInfoData?.isActive) {
+                        router.push(item.path);
+                        e.stopPropagation();
+                      } else {
+                        setIsOpenModal(true);
+                        e.stopPropagation();
+                      }
                     } else {
-                      setIsOpenModal(true);
+                      router.push("/login");
                     }
                   }
                 }}
@@ -81,7 +93,10 @@ const MenuItem = ({
       </div>
       <Modal
         open={isOpenModal}
-        onClose={() => setIsOpenModal(false)}
+        onClose={() => {
+          setIsOpenModal(false);
+          setIsClickedItem("");
+        }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
