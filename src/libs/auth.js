@@ -50,18 +50,20 @@ export const {
     }),
   ],
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn({ user, account, profile }) {
       if (account?.provider === "google") {
-        connectToDb();
+        await connectToDb();
         try {
-          const registeredUser = await User.findOne({ username: user?.email });
+          let registeredUser = await User.findOne({
+            username: user?.email,
+          });
           if (!registeredUser) {
             const newUser = new User({
-              username: user?.email,
-              name: user?.name,
-              img: user?.image,
+              username: profile?.email,
+              name: profile?.name,
+              img: profile?.picture,
             });
-            await newUser.save();
+            registeredUser = await newUser.save();
           }
           user.newId = registeredUser.id;
           user.isAdmin = registeredUser.isAdmin;

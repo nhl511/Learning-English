@@ -7,8 +7,12 @@ const UserTable = () => {
       <table className={styles.table}>
         <thead className={styles.head}>
           <tr className={styles.row}>
-            <th>Username</th>
-            <th></th>
+            <th>Avatar</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Grade</th>
+            <th>Active</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody className={styles.body}>

@@ -8,8 +8,8 @@ export const authConfig = {
           token.id = user.id;
           token.isAdmin = user.isAdmin;
         } else {
-          token.id = user?.newId;
-          token.isAdmin = user?.isAdmin;
+          token.id = user.newId;
+          token.isAdmin = user.isAdmin;
         }
       }
       return token;
