@@ -11,9 +11,7 @@ export const metadata: Metadata = {
 const Register = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <RegisterForm />
-      </div>
+      <div className={styles.wrapper}>{/* <RegisterForm /> */}</div>
     </div>
   );
 };

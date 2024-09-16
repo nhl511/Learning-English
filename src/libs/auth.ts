@@ -2,6 +2,7 @@ import { authConfig } from "./auth.config";
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 import { connectToDb } from "./utils";
 import { User } from "./models";
 
@@ -43,5 +44,32 @@ export const {
         }
       },
     }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
   ],
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "google") {
+        connectToDb();
+        try {
+          const registeredUser = await User.findOne({ username: user?.email });
+          if (!registeredUser) {
+            const newUser = new User({
+              username: user?.email,
+              name: user?.name,
+              img: user?.image,
+            });
+            await newUser.save();
+          }
+        } catch (error) {
+          console.log(error);
+          return false;
+        }
+      }
+      return true;
+    },
+    ...authConfig.callbacks,
+  },
 });

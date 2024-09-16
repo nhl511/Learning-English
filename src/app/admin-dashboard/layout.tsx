@@ -9,16 +9,20 @@ export default function DashboardLayout({
 }) {
   const links = [
     {
-      title: "Add grade",
+      title: "Grade",
       path: "/admin-dashboard/add-grade",
     },
     {
-      title: "Add unit",
+      title: "Unit",
       path: "/admin-dashboard/add-unit",
     },
     {
-      title: "Add vocabulary",
+      title: "Vocabulary",
       path: "/admin-dashboard/add-vocabulary",
+    },
+    {
+      title: "Users",
+      path: "/admin-dashboard/users",
     },
   ];
   return (

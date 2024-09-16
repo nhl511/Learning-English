@@ -16,7 +16,12 @@
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-
+.loginBtn {
+  border: 1px solid black !important;
+  text-transform: none;
+  color: black !important;
+  font-weight: bold;
+}
 @media (max-width: 768px) {
   .wrapper {
     padding: 30px 20px;

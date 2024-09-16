@@ -6,12 +6,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      min: 3,
-      max: 20,
+    },
+    name: {
+      type: String,
     },
     password: {
       type: String,
-      required: true,
     },
     img: {
       type: String,
@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    isActive: {
       type: Boolean,
       default: false,
     },

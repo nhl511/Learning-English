@@ -1,11 +1,21 @@
+import { User } from "./models";
+import { connectToDb } from "./utils";
+
 export const authConfig = {
   pages: { signIn: "/login" },
   providers: [],
   callbacks: {
-    async jwt({ token, user }: any) {
+    async jwt({ token, user, account }: any) {
       if (user) {
-        token.id = user.id;
-        token.isAdmin = user.isAdmin;
+        if (account?.provider === "credentials") {
+          token.id = user.id;
+          token.isAdmin = user.isAdmin;
+        } else {
+          connectToDb();
+          const registeredUser = await User.findOne({ username: user?.email });
+          token.id = registeredUser?.id;
+          token.isAdmin = registeredUser?.isAdmin;
+        }
       }
       return token;
     },

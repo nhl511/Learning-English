@@ -294,3 +294,7 @@ export const updateSpeakingTimes = async (vocabId: string) => {
     console.log(error);
   }
 };
+
+export const handleGoogleLogin = async () => {
+  await signIn("google");
+};

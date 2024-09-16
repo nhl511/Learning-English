@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./userMenu.module.css";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 import { useRouter } from "next/navigation";
 import { logout } from "@/libs/actions";
+import Image from "next/image";
 
 const UserMenu = ({ session }: any | null) => {
   const router = useRouter();
@@ -25,7 +25,6 @@ const UserMenu = ({ session }: any | null) => {
     let handler = (e: any) => {
       if (!menuRef?.current?.contains(e.target)) {
         setOpen(false);
-        console.log(menuRef.current);
       }
     };
 
@@ -41,11 +40,14 @@ const UserMenu = ({ session }: any | null) => {
       {session ? (
         <div className={styles.userContainer} ref={menuRef}>
           <div className={styles.userWrapper} onClick={() => setOpen(!open)}>
-            {open ? (
-              <AccountCircleIcon fontSize="medium" />
-            ) : (
-              <AccountCircleOutlinedIcon fontSize="medium" />
-            )}
+            <Image
+              src={session?.user?.image}
+              alt=""
+              width={20}
+              height={20}
+              style={{ borderRadius: "50%" }}
+            />
+            <p>{session?.user?.name}</p>
           </div>
           <div
             className={`${styles.userMenu} ${
