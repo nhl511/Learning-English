@@ -13,6 +13,7 @@ import KeyboardAltOutlinedIcon from "@mui/icons-material/KeyboardAltOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import LoadingUI from "@/components/loading/Loading";
+import { Button } from "@mui/material";
 
 const MenuList = ({ params }: any) => {
   const { slug } = params;
@@ -74,13 +75,13 @@ const MenuList = ({ params }: any) => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles.title}>
-          <div
+          <Button
             className={styles.buttonWrapper}
             onClick={() => router.push("/")}
+            startIcon={<ArrowBackIosNewOutlinedIcon />}
           >
-            <ArrowBackIosNewOutlinedIcon />
             Back
-          </div>
+          </Button>
 
           <div className={styles.titleWrapper}>
             <h3>{grade?.title}</h3>

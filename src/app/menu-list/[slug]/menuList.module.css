@@ -31,10 +31,6 @@
   cursor: pointer;
   position: absolute;
   left: 0;
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  gap: 10px;
-  font-size: 20px;
-  color: var(--titleText-color);
+
+  color: var(--titleText-color) !important;
 }

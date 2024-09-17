@@ -36,6 +36,7 @@ import SpeechRecognition, {
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import LoadingUI from "../loading/Loading";
+import { Button, IconButton } from "@mui/material";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -280,16 +281,19 @@ const Vocabulary = ({
     <>
       <div className={styles.header}>
         <div className={styles.optionWrapper}>
-          <div className={styles.option} onClick={handleOpenModal}>
+          <Button
+            sx={{ color: "#1479f4", border: "1px solid #1479f4" }}
+            variant="outlined"
+            onClick={handleOpenModal}
+          >
             Option
-          </div>
-
-          <div
-            className={`${styles.option} ${styles.close}`}
+          </Button>
+          <IconButton
+            sx={{ color: "#1479f4" }}
             onClick={() => router.push("/menu-list/" + unit?._id)}
           >
             <CloseIcon />
-          </div>
+          </IconButton>
         </div>
       </div>
 
@@ -496,31 +500,33 @@ const Vocabulary = ({
       {!isDone && (
         <div className={styles.buttonWrapper}>
           {page > 0 && !isTest ? (
-            <ArrowCircleLeftOutlinedIcon
+            <IconButton
+              sx={{ color: "black" }}
               onClick={decreasePage}
-              style={{ cursor: "pointer" }}
-              fontSize="large"
-            />
+              size="large"
+            >
+              <ArrowCircleLeftOutlinedIcon fontSize="inherit" />
+            </IconButton>
           ) : (
-            <ArrowCircleLeftOutlinedIcon
-              style={{ color: "#888" }}
-              fontSize="large"
-            />
+            <IconButton sx={{ color: "black" }} disabled={true} size="large">
+              <ArrowCircleLeftOutlinedIcon fontSize="inherit" />
+            </IconButton>
           )}
           <div>
             {page + 1} / {number}
           </div>
           {page < number && !isTest ? (
-            <ArrowCircleRightOutlinedIcon
+            <IconButton
+              sx={{ color: "black" }}
               onClick={increasePage}
-              style={{ cursor: "pointer" }}
-              fontSize="large"
-            />
+              size="large"
+            >
+              <ArrowCircleRightOutlinedIcon fontSize="inherit" />
+            </IconButton>
           ) : (
-            <ArrowCircleRightOutlinedIcon
-              style={{ color: "#888" }}
-              fontSize="large"
-            />
+            <IconButton sx={{ color: "black" }} disabled={true} size="large">
+              <ArrowCircleRightOutlinedIcon fontSize="inherit" />
+            </IconButton>
           )}
         </div>
       )}

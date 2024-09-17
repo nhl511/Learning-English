@@ -4,7 +4,13 @@ import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDo
 import KeyboardDoubleArrowDownOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowDownOutlined";
 import { useRouter } from "next/navigation";
 import { useSession, useUserInfo } from "@/customHooks/CustomHooks";
-import { Box, Modal, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  CircularProgress,
+  Modal,
+  Typography,
+} from "@mui/material";
 
 const MenuItem = ({
   title,
@@ -109,6 +115,12 @@ const MenuItem = ({
           </Typography>
         </Box>
       </Modal>
+      <Backdrop
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+        open={isClickedItem !== "" ? true : false}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 };
