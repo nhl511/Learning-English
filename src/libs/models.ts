@@ -26,6 +26,12 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    startActiveDate: {
+      type: Date,
+    },
+    endActiveDate: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );
@@ -101,14 +107,8 @@ const hardVocabularySchema = new mongoose.Schema({
 });
 
 const correctTimeSchema = new mongoose.Schema({
-  vocabularyId: {
-    type: String,
-    required: true,
-  },
-  userId: {
-    type: String,
-    required: true,
-  },
+  vocabulary: { type: mongoose.Schema.Types.ObjectId, ref: "Vocabulary" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   writingTimes: {
     type: Number,
     default: 0,

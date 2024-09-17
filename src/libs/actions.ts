@@ -1,5 +1,4 @@
 "use server";
-import { VocabularyType } from "@/types/types";
 import { auth, signIn, signOut } from "./auth";
 import {
   CorrectTime,
@@ -11,6 +10,7 @@ import {
 } from "./models";
 import { connectToDb } from "./utils";
 import bcrypt from "bcrypt";
+import moment from "moment";
 
 // export const register = async (prevState: any, formData: any) => {
 export const register = async ({ username, password, passwordRepeat }: any) => {
@@ -270,7 +270,7 @@ export const updateWritingTimes = async (vocabId: string) => {
     connectToDb();
 
     await CorrectTime.updateOne(
-      { vocabularyId: vocabId, userId: session?.user?.id },
+      { vocabulary: vocabId, user: session?.user?.id },
       { $inc: { writingTimes: 1 } },
       { upsert: true }
     );
@@ -286,7 +286,7 @@ export const updateSpeakingTimes = async (vocabId: string) => {
     connectToDb();
 
     await CorrectTime.updateOne(
-      { vocabularyId: vocabId, userId: session?.user?.id },
+      { vocabulary: vocabId, user: session?.user?.id },
       { $inc: { speakingTimes: 1 } },
       { upsert: true }
     );
@@ -299,10 +299,23 @@ export const handleGoogleLogin = async () => {
   await signIn("google");
 };
 
-export const activeUser = async (userId: string) => {
+export const activeUser = async (userId: string, isAdmin: boolean) => {
   try {
     connectToDb();
-    await User.findByIdAndUpdate(userId, { isActive: true });
+    const today = moment().locale("vi");
+
+    if (isAdmin) {
+      await User.findByIdAndUpdate(userId, {
+        isActive: true,
+      });
+    } else {
+      const endDate = today.clone().add(1, "year");
+      await User.findByIdAndUpdate(userId, {
+        isActive: true,
+        startActiveDate: today.toISOString(),
+        endActiveDate: endDate.toISOString(),
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -311,7 +324,9 @@ export const activeUser = async (userId: string) => {
 export const disableUser = async (userId: string) => {
   try {
     connectToDb();
-    await User.findByIdAndUpdate(userId, { isActive: false });
+    await User.findByIdAndUpdate(userId, {
+      isActive: false,
+    });
   } catch (error) {
     console.log(error);
   }

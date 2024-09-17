@@ -5,6 +5,7 @@ import { useUsers } from "@/customHooks/CustomHooks";
 import Image from "next/image";
 import { Badge, Button } from "@mui/material";
 import { activeUser, disableUser } from "@/libs/actions";
+import moment from "moment";
 
 const UserTable = () => {
   const { usersData, mutateUsers } = useUsers();
@@ -38,29 +39,42 @@ const UserTable = () => {
               <td>
                 <div className={styles.buttonTableWrapper}>
                   {user?.isActive ? (
-                    <Button
-                      variant="contained"
-                      onClick={async () => {
-                        await disableUser(user?._id);
-                        mutateUsers();
-                      }}
-                      sx={{
-                        background: "#ffffff !important",
-                        color: "#000000 !important",
-                      }}
-                    >
-                      Disable
-                    </Button>
+                    <div className={styles.dateWrapper}>
+                      <p className={styles.endDate}>
+                        {user?.endActiveDate &&
+                          "Active until " +
+                            moment(user?.endActiveDate)
+                              .locale("vi")
+                              .format("DD-MM-YYYY")}
+                      </p>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        onClick={async () => {
+                          await disableUser(user?._id);
+                          mutateUsers();
+                        }}
+                        sx={{
+                          background: "#ffffff !important",
+                          color: "#000000 !important",
+                        }}
+                      >
+                        Inactive
+                      </Button>
+                    </div>
                   ) : (
-                    <Button
-                      variant="contained"
-                      onClick={async () => {
-                        await activeUser(user?._id);
-                        mutateUsers();
-                      }}
-                    >
-                      Active
-                    </Button>
+                    <div className={styles.dateWrapper}>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        onClick={async () => {
+                          await activeUser(user?._id, user?.isAdmin);
+                          mutateUsers();
+                        }}
+                      >
+                        Active
+                      </Button>
+                    </div>
                   )}
                 </div>
               </td>

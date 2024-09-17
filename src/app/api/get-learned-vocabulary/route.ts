@@ -21,15 +21,15 @@ export const GET = async (request: any, { params }: any) => {
         // Depending on the type (writing or speaking), fetch the correctTime
         if (type === "writing") {
           correctTime = await CorrectTime.findOne({
-            vocabularyId: vocab._id,
+            vocabulary: vocab._id,
             writingTimes: { $gt: 0 },
-            userId,
+            user: userId,
           });
         } else {
           correctTime = await CorrectTime.findOne({
-            vocabularyId: vocab._id,
+            vocabulary: vocab._id,
             speakingTimes: { $gt: 0 },
-            userId,
+            user: userId,
           });
         }
 

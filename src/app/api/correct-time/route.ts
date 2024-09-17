@@ -10,8 +10,8 @@ export const GET = async (request: any, { params }: any) => {
   try {
     connectToDb();
     const correctTime = await CorrectTime.find({
-      vocabularyId: vocabId,
-      userId: userId,
+      vocabulary: vocabId,
+      user: userId,
     });
     return NextResponse.json(correctTime);
   } catch (error) {

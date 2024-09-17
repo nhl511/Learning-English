@@ -14,9 +14,6 @@
   letter-spacing: 2%;
   font-size: 16px;
 }
-.head th {
-  width: 25%;
-}
 
 .body tr:nth-child(even) {
   background-color: var(--lightButton-color);
@@ -26,52 +23,11 @@
   padding: 8px;
 }
 
-.buttonWrapper {
+.dateWrapper {
   display: flex;
   justify-content: end;
-  gap: 10px;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
-.dangerButton {
-  padding: 10px 20px;
-  color: var(--buttonText-color);
-  background-color: var(--error-color);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.buttonTableWrapper {
-  display: flex;
-  gap: 10px;
-  justify-content: end;
-}
-
-.dangerButtonTable {
-  padding: 5px 10px;
-  color: var(--buttonText-color);
-  background-color: var(--error-color);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.buttonTable {
-  padding: 5px 10px;
-  color: var(--buttonText-color);
-  background-color: var(--button-color);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.button {
-  padding: 10px 20px;
-  color: var(--buttonText-color);
-  background-color: var(--button-color);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.endDate {
+  font-size: 12px;
 }
