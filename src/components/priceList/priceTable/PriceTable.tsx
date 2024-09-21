@@ -22,7 +22,7 @@ const PriceTable = () => {
           {prices?.map((price: any) => (
             <tr key={price?._id} className={styles.row}>
               <td>{price?._id}</td>
-              <td>{price?.duration} year</td>
+              <td>{price?.duration} months</td>
               <td>{vnd(price?.price)}</td>
               <td>
                 <div className={styles.buttonTableWrapper}>

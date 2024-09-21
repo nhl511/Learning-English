@@ -25,6 +25,7 @@ const RequestTable = () => {
         <thead className={styles.head}>
           <tr className={styles.row}>
             <th>Email</th>
+            <td>Phone Number</td>
             <th>Package</th>
             <th>Date</th>
             <th>Status</th>
@@ -35,8 +36,10 @@ const RequestTable = () => {
           {requests?.map((request: any) => (
             <tr key={request?._id} className={styles.row}>
               <td>{request?.user?.username}</td>
+              <td>{request?.phone}</td>
+
               <td>
-                {request?.price?.duration} year ({vnd(request?.price?.price)})
+                {request?.price?.duration} months ({vnd(request?.price?.price)})
               </td>
               <td>
                 {moment(request?.createdAt)

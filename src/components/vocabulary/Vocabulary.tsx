@@ -15,6 +15,7 @@ import {
   useCorrectTime,
   useHardVocabularyById,
   useSession,
+  useUserInfo,
 } from "@/customHooks/CustomHooks";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -85,6 +86,7 @@ const Vocabulary = ({
   const [isEndAudio, setIsEndAudio] = useState(false);
   const [scores, setScores] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
+  const { userInfoData } = useUserInfo(sessionData?.user?.id);
 
   const { correctTimeData } = useCorrectTime({
     vocabId: data?._id,
@@ -163,7 +165,7 @@ const Vocabulary = ({
 
   useEffect(() => {
     if (inputValue.toUpperCase() === data?.word?.toUpperCase()) {
-      if (sessionData) {
+      if (userInfoData?.isActive) {
         updateWritingTimes(data?._id);
       }
       increasePage();
@@ -174,7 +176,7 @@ const Vocabulary = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (transcript.toUpperCase() === data?.word?.toUpperCase()) {
-        if (sessionData) {
+        if (userInfoData?.isActive) {
           updateSpeakingTimes(data?._id);
         }
         increasePage();
@@ -386,7 +388,7 @@ const Vocabulary = ({
                 </div>
               ))}
           </div>
-          {sessionData && (
+          {userInfoData?.isActive && (
             <div className={styles.correctTimeWrapper}>
               {!isReading ? (
                 <p>

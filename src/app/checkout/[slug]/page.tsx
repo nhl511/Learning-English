@@ -1,10 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./checkout.module.css";
+
 import {
   Button,
   Divider,
   Grid,
+  InputAdornment,
+  OutlinedInput,
   Typography,
   useMediaQuery,
   useTheme,
@@ -18,6 +21,7 @@ import {
 } from "@/customHooks/CustomHooks";
 import { createActiveRequest } from "@/libs/actions";
 import { vnd } from "@/libs/currency";
+import { phone } from "phone";
 
 const features = [
   {
@@ -26,11 +30,11 @@ const features = [
   },
   {
     feature: "Number of times you have learned that vocabulary",
-    status: false,
+    status: true,
   },
   {
     feature: "Report of learned vocabularies",
-    status: false,
+    status: true,
   },
   {
     feature: "Practice vocabulaires",
@@ -51,12 +55,27 @@ const CheckoutPage = ({ params }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [phoneNum, setPhoneNum] = useState("");
+  const [result, setResult] = useState("");
+  const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
     if (request?.length) {
       setIsPending(true);
     }
   }, [request]);
+
+  const handlePhone = (input: string) => {
+    setPhoneNum(input);
+    const { phoneNumber, isValid } = phone(input, { country: "VNM" });
+    if (isValid) {
+      setIsValid(true);
+      setResult(phoneNumber);
+    } else {
+      setIsValid(false);
+      setResult("");
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -75,13 +94,12 @@ const CheckoutPage = ({ params }: any) => {
             >
               Purchase confirmation
             </Typography>
-
             <div className={styles.top}>
               <div className={styles.left}>
                 <Typography variant="h6">Selected plan</Typography>
               </div>
               <div className={styles.right}>
-                <Typography variant="h5">{price?.duration} year</Typography>
+                <Typography variant="h5">{price?.duration} months</Typography>
                 <Typography variant="subtitle1">Pro plan</Typography>
               </div>
             </div>
@@ -116,22 +134,42 @@ const CheckoutPage = ({ params }: any) => {
                   Đang chờ admin xử lý
                 </Button>
               ) : (
-                <Button
-                  variant="contained"
-                  fullWidth
-                  onClick={async () => {
-                    setIsLoading(true);
-                    await createActiveRequest({
-                      userId: sessionData?.user?.id,
-                      priceId: slug,
-                    });
-                    mutateRequest();
-                    setIsLoading(false);
-                  }}
-                  disabled={isLoading ? true : false}
-                >
-                  Xác nhận thanh toán
-                </Button>
+                <>
+                  <OutlinedInput
+                    error={isValid ? false : true}
+                    type="number"
+                    placeholder="SĐT của bạn"
+                    value={phoneNum}
+                    onChange={(e) => {
+                      handlePhone(e.target.value);
+                    }}
+                    startAdornment={
+                      <InputAdornment
+                        position="end"
+                        sx={{ marginRight: "10px" }}
+                      >
+                        +84
+                      </InputAdornment>
+                    }
+                  />
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    onClick={async () => {
+                      setIsLoading(true);
+                      await createActiveRequest({
+                        userId: sessionData?.user?.id,
+                        priceId: slug,
+                        phone: result,
+                      });
+                      mutateRequest();
+                      setIsLoading(false);
+                    }}
+                    disabled={result === "" || isLoading ? true : false}
+                  >
+                    Xác nhận thanh toán
+                  </Button>
+                </>
               )}
 
               <Typography variant="caption" fontWeight="bold" color="red">

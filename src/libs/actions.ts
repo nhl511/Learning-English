@@ -362,9 +362,11 @@ export const handlePrice = async (priceId: string, isActive: boolean) => {
 export const createActiveRequest = async ({
   userId,
   priceId,
+  phone,
 }: {
   userId: string;
   priceId: string;
+  phone: string;
 }) => {
   try {
     connectToDb();
@@ -372,6 +374,7 @@ export const createActiveRequest = async ({
       user: userId,
       price: priceId,
       status: "pending",
+      phone,
     });
     await newRequest.save();
   } catch (error) {
@@ -396,7 +399,7 @@ export const comfirmRequest = async ({
       status: "confirmed",
     });
 
-    const endDate = today.clone().add(duration, "year");
+    const endDate = today.clone().add(duration, "month");
     await User.findByIdAndUpdate(userId, {
       isActive: true,
       startActiveDate: today.toISOString(),

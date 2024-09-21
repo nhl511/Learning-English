@@ -119,20 +119,23 @@ const correctTimeSchema = new mongoose.Schema({
   },
 });
 
-const pricesSchema = new mongoose.Schema({
-  price: {
-    type: Number,
-    required: true,
+const pricesSchema = new mongoose.Schema(
+  {
+    price: {
+      type: Number,
+      required: true,
+    },
+    duration: {
+      type: Number,
+      required: true,
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
   },
-  duration: {
-    type: Number,
-    required: true,
-  },
-  isActive: {
-    type: Boolean,
-    default: false,
-  },
-});
+  { timestamps: true }
+);
 
 const activeRequestSchema = new mongoose.Schema(
   {
@@ -141,6 +144,9 @@ const activeRequestSchema = new mongoose.Schema(
     status: {
       type: String,
       require: true,
+    },
+    phone: {
+      type: String,
     },
   },
   { timestamps: true }

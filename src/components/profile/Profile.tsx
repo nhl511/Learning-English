@@ -1,136 +1,92 @@
 "use client";
-import { useEffect, useState } from "react";
-import Modal from "../modal/Modal";
+import { useState } from "react";
 import styles from "./profile.module.css";
 import { useSession, useUserInfo } from "@/customHooks/CustomHooks";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { changePassword, checkPassword } from "@/libs/actions";
-import { toast } from "react-toastify";
+
 import moment from "moment";
+import Image from "next/image";
+import { Chip, Modal, Typography } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import Pricing from "../pricing/Pricing";
 
 const Profile = () => {
-  const [state, setState] = useState<any>(undefined);
-
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const { sessionData } = useSession();
   const { userInfoData } = useUserInfo(sessionData?.user?.id);
-  const [showModal, setShowModal] = useState(false);
-  const [showModal2, setShowModal2] = useState(false);
-
-  const notifySuccess = () => {
-    toast.success("Change password successfully");
-  };
-
-  useEffect(() => {
-    if (!showModal) {
-      formik.resetForm();
-      setState(undefined);
-    }
-  }, [showModal]);
-
-  useEffect(() => {
-    if (!showModal2) {
-      formik2.resetForm();
-    }
-  }, [showModal2]);
-
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const handleOpenModal2 = () => {
-    setShowModal2(true);
-  };
-
-  const handleCloseModal2 = () => {
-    setShowModal2(false);
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      password: "",
-    },
-    validationSchema: Yup.object({
-      password: Yup.string()
-        .min(6, "Minimum 6 characters")
-        .max(25, "Maximum 25 characters")
-        .required("Password is required"),
-    }),
-
-    onSubmit: (values) => {
-      checkPassword({
-        username: userInfoData?.username,
-        password: values.password,
-      }).then((res) => {
-        setState(res);
-      });
-    },
-  });
-
-  const formik2 = useFormik({
-    initialValues: {
-      password: "",
-      passwordRepeat: "",
-    },
-    validationSchema: Yup.object({
-      password: Yup.string()
-        .min(6, "Minimum 6 characters")
-        .max(25, "Maximum 25 characters")
-        .required("Password is required"),
-      passwordRepeat: Yup.string()
-        .oneOf([Yup.ref("password")], "Password's not match")
-        .required("Repeat password is required"),
-    }),
-
-    onSubmit: (values) => {
-      changePassword({
-        userId: userInfoData?._id,
-        newPassword: values.password,
-      });
-      handleCloseModal2();
-      notifySuccess();
-    },
-  });
-
-  useEffect(() => {
-    if (state?.success) {
-      handleCloseModal();
-      handleOpenModal2();
-    }
-  }, [state?.success]);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.wrapper}>
+          <Image
+            alt=""
+            src={userInfoData?.img}
+            width={100}
+            height={100}
+            style={{ marginBottom: "20px" }}
+          />
+
           <div className={styles.row}>
-            <p>User ID</p>
-            <h3>{userInfoData?._id}</h3>
+            <Typography variant="h6">{userInfoData?.username}</Typography>
+            <Typography variant="caption">ID: {userInfoData?._id}</Typography>
           </div>
-          <div className={styles.row}>
-            <p>Username</p>
-            <h3>{userInfoData?.username}</h3>
-          </div>
-          <div className={styles.row}>
-            <p>Grade</p>
-            <h3>{userInfoData?.grade?.title}</h3>
-          </div>
-          <div className={styles.row}>
-            <p>Pro plan expiration date</p>
-            <h3>
-              {userInfoData?.endActiveDate
-                ? moment(userInfoData?.endActiveDate)
-                    .locale("vi")
-                    .format("DD-MM-YYYY")
-                : "Not yet active"}
-            </h3>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+            }}
+          >
+            <Typography variant="body2">Grade</Typography>
+            <Typography variant="subtitle1">
+              {userInfoData?.grade?.title}
+            </Typography>
           </div>
         </div>
+        <div className={styles.item}>
+          {userInfoData?.isActive ? (
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <Typography variant="caption">
+                Expires on{" "}
+                {userInfoData?.endActiveDate &&
+                  moment(userInfoData?.endActiveDate)
+                    .locale("vi")
+                    .format("DD-MM-YYYY")}
+              </Typography>
+              <Chip
+                icon={<StarIcon />}
+                label="Pro"
+                variant="filled"
+                color="primary"
+              />
+            </div>
+          ) : (
+            <Chip
+              icon={<LockOpenIcon />}
+              label="Upgrade to Pro"
+              variant="outlined"
+              onClick={() => setIsOpenModal(true)}
+            />
+          )}
+        </div>
       </div>
+      <Modal
+        open={isOpenModal}
+        onClose={() => {
+          setIsOpenModal(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Pricing
+          selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
+          userId={sessionData?.user?.id}
+        />
+      </Modal>
     </>
   );
 };

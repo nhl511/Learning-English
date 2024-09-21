@@ -58,11 +58,11 @@ const Pricing = ({
         },
         {
           feature: "Number of times you have learned that vocabulary",
-          status: true,
+          status: false,
         },
         {
           feature: "Report of learned vocabularies",
-          status: true,
+          status: false,
         },
         {
           feature: "Practice vocabulaires",
@@ -309,7 +309,7 @@ const Pricing = ({
                             }}
                           >
                             <Typography variant="h5" fontWeight="bold">
-                              {price?.duration + " year"}
+                              {price?.duration + " months"}
                             </Typography>
                             <Typography>{vnd(price?.price)}</Typography>
                           </div>

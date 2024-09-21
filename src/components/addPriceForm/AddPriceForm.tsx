@@ -24,7 +24,7 @@ const AddPriceForm = () => {
     >
       <input
         type="number"
-        placeholder="Enter duration (year)"
+        placeholder="Enter duration (months)"
         name="duration"
         value={duration}
         onChange={(e) => setDuration(Number(e.target.value))}

@@ -31,6 +31,7 @@
     "mongoose": "^8.4.1",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.19",
+    "phone": "^3.1.50",
     "react": "^18",
     "react-audio-player": "^0.17.0",
     "react-chartjs-2": "^5.2.0",
