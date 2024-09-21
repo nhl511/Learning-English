@@ -120,7 +120,7 @@ const Pricing = ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: isSm ? "90%" : isMd ? "70%" : "60%",
+    width: isXs ? "90%" : isMd ? "80%" : "70%",
     bgcolor: "background.paper",
     borderRadius: 2,
     boxShadow: 24,
@@ -152,10 +152,16 @@ const Pricing = ({
       ) : (
         <List component="nav" aria-label="secondary mailbox folder">
           {!isSelect ? (
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <div
                 style={
-                  isXl
+                  isLg
                     ? {
                         display: "flex",
                         flexDirection: "column",
@@ -228,6 +234,7 @@ const Pricing = ({
                 ))}
               </div>
               <Button
+                sx={{ width: "200px" }}
                 variant="contained"
                 disabled={selectedIndex === 1 ? true : false}
                 onClick={() => setIsSelect(true)}
