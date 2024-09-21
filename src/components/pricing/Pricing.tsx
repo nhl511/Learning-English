@@ -124,7 +124,7 @@ const Pricing = ({
     bgcolor: "background.paper",
     borderRadius: 2,
     boxShadow: 24,
-    p: 4,
+    p: isSm ? 2 : 4,
     outline: "none",
   };
   const style2 = {
@@ -157,6 +157,9 @@ const Pricing = ({
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                position: "relative",
+                maxHeight: "70vh",
+                overflowY: "auto",
               }}
             >
               <div
@@ -167,80 +170,87 @@ const Pricing = ({
                         flexDirection: "column",
                         gap: "20px",
                         marginBottom: "20px",
+                        paddingBottom: "80px",
                       }
                     : {
                         display: "flex",
-                        marginBottom: "20px",
+                        marginBottom: "80px",
                         justifyContent: "center",
                       }
                 }
               >
                 {plans.map((plan) => (
-                  <Badge
-                    color="primary"
-                    badgeContent={<DoneOutlineIcon fontSize="inherit" />}
-                    key={plan.key}
-                    invisible={selectedIndex === plan.key ? false : true}
+                  <ListItemButton
+                    selected={selectedIndex === plan.key}
+                    onClick={() => handleListItemClick(plan.key)}
                   >
-                    <ListItemButton
-                      selected={selectedIndex === plan.key}
-                      onClick={() => handleListItemClick(plan.key)}
-                    >
-                      <ListItemText
-                        primary={
-                          <Typography
-                            variant="h5"
-                            fontWeight="bold"
-                            style={{ color: "var(--titleText-color" }}
-                          >
-                            {plan.name}
-                          </Typography>
-                        }
-                        secondary={
-                          <div>
-                            <Typography component="span" variant="h6">
-                              From:{" "}
-                              <Typography
-                                fontWeight="bold"
-                                component="span"
-                                variant="h6"
-                              >
-                                {vnd(plan.price)}
-                              </Typography>
+                    <ListItemText
+                      primary={
+                        <Typography
+                          variant="h5"
+                          fontWeight="bold"
+                          style={{ color: "var(--titleText-color" }}
+                        >
+                          {plan.name}
+                        </Typography>
+                      }
+                      secondary={
+                        <div>
+                          <Typography component="span" variant="h6">
+                            From:{" "}
+                            <Typography
+                              fontWeight="bold"
+                              component="span"
+                              variant="h6"
+                            >
+                              {vnd(plan.price)}
                             </Typography>
-                            <Typography gutterBottom>Features:</Typography>
+                          </Typography>
+                          <Typography gutterBottom>Features:</Typography>
 
-                            {plan.features.map((feature) => (
-                              <Typography
-                                variant="subtitle2"
-                                sx={{ display: "flex", gap: "10px" }}
-                                gutterBottom
-                                key=""
-                                fontWeight={feature.status ? "bold" : "light"}
-                              >
-                                {feature.status ? (
-                                  <CheckOutlinedIcon fontSize="small" />
-                                ) : (
-                                  <CloseOutlinedIcon fontSize="small" />
-                                )}
-                                {feature.feature}
-                              </Typography>
-                            ))}
-                          </div>
-                        }
-                      />
-                    </ListItemButton>
-                  </Badge>
+                          {plan.features.map((feature) => (
+                            <Typography
+                              variant="subtitle2"
+                              sx={{ display: "flex", gap: "10px" }}
+                              gutterBottom
+                              key=""
+                              fontWeight={feature.status ? "bold" : "light"}
+                            >
+                              {feature.status ? (
+                                <CheckOutlinedIcon fontSize="small" />
+                              ) : (
+                                <CloseOutlinedIcon fontSize="small" />
+                              )}
+                              {feature.feature}
+                            </Typography>
+                          ))}
+                        </div>
+                      }
+                    />
+                  </ListItemButton>
                 ))}
               </div>
-              <Button
-                sx={{ width: "200px" }}
-                variant="contained"
-                disabled={selectedIndex === 1 ? true : false}
-                onClick={() => setIsSelect(true)}
+              <div
+                style={{
+                  width: "100%",
+                  position: "fixed",
+                  bottom: 0,
+                  padding: "20px 0",
+                  background: "white",
+                  display: "flex",
+                  justifyContent: "center",
+                  borderTop: "1px solid #d4d1d1",
+                }}
               >
-                Continue
-              </Button>
+                <Button
+                  sx={{ width: "200px" }}
+                  variant="contained"
+                  disabled={selectedIndex === 1 ? true : false}
+                  onClick={() => setIsSelect(true)}
+                >
+                  Continue
+                </Button>
+              </div>
             </div>
           ) : (
             <div>
