@@ -4,7 +4,6 @@ import styles from "./userMenu.module.css";
 
 import { useRouter } from "next/navigation";
 import { logout } from "@/libs/actions";
-import Image from "next/image";
 import { Avatar, Chip } from "@mui/material";
 
 const UserMenu = ({ session }: any | null) => {
@@ -45,6 +44,7 @@ const UserMenu = ({ session }: any | null) => {
             label={session?.user?.name}
             variant="outlined"
             onClick={() => setOpen(!open)}
+            sx={{ maxWidth: "190px" }}
           />
 
           <div

@@ -3,12 +3,12 @@ import React from "react";
 import styles from "./userTable.module.css";
 import { useUsers } from "@/customHooks/CustomHooks";
 import Image from "next/image";
-import { Badge, Button } from "@mui/material";
-import { activeUser, disableUser } from "@/libs/actions";
+import { Alert, Badge } from "@mui/material";
 import moment from "moment";
+import CheckIcon from "@mui/icons-material/Check";
 
 const UserTable = () => {
-  const { usersData, mutateUsers } = useUsers();
+  const { usersData } = useUsers();
   return (
     <>
       <table className={styles.table}>
@@ -38,42 +38,20 @@ const UserTable = () => {
               <td>{user?.grade?.title}</td>
               <td>
                 <div className={styles.buttonTableWrapper}>
-                  {user?.isActive ? (
+                  {user?.isActive && (
                     <div className={styles.dateWrapper}>
-                      <p className={styles.endDate}>
-                        {user?.endActiveDate &&
-                          "Active until " +
+                      {user?.endActiveDate && (
+                        <Alert
+                          icon={<CheckIcon fontSize="inherit" />}
+                          severity="success"
+                          sx={{ width: "max-content" }}
+                        >
+                          {"Active until " +
                             moment(user?.endActiveDate)
                               .locale("vi")
                               .format("DD-MM-YYYY")}
-                      </p>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        onClick={async () => {
-                          await disableUser(user?._id);
-                          mutateUsers();
-                        }}
-                        sx={{
-                          background: "#ffffff !important",
-                          color: "#000000 !important",
-                        }}
-                      >
-                        Inactive
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className={styles.dateWrapper}>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        onClick={async () => {
-                          await activeUser(user?._id, user?.isAdmin);
-                          mutateUsers();
-                        }}
-                      >
-                        Active
-                      </Button>
+                        </Alert>
+                      )}
                     </div>
                   )}
                 </div>

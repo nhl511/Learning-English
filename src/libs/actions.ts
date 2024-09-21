@@ -1,9 +1,11 @@
 "use server";
 import { auth, signIn, signOut } from "./auth";
 import {
+  ActiveRequest,
   CorrectTime,
   Grade,
   HardVocabulary,
+  Prices,
   Unit,
   User,
   Vocabulary,
@@ -326,6 +328,90 @@ export const disableUser = async (userId: string) => {
     connectToDb();
     await User.findByIdAndUpdate(userId, {
       isActive: false,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addPrice = async (formData: any) => {
+  const { duration, price } = Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+    const newPrice = new Prices({
+      price: price,
+      duration: duration,
+    });
+    await newPrice.save();
+  } catch (error) {}
+};
+
+export const handlePrice = async (priceId: string, isActive: boolean) => {
+  try {
+    connectToDb();
+
+    await Prices.findByIdAndUpdate(priceId, {
+      isActive: isActive,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createActiveRequest = async ({
+  userId,
+  priceId,
+}: {
+  userId: string;
+  priceId: string;
+}) => {
+  try {
+    connectToDb();
+    const newRequest = new ActiveRequest({
+      user: userId,
+      price: priceId,
+      status: "pending",
+    });
+    await newRequest.save();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const comfirmRequest = async ({
+  requestId,
+  userId,
+  duration,
+}: {
+  requestId: string;
+  userId: string;
+  duration: number;
+}) => {
+  try {
+    connectToDb();
+    const today = moment().locale("vi");
+
+    await ActiveRequest.findByIdAndUpdate(requestId, {
+      status: "confirmed",
+    });
+
+    const endDate = today.clone().add(duration, "year");
+    await User.findByIdAndUpdate(userId, {
+      isActive: true,
+      startActiveDate: today.toISOString(),
+      endActiveDate: endDate.toISOString(),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const cancelRequest = async (requestId: string) => {
+  try {
+    connectToDb();
+    await ActiveRequest.findByIdAndUpdate(requestId, {
+      status: "canceled",
     });
   } catch (error) {
     console.log(error);

@@ -119,6 +119,33 @@ const correctTimeSchema = new mongoose.Schema({
   },
 });
 
+const pricesSchema = new mongoose.Schema({
+  price: {
+    type: Number,
+    required: true,
+  },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  isActive: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const activeRequestSchema = new mongoose.Schema(
+  {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    price: { type: mongoose.Schema.Types.ObjectId, ref: "Prices" },
+    status: {
+      type: String,
+      require: true,
+    },
+  },
+  { timestamps: true }
+);
+
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);
 export const Grade =
   mongoose.models?.Grade || mongoose.model("Grade", gradeSchema);
@@ -131,3 +158,8 @@ export const HardVocabulary =
 export const CorrectTime =
   mongoose.models?.CorrectTime ||
   mongoose.model("CorrectTime", correctTimeSchema);
+export const Prices =
+  mongoose.models?.Prices || mongoose.model("Prices", pricesSchema);
+export const ActiveRequest =
+  mongoose.models?.ActiveRequest ||
+  mongoose.model("ActiveRequest", activeRequestSchema);

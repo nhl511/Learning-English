@@ -6,7 +6,7 @@ export const GET = async (request: any, { params }: any) => {
   const { slug } = params;
   try {
     connectToDb();
-    const user = await User.findById(slug);
+    const user = await User.findById(slug).populate("grade");
     return NextResponse.json(user);
   } catch (error) {
     console.log(error);

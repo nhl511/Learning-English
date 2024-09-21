@@ -23,6 +23,11 @@
   padding: 8px;
 }
 
+.dateWrapper {
+  display: flex;
+  justify-content: end;
+}
+
 .endDate {
   font-size: 12px;
 }

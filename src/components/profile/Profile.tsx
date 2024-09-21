@@ -2,22 +2,18 @@
 import { useEffect, useState } from "react";
 import Modal from "../modal/Modal";
 import styles from "./profile.module.css";
-import {
-  useGradeById,
-  useSession,
-  useUserInfo,
-} from "@/customHooks/CustomHooks";
+import { useSession, useUserInfo } from "@/customHooks/CustomHooks";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { changePassword, checkPassword } from "@/libs/actions";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const Profile = () => {
   const [state, setState] = useState<any>(undefined);
 
   const { sessionData } = useSession();
   const { userInfoData } = useUserInfo(sessionData?.user?.id);
-  const { grade } = useGradeById(userInfoData?.gradeId);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
 
@@ -121,84 +117,20 @@ const Profile = () => {
           </div>
           <div className={styles.row}>
             <p>Grade</p>
-            <h3>{grade?.title}</h3>
+            <h3>{userInfoData?.grade?.title}</h3>
           </div>
           <div className={styles.row}>
-            <div className={styles.buttonWrapper}>
-              <button onClick={handleOpenModal}>Change password</button>
-            </div>
+            <p>Pro plan expiration date</p>
+            <h3>
+              {userInfoData?.endActiveDate
+                ? moment(userInfoData?.endActiveDate)
+                    .locale("vi")
+                    .format("DD-MM-YYYY")
+                : "Not yet active"}
+            </h3>
           </div>
         </div>
       </div>
-      <Modal show={showModal} onClose={handleCloseModal}>
-        <h2>Confirm password</h2>
-        <form className={styles.confirmForm} onSubmit={formik.handleSubmit}>
-          <div className={styles.inputWrapper}>
-            <input
-              placeholder="Enter current password"
-              name="password"
-              value={formik.values.password}
-              onChange={(event) => {
-                formik.handleChange(event);
-                setState(undefined);
-              }}
-              className={`${
-                formik.errors.password &&
-                formik.touched.password &&
-                styles.inputError
-              }`}
-              type="password"
-            />
-            {formik.errors.password && formik.touched.password && (
-              <p className={styles.error}>{formik.errors.password}</p>
-            )}
-            <p className={styles.error}>{state?.error}</p>
-          </div>
-          <button className={styles.button}>Continue</button>
-        </form>
-      </Modal>
-      <Modal show={showModal2} onClose={handleCloseModal2}>
-        <h2>Change password</h2>
-        <form className={styles.form} onSubmit={formik2.handleSubmit}>
-          <div className={styles.inputWrapper}>
-            <input
-              placeholder="Enter new password"
-              name="password"
-              value={formik2.values.password}
-              onChange={formik2.handleChange}
-              className={`${
-                formik2.errors.password &&
-                formik2.touched.password &&
-                styles.inputError
-              }`}
-              type="password"
-            />
-            {formik2.errors.password && formik2.touched.password && (
-              <p className={styles.error}>{formik2.errors.password}</p>
-            )}
-            <p className={styles.error}>{state?.error}</p>
-          </div>
-          <div className={styles.inputWrapper}>
-            <input
-              type="password"
-              placeholder="Repeat password"
-              name="passwordRepeat"
-              value={formik2.values.passwordRepeat}
-              onChange={formik2.handleChange}
-              className={`${
-                formik2.errors.passwordRepeat &&
-                formik2.touched.passwordRepeat &&
-                styles.inputError
-              }`}
-            />
-            {formik2.errors.passwordRepeat &&
-              formik2.touched.passwordRepeat && (
-                <p className={styles.error}>{formik2.errors.passwordRepeat}</p>
-              )}
-          </div>
-          <button className={styles.button}>Change password</button>
-        </form>
-      </Modal>
     </>
   );
 };

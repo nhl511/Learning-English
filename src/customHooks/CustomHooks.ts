@@ -400,3 +400,94 @@ export const useUsers = () => {
     mutateUsers: mutate,
   };
 };
+
+const pricesFetcher = async (isActive?: boolean) => {
+  if (isActive) {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
+        `/api/get-prices?isActive=${isActive}`
+    );
+    const data = await res.json();
+    return data;
+  } else {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BACKEND_BASE_URL + `/api/get-prices`
+    );
+    const data = await res.json();
+    return data;
+  }
+};
+
+export const usePrices = (isActive?: boolean) => {
+  const { data, isLoading, mutate } = useSWR(
+    `api/get-prices?isActive=${isActive}`,
+    () => pricesFetcher(isActive)
+  );
+  return {
+    prices: data,
+    isLoadingPrices: isLoading,
+    mutatePrices: mutate,
+  };
+};
+
+const priceFetcher = async (id: string) => {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_BACKEND_BASE_URL + `/api/get-prices/${id}`
+  );
+  const data = await res.json();
+  return data;
+};
+
+export const usePriceById = (id: string) => {
+  const { data } = useSWR(`api/get-prices/${id}`, () => priceFetcher(id));
+  return {
+    price: data,
+  };
+};
+
+const activeRequestFetcher = async (id: string) => {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
+      `/api/get-active-request?userId=${id}`
+  );
+  const data = await res.json();
+  return data;
+};
+
+export const useActiveRequest = (id: string) => {
+  const { data, mutate } = useSWR(`api/get-active-request?userId=${id}`, () =>
+    activeRequestFetcher(id)
+  );
+  return {
+    request: data,
+    mutateRequest: mutate,
+  };
+};
+
+const activeRequestsFetcher = async (status?: string) => {
+  if (status) {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
+        `/api/get-active-requests?status=${status}`
+    );
+    const data = await res.json();
+    return data;
+  } else {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BACKEND_BASE_URL + `/api/get-active-requests`
+    );
+    const data = await res.json();
+    return data;
+  }
+};
+
+export const useActiveRequests = (status?: string) => {
+  const { data, mutate } = useSWR(
+    `api/get-active-requests?status=${status}`,
+    () => activeRequestsFetcher(status)
+  );
+  return {
+    requests: data,
+    mutateRequests: mutate,
+  };
+};

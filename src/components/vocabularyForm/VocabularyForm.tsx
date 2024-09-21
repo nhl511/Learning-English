@@ -6,6 +6,7 @@ import {
   useNumberOfVocabulary,
   useSession,
   useUnitById,
+  useUserInfo,
 } from "@/customHooks/CustomHooks";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -32,6 +33,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   const [isViSound, setIsViSound] = useState(false);
   const [isReading, setIsReading] = useState(false);
   const [isTest, setIsTest] = useState(false);
+  const { userInfoData } = useUserInfo(sessionData?.user?.id);
 
   const options = [
     // {
@@ -75,6 +77,15 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
     `api/get-vocabularies-by-page?unitId=${slug}&page=${page}`,
     () => fetcher(slug)
   );
+
+  useEffect(() => {
+    if (
+      userInfoData?.isActive === false &&
+      (mode === "practice" || mode === "test")
+    ) {
+      router.back();
+    }
+  }, [userInfoData, mode]);
 
   useEffect(() => {
     if (isStar) router.push(`/saved-vocabularies/${sessionData?.user.id}`);

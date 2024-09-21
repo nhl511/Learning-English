@@ -24,6 +24,14 @@ export default function DashboardLayout({
       title: "Users",
       path: "/admin-dashboard/users",
     },
+    {
+      title: "Prices",
+      path: "/admin-dashboard/prices",
+    },
+    {
+      title: "Activation request",
+      path: "/admin-dashboard/activation-request",
+    },
   ];
   return (
     <section className={styles.container}>

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import styles from "./menuItem.module.css";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
 import KeyboardDoubleArrowDownOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowDownOutlined";
 import { useRouter } from "next/navigation";
-import { useSession, useUserInfo } from "@/customHooks/CustomHooks";
 import {
-  Backdrop,
-  Box,
-  CircularProgress,
-  Modal,
-  Typography,
-} from "@mui/material";
+  useActiveRequest,
+  useSession,
+  useUserInfo,
+} from "@/customHooks/CustomHooks";
+import { Backdrop, CircularProgress, Modal, Typography } from "@mui/material";
+import Pricing from "../pricing/Pricing";
 
 const MenuItem = ({
   title,
@@ -27,18 +27,7 @@ const MenuItem = ({
   const { userInfoData } = useUserInfo(sessionData?.user?.id);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isClickedItem, setIsClickedItem] = useState("");
-
-  const style = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   return (
     <>
@@ -65,14 +54,16 @@ const MenuItem = ({
                 }`}
                 key={item.title}
                 onClick={(e) => {
-                  setIsClickedItem(item.title);
-
                   if (title === "learn") {
+                    setIsClickedItem(item.title);
+
                     router.push(item.path);
                     e.stopPropagation();
                   } else {
                     if (userInfoData) {
                       if (userInfoData?.isActive) {
+                        setIsClickedItem(item.title);
+
                         router.push(item.path);
                         e.stopPropagation();
                       } else {
@@ -102,18 +93,16 @@ const MenuItem = ({
         onClose={() => {
           setIsOpenModal(false);
           setIsClickedItem("");
+          setSelectedIndex(1);
         }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Your account need activate to continue
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Please contact admin for active your account
-          </Typography>
-        </Box>
+        <Pricing
+          selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
+          userId={sessionData?.user?.id}
+        />
       </Modal>
       <Backdrop
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}

@@ -24,6 +24,7 @@
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "chart.js": "^4.4.4",
+    "currency.js": "^2.0.4",
     "dotenv": "^16.4.5",
     "formik": "^2.4.6",
     "moment": "^2.30.1",

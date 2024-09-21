@@ -1,0 +1,6 @@
+.container {
+  min-height: var(--container-height);
+
+  margin: 40px 0;
+  width: 100%;
+}
