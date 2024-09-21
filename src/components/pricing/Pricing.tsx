@@ -181,6 +181,7 @@ const Pricing = ({
               >
                 {plans.map((plan) => (
                   <ListItemButton
+                    key={plan.key}
                     selected={selectedIndex === plan.key}
                     onClick={() => handleListItemClick(plan.key)}
                   >
