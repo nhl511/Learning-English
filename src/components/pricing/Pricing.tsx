@@ -19,6 +19,7 @@ import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { useActiveRequest, usePrices } from "@/customHooks/CustomHooks";
 import { useRouter } from "next/navigation";
 import { vnd } from "@/libs/currency";
+import Image from "next/image";
 
 const Pricing = ({
   selectedIndex,
@@ -184,6 +185,7 @@ const Pricing = ({
                     key={plan.key}
                     selected={selectedIndex === plan.key}
                     onClick={() => handleListItemClick(plan.key)}
+                    sx={{ display: "relative" }}
                   >
                     <ListItemText
                       primary={
@@ -228,6 +230,19 @@ const Pricing = ({
                         </div>
                       }
                     />
+                    {plan.key === 2 && (
+                      <Image
+                        src="/images/crown.png"
+                        alt=""
+                        width={30}
+                        height={30}
+                        style={{
+                          position: "absolute",
+                          top: "20px",
+                          right: "20px",
+                        }}
+                      />
+                    )}
                   </ListItemButton>
                 ))}
               </div>
