@@ -17,7 +17,8 @@
 }
 .menuButton,
 .mobileLinks {
-  display: none;
+  display: block;
+  cursor: pointer;
 }
 
 .header {
@@ -29,37 +30,29 @@
   position: absolute;
 }
 
-@media (max-width: 768px) {
-  .menuButton {
-    display: block;
-    cursor: pointer;
-  }
-
-  .mobileLinksWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgb(0, 0, 0, 0.4);
-    z-index: 999;
-  }
-
-  .mobileLinks {
-    position: relative;
-    width: 300px;
-    height: 100vh;
-    background-color: var(--wrapper-color);
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-    gap: 10px;
-    padding-left: 16px;
-    z-index: 998;
-  }
-  .linksContainer {
-    margin-top: 80px;
-  }
+.mobileLinksWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgb(0, 0, 0, 0.4);
+  z-index: 999;
+}
+.mobileLinks {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--wrapper-color);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 10px;
+  padding-left: 16px;
+  z-index: 998;
+}
+.linksContainer {
+  margin-top: 80px;
 }
 
 .open {

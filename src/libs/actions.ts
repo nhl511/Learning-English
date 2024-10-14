@@ -100,12 +100,13 @@ export const updateGrade = async (formData: any) => {
 };
 
 export const addUnit = async (formData: any) => {
-  const { gradeId } = Object.fromEntries(formData);
+  const { gradeId, description } = Object.fromEntries(formData);
   try {
     connectToDb();
     const unit = (await Unit.find({ gradeId })).length + 1;
     const newUnit = new Unit({
       title: "Unit " + unit,
+      description,
       gradeId,
     });
     await newUnit.save();
@@ -118,6 +119,20 @@ export const deleteUnit = async (id: string) => {
   try {
     connectToDb();
     await Unit.findByIdAndDelete(id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateUnit = async (formData: any) => {
+  const { unitId, description } = Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+    const updateData = {
+      description,
+    };
+    await Unit.findByIdAndUpdate(unitId, updateData, { new: true });
   } catch (error) {
     console.log(error);
   }
@@ -184,8 +199,8 @@ export const addHardVocabulary = async (id: string) => {
   try {
     connectToDb();
     const newHardVocabulary = new HardVocabulary({
-      vocabularyId: id,
-      userId: session?.user?.id,
+      vocabulary: id,
+      user: session?.user?.id,
     });
     await newHardVocabulary.save();
   } catch (error) {
@@ -199,8 +214,8 @@ export const deleteHardVocabulary = async (id: string) => {
   try {
     connectToDb();
     await HardVocabulary.findOneAndDelete({
-      vocabularyId: id,
-      userId: session?.user?.id,
+      vocabulary: id,
+      user: session?.user?.id,
     });
   } catch (error) {
     console.log(error);

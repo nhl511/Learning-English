@@ -1,17 +1,7 @@
 .container {
   background-color: var(--wrapper-color);
   color: var(--wrapperText-color);
-  padding: 50px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  border-radius: 8px;
   cursor: pointer;
-  box-shadow: rgba(32, 87, 181, 0.4) 5px 5px, rgba(32, 87, 181, 0.3) 10px 10px,
-    rgba(32, 87, 181, 0.2) 15px 15px, rgba(32, 87, 181, 0.1) 20px 20px,
-    rgba(32, 87, 181, 0.05) 25px 25px;
-  position: relative;
 }
 
 .container:hover {
@@ -23,15 +13,6 @@
 }
 
 .vocabNumber {
-  font-size: 13px;
-  background: var(--vocabNumber-color);
-  color: var(--vocabNumberText-color);
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 15px;
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
 }
 
 /* @media (max-width: 1024px) {

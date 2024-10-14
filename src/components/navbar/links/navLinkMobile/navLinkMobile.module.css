@@ -1,0 +1,4 @@
+.active {
+  color: var(--titleText-color);
+  font-weight: bold;
+}

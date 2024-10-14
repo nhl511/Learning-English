@@ -1,22 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "./vocabularyForm.module.css";
+import styles from "./savedVocabularyForm.module.css";
 import {
-  useGradeById,
-  useNumberOfVocabulary,
+  useNumberOfHardVocabulary,
   useSession,
-  useUnitById,
   useUserInfo,
 } from "@/customHooks/CustomHooks";
 import { useRouter, useSearchParams } from "next/navigation";
-
 import ToggleButton from "../ToggleButton/ToggleButton";
-import Vocabulary from "../vocabulary/Vocabulary";
-import Modal from "../modal/Modal";
 import useSWR from "swr";
 import LoadingUI from "../loading/Loading";
+import Vocabulary from "../vocabulary/Vocabulary";
+import Modal from "../modal/Modal";
 
-const VocabularyForm = ({ slug }: { slug: string }) => {
+const SavedVocabularyForm = () => {
   const { sessionData } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -24,9 +21,7 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   const input = searchParams.get("input");
 
   const [page, setPage] = useState(0);
-  const { number } = useNumberOfVocabulary(slug);
-  const { unit } = useUnitById(slug);
-  const { grade } = useGradeById(unit?.gradeId);
+  const { number } = useNumberOfHardVocabulary(sessionData?.user?.id);
   const [showModal, setShowModal] = useState(false);
   const [isReviewing, setIsReviewing] = useState(false);
   const [isViSound, setIsViSound] = useState(false);
@@ -54,17 +49,17 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  const fetcher = async (unitId: string) => {
+  const fetcher = async (userId: string) => {
     const res = await fetch(
       process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
-        `/api/get-vocabularies-by-page?unitId=${unitId}&page=${page}`
+        `/api/hard-vocabularies?userId=${userId}&page=${page}`
     );
     const data = await res.json();
     return data;
   };
   const { data, isLoading } = useSWR(
-    `api/get-vocabularies-by-page?unitId=${slug}&page=${page}`,
-    () => fetcher(slug)
+    `api/hard-vocabularies?userId=${sessionData?.user?.id}&page=${page}`,
+    () => fetcher(sessionData?.user?.id)
   );
 
   useEffect(() => {
@@ -93,20 +88,18 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
       setIsReading(true);
     }
   }, [mode, input]);
-  if ((!data && page === 0) || !unit || !grade || number === undefined) {
+  if ((!data && page === 0) || number === undefined) {
     return <LoadingUI />;
   }
 
   return (
     <div className={styles.container}>
       <Vocabulary
-        data={data}
+        data={data?.vocabulary}
         isLoading={isLoading}
         page={page}
         setPage={setPage}
         number={number}
-        unit={unit}
-        gradeTitle={grade?.title}
         handleOpenModal={handleOpenModal}
         isReviewing={isReviewing}
         isViSound={isViSound}
@@ -132,4 +125,4 @@ const VocabularyForm = ({ slug }: { slug: string }) => {
   );
 };
 
-export default VocabularyForm;
+export default SavedVocabularyForm;

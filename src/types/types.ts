@@ -1,4 +1,3 @@
-import { Vocabulary } from "./../libs/models";
 export type LinkType = {
   title: string;
   path: string;
@@ -15,6 +14,7 @@ export type UnitType = {
   _id: string;
   title: string;
   gradeId: string;
+  description: string;
 };
 
 export type VocabularyType = {

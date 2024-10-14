@@ -1,7 +1,7 @@
 "use client";
 import { useGrade, useUnit } from "@/customHooks/CustomHooks";
 import { GradeType } from "@/types/types";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./addUnitForm.module.css";
 import { addUnit } from "@/libs/actions";
 
@@ -10,6 +10,7 @@ const AddUnitForm = () => {
   const [gradeId, setGradeId] = useState("");
   const { grades } = useGrade();
   const { mutateUnits } = useUnit(gradeId);
+  const descriptionRef = useRef<HTMLInputElement>(null);
 
   return (
     <form
@@ -19,6 +20,9 @@ const AddUnitForm = () => {
         await addUnit(formData);
         mutateUnits();
         setIsLoading(false);
+        if (descriptionRef.current) {
+          descriptionRef.current.value = "";
+        }
       }}
     >
       <select
@@ -36,6 +40,11 @@ const AddUnitForm = () => {
           </option>
         ))}
       </select>
+      <input
+        placeholder="Nhập ghi chú"
+        name="description"
+        ref={descriptionRef}
+      />
       <button disabled={isLoading}>Add new unit</button>
     </form>
   );

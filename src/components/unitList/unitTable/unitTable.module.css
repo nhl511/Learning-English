@@ -60,7 +60,7 @@
 
 .buttonTable {
   padding: 5px 10px;
-  color: var(--text-color);
+  color: var(--buttonText-color);
   background-color: var(--button-color);
   border: none;
   border-radius: 5px;

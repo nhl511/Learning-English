@@ -34,3 +34,10 @@
   top: 0;
   color: var(--titleText-color) !important;
 }
+
+.empty {
+  min-height: calc(100vh - 76px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

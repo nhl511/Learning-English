@@ -52,6 +52,9 @@ const unitSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+    },
     gradeId: {
       type: String,
       required: true,
@@ -96,14 +99,8 @@ const vocabularySchema = new mongoose.Schema(
 );
 
 const hardVocabularySchema = new mongoose.Schema({
-  vocabularyId: {
-    type: String,
-    required: true,
-  },
-  userId: {
-    type: String,
-    required: true,
-  },
+  vocabulary: { type: mongoose.Schema.Types.ObjectId, ref: "Vocabulary" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 const correctTimeSchema = new mongoose.Schema({

@@ -4,10 +4,12 @@ import styles from "./unitTable.module.css";
 import { UnitType } from "@/types/types";
 import Modal from "@/components/modal/Modal";
 import { deleteUnit } from "@/libs/actions";
+import UpdateUnitForm from "./updateUnitForm/UpdateUnitForm";
 
 const UnitTable = ({ gradeId }: { gradeId: string }) => {
   const { units, mutateUnits } = useUnit(gradeId);
   const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
   const [id, setId] = useState("");
 
   const handleOpenModal = (id: string) => {
@@ -15,8 +17,16 @@ const UnitTable = ({ gradeId }: { gradeId: string }) => {
     setId(id);
   };
 
+  const handleOpenModal2 = (id: string) => {
+    setShowModal2(true);
+    setId(id);
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+  const handleCloseModal2 = () => {
+    setShowModal2(false);
   };
   return (
     <>
@@ -25,7 +35,8 @@ const UnitTable = ({ gradeId }: { gradeId: string }) => {
           <tr className={styles.row}>
             <th>ID</th>
             <th>Unit</th>
-            <th></th>
+            <th>Description</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody className={styles.body}>
@@ -33,9 +44,15 @@ const UnitTable = ({ gradeId }: { gradeId: string }) => {
             <tr key={unit._id} className={styles.row}>
               <td>{unit._id}</td>
               <td>{unit.title}</td>
-
+              <td>{unit.description}</td>
               <td>
                 <div className={styles.buttonTableWrapper}>
+                  <button
+                    className={styles.buttonTable}
+                    onClick={() => handleOpenModal2(unit._id)}
+                  >
+                    Update
+                  </button>
                   <button
                     className={styles.dangerButtonTable}
                     onClick={() => handleOpenModal(unit._id)}
@@ -67,6 +84,13 @@ const UnitTable = ({ gradeId }: { gradeId: string }) => {
             No
           </button>
         </div>
+      </Modal>
+      <Modal show={showModal2} onClose={handleCloseModal2}>
+        <UpdateUnitForm
+          unitId={id}
+          gradeId={gradeId}
+          onClose={handleCloseModal2}
+        />
       </Modal>
     </>
   );

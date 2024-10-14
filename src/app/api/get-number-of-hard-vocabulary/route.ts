@@ -8,7 +8,7 @@ export const GET = async (request: NextRequest) => {
 
   try {
     connectToDb();
-    const number = (await HardVocabulary.find({ userId })).length;
+    const number = (await HardVocabulary.find({ user: userId })).length;
     return NextResponse.json(number);
   } catch (error) {
     console.log(error);

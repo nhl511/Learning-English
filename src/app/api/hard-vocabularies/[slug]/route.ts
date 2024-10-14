@@ -9,8 +9,8 @@ export const GET = async (request: any, { params }: any) => {
   try {
     connectToDb();
     const hardVocabulary = await HardVocabulary.find({
-      vocabularyId: slug,
-      userId: session?.user?.id,
+      vocabulary: slug,
+      user: session?.user?.id,
     });
     if (hardVocabulary.length) {
       return NextResponse.json(true);

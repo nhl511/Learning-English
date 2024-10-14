@@ -292,7 +292,9 @@ const Vocabulary = ({
           </Button>
           <IconButton
             sx={{ color: "#1479f4" }}
-            onClick={() => router.push("/menu-list/" + unit?._id)}
+            onClick={() =>
+              unit?._id ? router.push("/menu-list/" + unit?._id) : router.back()
+            }
           >
             <CloseIcon />
           </IconButton>
