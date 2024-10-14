@@ -36,7 +36,7 @@ const UnitItem = ({ unit }: { unit: UnitType }) => {
           {unit.title}
         </Typography>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           sx={{
             display: "-webkit-box",
             overflow: "hidden",
@@ -44,7 +44,7 @@ const UnitItem = ({ unit }: { unit: UnitType }) => {
             WebkitLineClamp: 2,
             lineClamp: 2,
             textOverflow: "ellipsis",
-            height: "50px",
+            height: "70px",
           }}
         >
           {unit.description ? unit.description : ""}
