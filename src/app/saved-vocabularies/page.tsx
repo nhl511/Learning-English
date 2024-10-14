@@ -88,7 +88,7 @@ const SavedVocabulariesPage = () => {
         ) : (
           <div className={styles.empty}>
             <Typography variant="h5" textAlign="center">
-              You don't have any saved vocabularies
+              You don&apos;t have any saved vocabularies
             </Typography>
           </div>
         )}
